@@ -75,6 +75,7 @@ int main(){
 
 			//generate output and clear s_buffer.
 			cout << "operator: " << s_buffer << endl;
+			c_buffer = cin.get();
 			s_buffer.clear();
 		}
 		
