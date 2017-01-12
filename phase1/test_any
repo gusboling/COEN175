@@ -38,13 +38,13 @@ fi
 # Compare
 DIFF=$(diff results/$TEST_NAME.res.out answers/$TEST_NAME.cor.out)
 
-if [ "$?" != "0" ]
-  then
-    echo "[ERROR] Problem comparing results."
-    exit 2
-  else
-    echo "[INFO] Comparison successful."
-fi
+#if [ "$?" != "0" ]
+#  then
+#    echo "[ERROR] Problem comparing results."
+#    exit 2
+#  else
+#    echo "[INFO] Comparison successful."
+#fi
 
 if [ "$DIFF" == "" ]
   then
