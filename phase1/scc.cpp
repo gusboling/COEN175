@@ -7,11 +7,18 @@ bool is_whitespace(char c);
 bool is_digit(char c);
 bool is_operator(char c);
 
+string soft_read(char start);
+
 int main(){
 	char c_buffer;
 	string s_buffer;
 
 	c_buffer = cin.get();
+
+	//unit test of soft_read function; delete when working
+	string fstream = soft_read(c_buffer);
+
+	cout << fstream << endl;
 
 	//main parsing loop
 	//NOTE: Each handler class should, at minimum, set c_buffer equal to the next character via cin.get()
@@ -111,7 +118,7 @@ bool is_operator(char c){
 	if(c == '|'){
 		c = cin.get();
 		if((!cin.eof()) && (c == '|')){
-			cin.putback(c);
+			//cin.putback(c);
 			result = true;
 		}
 	}
@@ -138,4 +145,22 @@ bool is_operator(char c){
 	}
 
 	return result;
+}
+
+//Pre-Condition: !(cin.eof())
+//Post-Condition: Returns a string containing all remaining cin.get() characters, cin.get() is unchanged after read.
+string soft_read(char start){
+	
+	string full_stream;
+	full_stream += start;
+
+	while(!cin.eof()){
+		full_stream += cin.get();		
+	}
+	
+	for(size_t i=0; i < full_stream.length(); i++){
+		cin.putback(full_stream[i]);
+	}		
+
+	return full_stream;
 }
