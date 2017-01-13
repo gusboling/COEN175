@@ -50,3 +50,58 @@ fi
 
 exit 0
 
+=======
+# Set Up
+TEST_NAME=$(basename $1 .txt)
+
+TEST_DIR="test_cases"
+ANSW_DIR="answers"
+RESU_DIR="results"
+
+if [ ! -d $RESU_DIR ]
+  then
+    mkdir $RESU_DIR
+    echo "[INFO] Created directory for storing scc results."
+fi
+
+# Compile
+g++ scc.cpp -o scc
+
+if [ "$?" != "0" ]
+  then
+    echo "[ERROR] Problem compiling program."
+    exit 1
+  else
+    echo "[INFO] Compilation successful."
+fi
+
+# Run
+./scc < "$TEST_NAME.txt" > "results/$TEST_NAME.res.out"
+
+if [ "$?" != "0" ]
+  then
+    echo "[ERROR] Problem running program."
+    exit 2
+  else
+    echo "[INFO] Execution successful."
+fi
+
+# Compare
+DIFF=$(diff results/$TEST_NAME.res.out answers/$TEST_NAME.cor.out)
+
+#if [ "$?" != "0" ]
+#  then
+#    echo "[ERROR] Problem comparing results."
+#    exit 2
+#  else
+#    echo "[INFO] Comparison successful."
+#fi
+
+if [ "$DIFF" == "" ]
+  then
+    echo "[SUCCESS] Program ouput matches expected output."
+  else
+    echo "[FAILURE] Program output differs from expected output."
+fi
+
+exit 0
