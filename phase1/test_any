@@ -1,5 +1,56 @@
 #!/bin/bash
 
+PHASE1_DIR=$PWD
+TEST_CASE_DIR="test_cases/"
+RESULT_DIR="results/"
+ANSWER_DIR="answers/"
+
+SOURCE="scc.cpp"
+NAME="scc"
+
+
+# COMPILE PROGRAM
+g++ $SOURCE -o $NAME
+
+if [ "$?" == "0" ]
+	then
+		echo "[INFO] Compilation successful."
+	else
+		echo "[ERROR] Problem compiling C++ code."
+		exit 1
+fi
+
+
+# RUN PROGRAM, STORE RESULTS
+./$NAME < test_cases/operators.txt > results/op_test_res.out
+
+if [ "$?" == "0" ]
+	then
+		echo "[INFO] Program exited without errrors."
+	else
+		echo "[ERROR] Program exited with errors."
+		exit 2
+fi
+
+# COMPARE EXPERIMENTAL RESULTS WITH THEORETICAL RESULTS
+DIFF=$(diff results/op_test_res.out answers/operators_correct.out)
+
+if [ "$?" != "0" ]
+        then
+                echo "[ERROR] Problem comparing outputs."
+                exit 3
+fi
+
+if [ "$DIFF" != "" ]
+	then
+		echo "[RESULT] Failure. Operator-test results differ."
+	else
+		echo "[RESULT] Success. Operator-test results match."
+fi
+
+exit 0
+
+=======
 # Set Up
 TEST_NAME=$(basename $1 .txt)
 
