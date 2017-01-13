@@ -139,3 +139,8 @@ bool is_operator(char c){
 
 	return result;
 }
+
+//If c is the first character of a valid keyword, return the length of the keyword. Otherwise, return 0.
+size_t is_keyword(char c){
+	string keywords[32] = {"auto", "double", "int", "struct", "break", "else", "long", "switch", "case", "enum", "register", "typedef", "char", "extern", "return", "union", "const", "float", "short", "unsigned", "continue", "for", "signed", "void", "default", "goto", "sizeof", "volatile", "do", "if", "static
+}
