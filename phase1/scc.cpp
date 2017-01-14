@@ -3,16 +3,15 @@
 
 using namespace std;
 
-bool is_whitespace(char c);
-bool is_digit(char c);
-bool is_operator(char c);
+string read_input();
 
 string soft_read(char start);
 
 int main(){
-	char c_buffer;
-	string s_buffer;
+	size_t buffer_position = 0;
+	string parse_buffer = read_input();
 
+<<<<<<< HEAD
 	c_buffer = cin.get();
 
 	//unit test of soft_read function; delete when working
@@ -29,87 +28,41 @@ int main(){
 			c_buffer = cin.get();
 			continue;
 		}	
+=======
+	while(parse_buffer.length() > 0){
+>>>>>>> full-read
 		
-		//HANDLE NUMBERS
-		if(is_digit(c_buffer)){
-
-			//while c_buffer is a digit, append it to s_buffer and get the next c_buffer value.
-			while( !cin.eof() && is_digit(c_buffer) ){
-				s_buffer += c_buffer;	
-				c_buffer = cin.get();
-			}
-		
-			//generate output and clear s_buffer.	
-			cout << "number: " << s_buffer << endl;
-			s_buffer.clear();
-			continue;
+		if(grab_whitespace(parse_buffer)){
+			parse_buffer.erase(0,grab_whitespace(parse_buffer));
+			cout << "Whitespace ignored." << endl;
 		}
 
-		//HANDLE STRINGS
-		//HANDLE IDENTIFIERS
-		//HANDLE KEYWORDS
-		
-		//HANDLE OPERATORS
-		if(is_operator(c_buffer)){
-			//current character is operator
-			s_buffer += c_buffer;
-			c_buffer=cin.get();
-
-			//test for duplicate second operator character; if found, append to s_buffer.
-			if((s_buffer=="=") || (s_buffer=="&") || (s_buffer=="+") || (s_buffer=="-")){
-				if(s_buffer[0] == c_buffer){
-					s_buffer += c_buffer;
-				}	
-			}
-		
-			//test for different second operator character; if found, append to s_buffer.
-			else if((s_buffer=="!") && (c_buffer=='=')){
-				s_buffer += c_buffer;
-			}
-
-			else if((s_buffer=="<") && (c_buffer=='=')){
-				s_buffer += c_buffer;
-			}
-
-			else if((s_buffer==">") && (c_buffer=='=')){
-				s_buffer += c_buffer;
-			}
-
-			else if((s_buffer=="-") && (c_buffer=='>')){
-				s_buffer += c_buffer;
-			}	
-						
-
-			//generate output and clear s_buffer.
-			cout << "operator: " << s_buffer << endl;
-			c_buffer = cin.get();
-			s_buffer.clear();
-		}
-		
-		//HANDLE COMMENTS			
-		else{
-			c_buffer=cin.get();
-		}
-	}
-
-
+	}	
+	
 	return 0;
 }
 
-//Returns true iff c is a digit [0,9]
-bool is_digit(char c){
-	return isdigit(c);
+string read_input(){
+	string input_buffer = "";
+	while(!cin.eof()){
+		input_buffer += cin.get();
+	}
+	return input_buffer;
 }
 
-//Returns true iff c is equal to a whitespace character.
-bool is_whitespace(char c){
-	bool result = false;
-	if( (c == ' ') || (c=='\t') || (c=='\n') || (c=='\f') || (c=='\v') || (c=='\r') ){
-		result = true;
-	}
+//Returns 0 if first character of the string is not a number. Otherwise, returns the number of consecutive digits following the first character.
+size_t grab_number(string &parse_input){
+	size_t result = 0;
+	return result; 
+}
+
+//Returns 0 if first character of the string is not whitespace. Otherwise returns the number of consecutive whitespace characters following the first character.
+size_t grab_whitespace(string &parse_input){
+	size_t result = 0;
 	return result;
 }
 
+<<<<<<< HEAD
 //Returns true if (c is a standalone operator character) or (c=='|' and c+1=='|')
 bool is_operator(char c){
 	bool result = false;
@@ -136,17 +89,27 @@ bool is_operator(char c){
 	if((c=='+') || (c=='-') || (c=='/') || (c=='*') || (c=='%') || (c=='=')){
 		result = true;	
 	}	
+=======
+//Returns 0 if first character is not part of a valid operator. Otherwise returns the number of characters in the operator at the front of the string.
+size_t grab_operator(string &parse_input){
+	size_t result = 0;
+	return result;
+}
+>>>>>>> full-read
 
-	//test for misc. operators ("->", ".", ",", "(", ")", "[", "]", "{", "}", ":", ";")
-	//NOTE: testing for "->" is implied by testing for its first character ("-"), which is an arithmetic operator 
-	//	in its own right.
-	if((c=='.') || (c==',') || (c=='[') || (c==']') || (c=='{') || (c=='}') || (c=='(') || (c==')') || (c==':') || (c==';')){
-		result = true;
-	}
-
+//Returns 0 if first character is not part of a valid keyword. Otherwise returns the number of characters in the keyword at the front of the string.
+size_t grab_keyword(string &parse_input){
+	size_t result = 0;
 	return result;
 }
 
+//Returns 0 if first character is not part of a valid string. Otherwise returns the number of characters in the string at the front of input string.
+size_t grab_string(string &parse_input){
+	size_t result = 0;
+	return result;
+}
+
+<<<<<<< HEAD
 //Pre-Condition: !(cin.eof())
 //Post-Condition: Returns a string containing all remaining cin.get() characters, cin.get() is unchanged after read.
 string soft_read(char start){
@@ -166,4 +129,10 @@ string soft_read(char start){
 //If c is the first character of a valid keyword, return the length of the keyword. Otherwise, return 0.
 size_t is_keyword(char c){
 	string keywords[32] = {"auto", "double", "int", "struct", "break", "else", "long", "switch", "case", "enum", "register", "typedef", "char", "extern", "return", "union", "const", "float", "short", "unsigned", "continue", "for", "signed", "void", "default", "goto", "sizeof", "volatile", "do", "if", "static
+=======
+//Returns 0 if first character is not part of a valid identifier. Otherwise returns the number of characters in the string at the front of the string.
+size_t grab_identifier(){
+	size_t result = 0;
+	return result;
+>>>>>>> full-read
 }
