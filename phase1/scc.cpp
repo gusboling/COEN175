@@ -11,7 +11,6 @@ int main(){
 	size_t buffer_position = 0;
 	string parse_buffer = read_input();
 
-<<<<<<< HEAD
 	c_buffer = cin.get();
 
 	//unit test of soft_read function; delete when working
