@@ -1,5 +1,8 @@
+[GRAB_OPERATOR][SWITCH] Returned 1
 [INFO] operator: %
+[GRAB_OPERATOR][SWITCH] Returned 1
 [INFO] operator: +
+[GRAB_OPERATOR][SWITCH] Returned 1
 [INFO] operator: /
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
 [INFO] whitespace: 1 spaces
@@ -17,9 +20,11 @@
 [INFO] illegal: d
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
 [INFO] whitespace: 1 spaces
+[GRAB_OPERATOR][SWITCH] Returned 1
 [INFO] operator: *
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
 [INFO] whitespace: 1 spaces
+[GRAB_OPERATOR][SWITCH] Returned 1
 [INFO] operator: -
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
 [INFO] whitespace: 1 spaces
@@ -29,6 +34,7 @@
 [INFO] illegal: n
 [INFO] illegal: t
 [INFO] illegal: u
+[GRAB_OPERATOR][SWITCH] Returned 2
 [INFO] operator: ++
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
 [INFO] whitespace: 1 spaces

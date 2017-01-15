@@ -1,0 +1,6 @@
+keyword: auto
+number: 123
+keyword: case
+keyword: while
+operator: ++
+operator: +

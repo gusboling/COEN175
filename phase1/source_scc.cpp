@@ -215,8 +215,8 @@ size_t grab_keyword(string &parse_input){
 			break;
 
 		//Multi-keyword first characters:
-		case: 'c':
-			if(find_at_front(parse_input, "case") || find_at_front(parse_inputm, "char")) result=4;
+		case 'c':
+			if(find_at_front(parse_input, "case") || find_at_front(parse_input, "char")) result=4;
 			else if(find_at_front(parse_input, "const")) result=5;
 			else if(find_at_front(parse_input, "continue")) result=8;
 			break;
