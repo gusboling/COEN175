@@ -1,0 +1,20 @@
+[INFO] illegal: !
+[INFO] illegal: =
+[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[INFO] whitespace: 1 spaces
+[INFO] illegal: i
+[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[INFO] whitespace: 1 spaces
+[INFO] illegal: &
+[INFO] illegal: &
+[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[INFO] whitespace: 1 spaces
+[INFO] illegal: a
+[INFO] illegal: i
+[INFO] illegal: +
+[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 2
+[INFO] whitespace: 2 spaces
+[INFO] illegal: %
+[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 2
+[INFO] whitespace: 2 spaces
+[INFO] illegal: ÿ

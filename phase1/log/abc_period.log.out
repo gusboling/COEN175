@@ -1,15 +1,16 @@
 Starting main parse loop.
-Starting whitespace parse sub-loop
-Exited whitespace parse sub-loop
-Starting whitespace parse sub-loop
-Exited whitespace parse sub-loop
-Starting whitespace parse sub-loop
-Exited whitespace parse sub-loop
-Starting whitespace parse sub-loop
-Exited whitespace parse sub-loop
-Starting whitespace parse sub-loop
-Exited whitespace parse sub-loop
-Starting whitespace parse sub-loop
-Exited whitespace parse sub-loop
-Starting whitespace parse sub-loop
-Exited whitespace parse sub-loop
+Exited whitespace parse sub-loop; Returned 
+Exited numbers parse sub-loop; Returned 0
+Default erase; Remaining: 7
+Exited whitespace parse sub-loop; Returned 
+Exited numbers parse sub-loop; Returned 0
+Default erase; Remaining: 6
+Exited whitespace parse sub-loop; Returned 
+Exited numbers parse sub-loop; Returned 0
+Default erase; Remaining: 5
+Entered whitespace parse sub-loop; Exited whitespace parse sub-loop; Returned 
+Exited numbers parse sub-loop; Returned 0
+Default erase; Remaining: 2
+Exited whitespace parse sub-loop; Returned 
+Exited numbers parse sub-loop; Returned 0
+Default erase; Remaining: 1
