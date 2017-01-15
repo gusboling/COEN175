@@ -11,7 +11,7 @@
 [INFO] whitespace: 1 spaces
 [INFO] illegal: a
 [INFO] illegal: i
-[INFO] illegal: +
+[INFO] operator: +
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 2
 [INFO] whitespace: 2 spaces
 [INFO] illegal: %

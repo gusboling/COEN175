@@ -7,6 +7,7 @@ using namespace std;
 string read_input();
 size_t grab_whitespace(string &parse_input);
 size_t grab_number(string &parse_input);
+size_t grab_operator(string &parse_input);
 
 int main(){
 	size_t buffer_position = 0;
@@ -105,7 +106,7 @@ size_t grab_whitespace(string &parse_input){
 //Returns 0 if first character is not part of a valid operator. Otherwise returns the number of characters in the operator at the front of the string.
 size_t grab_operator(string &parse_input){
 	size_t result = 0;
-	char front = parse_buffer[0];
+	char front = parse_input[0];
 	switch(front){
 		case '*':
 			return 1;
@@ -114,11 +115,11 @@ size_t grab_operator(string &parse_input){
 			return 1;
 
 		case '+':
-			if((parse_buffer.length()>1) && (parse_buffer[1]=='+') return 2;
+			if((parse_input.length()>1) && (parse_input[1]=='+')) return 2;
 			else return 1;
 
 		case '-':
-			if((parse_buffer.length()>1) && ((parse_buffer[1]=='>')||(parse_buffer=='-'))) return 2;
+			if((parse_input.length()>1) && ((parse_input[1]=='>')||(parse_input[1]=='-'))) return 2;
 			else return 1;
 
 		default:
