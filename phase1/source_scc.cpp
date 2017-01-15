@@ -108,21 +108,55 @@ size_t grab_operator(string &parse_input){
 	size_t result = 0;
 	char front = parse_input[0];
 	switch(front){
+		//Note: no 'break' statements are used in this switch statement, due to the way the function returns.
+		//Single-character operators; a.k.a. low-hanging fruit
 		case '*':
-			return 1;
-
 		case '/':
+		case '.':
+		case ',':
+		case '%':
+		case ':':
+		case ';':
+		case '(':
+		case ')':
+		case '[':
+		case ']':
+		case '{':
+		case '}':
 			return 1;
-
+		
+		//Double-character operators
 		case '+':
-			if((parse_input.length()>1) && (parse_input[1]=='+')) return 2;
+			//Tests for '+' and '++'
+			if((parse_input.length()>1) && (parse_input[1]==front)) return 2;
 			else return 1;
 
 		case '-':
-			if((parse_input.length()>1) && ((parse_input[1]=='>')||(parse_input[1]=='-'))) return 2;
+			//Tests for '-', '--', and '->'
+			if((parse_input.length()>1) && ((parse_input[1]=='>')||(parse_input[1]==front))) return 2;
 			else return 1;
 
+		case '!':
+			//Tests for '!' and '!='
+			if((parse_input.length()>1) && (parse_input[1]=='=')) return 2;
+			else return 1;		
+
+		case '>':
+		case '<':
+			//Tests for '<', '>', '<=', and '>='
+			if((parse_input.length()>1) && (parse_input[1]=='=')) return 2;
+			else return 1;
+
+		case '&':
+		case '=':
+			//Tests for '&', '&&', '=', and '=='
+			if((parse_input.length()>1) && (parse_input[1]==front)) return 2;
+			else return 1;
+		case '|':
+			//Tests for '||'
+			if((parse_input.length()>1) && (parse_input[1]==front)) return 2; 
 		default:
+			//No valid operator characters found
 			return 0;
 	}
 }

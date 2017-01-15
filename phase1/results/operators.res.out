@@ -1,1 +1,7 @@
+operator: %
 operator: +
+operator: /
+operator: *
+operator: -
+operator: ++
+number: 42

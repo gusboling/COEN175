@@ -1,20 +1,39 @@
-[INFO] illegal: !
-[INFO] illegal: =
-[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
-[INFO] whitespace: 1 spaces
-[INFO] illegal: i
-[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
-[INFO] whitespace: 1 spaces
-[INFO] illegal: &
-[INFO] illegal: &
-[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
-[INFO] whitespace: 1 spaces
-[INFO] illegal: a
-[INFO] illegal: i
+[INFO] operator: %
 [INFO] operator: +
-[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 2
-[INFO] whitespace: 2 spaces
-[INFO] illegal: %
-[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 2
-[INFO] whitespace: 2 spaces
+[INFO] operator: /
+[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[INFO] whitespace: 1 spaces
+[INFO] illegal: h
+[INFO] illegal: e
+[INFO] illegal: l
+[INFO] illegal: l
+[INFO] illegal: o
+[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[INFO] whitespace: 1 spaces
+[INFO] illegal: w
+[INFO] illegal: o
+[INFO] illegal: r
+[INFO] illegal: l
+[INFO] illegal: d
+[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[INFO] whitespace: 1 spaces
+[INFO] operator: *
+[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[INFO] whitespace: 1 spaces
+[INFO] operator: -
+[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[INFO] whitespace: 1 spaces
+[INFO] illegal: u
+[INFO] illegal: b
+[INFO] illegal: u
+[INFO] illegal: n
+[INFO] illegal: t
+[INFO] illegal: u
+[INFO] operator: ++
+[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[INFO] whitespace: 1 spaces
+[GRAB_NUMBER][START] Starting numbers parse sub-loop; [STOP] Exited numbers parse sub-loop; Returned 2
+[INFO] number: 42
+[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[INFO] whitespace: 1 spaces
 [INFO] illegal: ÿ
