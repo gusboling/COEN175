@@ -1,7 +1,7 @@
 # Set Up
 TEST_NAME=$(basename $1 .txt)
 
-TEST_DIR="test_cases"
+TEST_DIR="tcases"
 ANSW_DIR="answers"
 RESU_DIR="results"
 
@@ -23,7 +23,7 @@ if [ "$?" != "0" ]
 fi
 
 # Run
-./scc < "test_cases/$TEST_NAME.txt" > "results/$TEST_NAME.res.out" 2> "log/$TEST_NAME.log.out"
+./scc < "tcase/$TEST_NAME.txt" > "results/$TEST_NAME.res.out" 2> "log/$TEST_NAME.log.out"
 
 if [ "$?" != "0" ]
   then

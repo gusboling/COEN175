@@ -1,0 +1,4 @@
+Starting main parse loop.
+Entered whitespace parse sub-loop; Exited whitespace parse sub-loop; Returned 
+Exited numbers parse sub-loop; Returned 0
+Default erase; Remaining: 0

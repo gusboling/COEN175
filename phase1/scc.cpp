@@ -14,32 +14,44 @@ int main(){
 	string token = "";
 	string parse_buffer = read_input();
 	
-	cerr << "Starting main parse loop." << endl;
 	while(parse_buffer.length() > 0){
 	
-		token_length = 0;
 		token = "";
-	
-		token_length = grab_whitespace(parse_buffer);	
-		if(token_length){ //Activates if the first character of parse_string is whitespace
-			//Delete all consecutive whitespace characters starting with the implied whitespace character at parse_buffer[0]
-			parse_buffer.erase(0, token_length);
-			//Output appropriate string
+				
+		const size_t len_char = 1;
+
+		size_t len_whitespace = grab_whitespace(parse_buffer);
+		size_t len_number = grab_number(parse_buffer);
+
+		if(len_whitespace){
+			//Erase consecutive whitespaces starting at the first character of parse_buffer
+			parse_buffer.erase(0,len_whitespace);
+			
+			cerr << "[INFO] whitespace: " << len_whitespace << " spaces" << endl;			
 		}
-		
-		token_length = grab_number(parse_buffer);
-		if(token_length){ //Activates if the first character of the parse_string is part of a valid number token.
-			//Delete the consecutive string of numbers with it's most significant digit at parse_buffer[0]
-			token = parse_buffer.substr(0, token_length);
-			parse_buffer.erase(0, token_length);
-			//Output appropriate string
+
+		else if(len_number){
+			//Get the number token starting at the first character of parse_buffer
+			token = parse_buffer.substr(0, len_number);
+			//Erase token from buffer
+			parse_buffer.erase(0, len_number);
+			//Provide output
 			cout << "number: " << token << endl;
+			
+			cerr << "[INFO] token: " << token << endl;
 		}
-		
-		if(!token_length){
-			parse_buffer.erase(0,1);//Delete first character if no token is present.
+
+		else{
+			//If none of the prior checks found a valid token starting at the first character of parse_buffer,
+			//then delete the first character and move on.
+			token = parse_buffer.substr(0,1);
+			parse_buffer.erase(0, 1);
+			
+			cerr << "[INFO] illegal: " << token << endl;	
 		}
+
 		
+			
 	}	
 	
 	return 0;
@@ -57,15 +69,14 @@ string read_input(){
 size_t grab_number(string &parse_input){
 	size_t result = 0;
 	char front = parse_input[0];
-	cerr << "(Starting numbers parse sub-loop; ";	
-
-	while((result < parse_input.length()) && isdigit(front) ){
+	
+	while((result < parse_input.length()) && (isdigit(front)) ){
+		if(result==0) cerr << "[GRAB_NUMBER][START] Starting numbers parse sub-loop; ";
 		front = parse_input[result];
 		result++;
 	} 
-
-	cerr << "Exited numbers parse sub-loop; " ;
-	cerr << "Returned " << result << ") "  << endl;
+	if(result>0) result--;
+	if(result!=0) cerr << "[STOP] Exited numbers parse sub-loop; Returned " << result << endl;
 	return result; 
 }
 
@@ -73,13 +84,13 @@ size_t grab_number(string &parse_input){
 size_t grab_whitespace(string &parse_input){
 	size_t result = 0;
 	char front = parse_input[0];
-	cerr << "(Starting whitespace parse sub-loop; ";
 	while( (result < parse_input.length()) && ( (front==' ')||(front=='\t')||(front=='\n')||(front=='\f')||(front=='\v')||(front=='\r') ) ){
+		if(result==0) cerr<<"[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; ";
 		front = parse_input[result];
 		result++;
 	}
-	cerr << "Exited whitespace parse sub-loop; ";
-	cerr << "Returned " << result << ")" << endl;	
+	if(result>0) result--;
+	if(result!=0) cerr << "[STOP] Exited whitespace parse sub-loop; Returned " << result << endl;
 	return result;
 }
 
