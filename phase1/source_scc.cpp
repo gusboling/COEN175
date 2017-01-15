@@ -13,21 +13,22 @@ int main(){
 	size_t token_length = 0;
 	string token = "";
 	string parse_buffer = read_input();
-	
+
 	while(parse_buffer.length() > 0){
-	
+
 		token = "";
-				
+
 		const size_t len_char = 1;
 
 		size_t len_whitespace = grab_whitespace(parse_buffer);
 		size_t len_number = grab_number(parse_buffer);
+		size_t len_operator = grab_operator(parse_buffer);
 
 		if(len_whitespace){
 			//Erase consecutive whitespaces starting at the first character of parse_buffer
 			parse_buffer.erase(0,len_whitespace);
-			
-			cerr << "[INFO] whitespace: " << len_whitespace << " spaces" << endl;			
+			//Log activity
+			cerr << "[INFO] whitespace: " << len_whitespace << " spaces" << endl;
 		}
 
 		else if(len_number){
@@ -37,8 +38,15 @@ int main(){
 			parse_buffer.erase(0, len_number);
 			//Provide output
 			cout << "number: " << token << endl;
-			
-			cerr << "[INFO] token: " << token << endl;
+			//Log activity
+			cerr << "[INFO] number: " << token << endl;
+		}
+
+		else if(len_operator){
+			token = parse_buffer.substr(0, len_operator);
+			parse_buffer.erase(0, len_operator);
+			cout << "operator: " << token << endl;
+			cerr << "[INFO] operator: " << token << endl;
 		}
 
 		else{
@@ -46,14 +54,14 @@ int main(){
 			//then delete the first character and move on.
 			token = parse_buffer.substr(0,1);
 			parse_buffer.erase(0, 1);
-			
-			cerr << "[INFO] illegal: " << token << endl;	
+			//Log activity
+			cerr << "[INFO] illegal: " << token << endl;
 		}
 
-		
-			
-	}	
-	
+
+
+	}
+
 	return 0;
 }
 
@@ -69,15 +77,15 @@ string read_input(){
 size_t grab_number(string &parse_input){
 	size_t result = 0;
 	char front = parse_input[0];
-	
+
 	while((result < parse_input.length()) && (isdigit(front)) ){
 		if(result==0) cerr << "[GRAB_NUMBER][START] Starting numbers parse sub-loop; ";
 		front = parse_input[result];
 		result++;
-	} 
+	}
 	if(result>0) result--;
 	if(result!=0) cerr << "[STOP] Exited numbers parse sub-loop; Returned " << result << endl;
-	return result; 
+	return result;
 }
 
 //Returns 0 if first character of the string is not whitespace. Otherwise returns the number of consecutive whitespace characters following the first character.
@@ -97,7 +105,25 @@ size_t grab_whitespace(string &parse_input){
 //Returns 0 if first character is not part of a valid operator. Otherwise returns the number of characters in the operator at the front of the string.
 size_t grab_operator(string &parse_input){
 	size_t result = 0;
-	return result;
+	char front = parse_buffer[0];
+	switch(front){
+		case '*':
+			return 1;
+
+		case '/':
+			return 1;
+
+		case '+':
+			if((parse_buffer.length()>1) && (parse_buffer[1]=='+') return 2;
+			else return 1;
+
+		case '-':
+			if((parse_buffer.length()>1) && ((parse_buffer[1]=='>')||(parse_buffer=='-'))) return 2;
+			else return 1;
+
+		default:
+			return 0;
+	}
 }
 
 //Returns 0 if first character is not part of a valid keyword. Otherwise returns the number of characters in the keyword at the front of the string.
