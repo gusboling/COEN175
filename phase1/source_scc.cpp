@@ -4,9 +4,15 @@
 using namespace std;
 
 string read_input();
+string find_at_front(string &source, string target);
+
 size_t grab_whitespace(string &parse_input);
 size_t grab_number(string &parse_input);
 size_t grab_operator(string &parse_input);
+size_t grab_keyword(string &parse_input);
+size_t grab_string(string &parse_input);
+size_t grab_identifier(string &parse_input);
+size_t grab_comment(string &parse_input);
 
 int main(){
 	size_t buffer_position = 0;
@@ -23,6 +29,7 @@ int main(){
 		size_t len_whitespace = grab_whitespace(parse_buffer);
 		size_t len_number = grab_number(parse_buffer);
 		size_t len_operator = grab_operator(parse_buffer);
+		size_t len_keyword = grab_keyword(parse_buffer);
 
 		if(len_whitespace){
 			//Erase consecutive whitespaces starting at the first character of parse_buffer
@@ -49,6 +56,13 @@ int main(){
 			cerr << "[INFO] operator: " << token << endl;
 		}
 
+		else if(len_keyword){
+			token = parse_buffer.substr(0, len_keyword);
+			parse_buffer.erase(0, len_keyword);
+			cout << "keyword: " << token << endl;
+			cerr << "[INFO] operator: " << token << endl;
+		}
+
 		else{
 			//If none of the prior checks found a valid token starting at the first character of parse_buffer,
 			//then delete the first character and move on.
@@ -57,12 +71,9 @@ int main(){
 			//Log activity
 			cerr << "[INFO] illegal: " << token << endl;
 		}
-
-
-
 	}
 
-	return 0;
+	return 0; //END OF MAIN
 }
 
 /* FUNCTIONS AND SUCH */
@@ -244,6 +255,11 @@ size_t grab_string(string &parse_input){
 
 //Returns 0 if first character is not part of a valid identifier. Otherwise returns the number of characters in the string at the front of the string.
 size_t grab_identifier(){
+	size_t result = 0;
+	return result;
+}
+
+size_t grab_comments(){
 	size_t result = 0;
 	return result;
 }
