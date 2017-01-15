@@ -65,12 +65,22 @@ int main(){
 	return 0;
 }
 
+/* FUNCTIONS AND SUCH */
+
 string read_input(){
 	string input_buffer = "";
 	while(!cin.eof()){
 		input_buffer += cin.get();
 	}
 	return input_buffer;
+}
+
+bool find_at_front(string &source, string target){
+	size_t target_length = target.length();
+	string search_substring = source.substr(0, target_length);
+
+	if(target == search_substring) return true;
+	return false;
 }
 
 //Returns 0 if first character of the string is not a number. Otherwise, returns the number of consecutive digits following the first character.
@@ -174,6 +184,55 @@ size_t grab_operator(string &parse_input){
 //Returns 0 if first character is not part of a valid keyword. Otherwise returns the number of characters in the keyword at the front of the string.
 size_t grab_keyword(string &parse_input){
 	size_t result = 0;
+	return result;
+	char front = parse_input[0];
+
+	switch(front){
+
+		//Single-keyword first characters:
+		case 'a':
+			if(find_at_front(parse_input, "auto")) result=4;
+			break;
+
+		case 'b':
+			if(find_at_front(parse_input, "break")) result=5;
+			break;
+
+		case 'g':
+			if(find_at_front(parse_input, "goto")) result=4;
+			break;
+
+		case 'l':
+			if(find_at_front(parse_input, "long")) result=4;
+			break;
+
+		case 't':
+			if(find_at_front(parse_input, "typedef")) result=7;
+			break;
+
+		case 'w':
+			if(find_at_front(parse_input, "while")) result=5;
+			break;
+
+		//Multi-keyword first characters:
+		case: 'c':
+			if(find_at_front(parse_input, "case") || find_at_front(parse_inputm, "char")) result=4;
+			else if(find_at_front(parse_input, "const")) result=5;
+			else if(find_at_front(parse_input, "continue")) result=8;
+			break;
+
+		case 'd':
+			if(find_at_front(parse_input, "default")) result=7;
+			else if(find_at_front(parse_input, "double")) result=6;
+			else if(find_at_front(parse_input, "do")) result=2;
+			break;
+		//No keywords found
+		default:
+			result=0;
+			break;
+	}
+
+	if(result!=0) cerr << "[GRAB_KEYWORD][SWITCH] Returned " << result << endl;
 	return result;
 }
 
