@@ -123,42 +123,53 @@ size_t grab_operator(string &parse_input){
 		case ']':
 		case '{':
 		case '}':
-			return 1;
-		
+			result=1;
+			break;
+
 		//Double-character operators
 		case '+':
 			//Tests for '+' and '++'
-			if((parse_input.length()>1) && (parse_input[1]==front)) return 2;
-			else return 1;
+			if((parse_input.length()>1) && (parse_input[1]==front)) result=2;
+			else result=1;
+			break;
 
 		case '-':
 			//Tests for '-', '--', and '->'
-			if((parse_input.length()>1) && ((parse_input[1]=='>')||(parse_input[1]==front))) return 2;
-			else return 1;
+			if((parse_input.length()>1) && ((parse_input[1]=='>')||(parse_input[1]==front))) result=2;
+			else result=1;
+			break;
 
 		case '!':
 			//Tests for '!' and '!='
-			if((parse_input.length()>1) && (parse_input[1]=='=')) return 2;
-			else return 1;		
+			if((parse_input.length()>1) && (parse_input[1]=='=')) result=2;
+			else result=1;
+			break;
 
 		case '>':
 		case '<':
 			//Tests for '<', '>', '<=', and '>='
-			if((parse_input.length()>1) && (parse_input[1]=='=')) return 2;
-			else return 1;
+			if((parse_input.length()>1) && (parse_input[1]=='=')) result=2;
+			else result=1;
+			break;
 
 		case '&':
 		case '=':
 			//Tests for '&', '&&', '=', and '=='
-			if((parse_input.length()>1) && (parse_input[1]==front)) return 2;
-			else return 1;
+			if((parse_input.length()>1) && (parse_input[1]==front)) result=2;
+			else result=1;
+			break;
+
 		case '|':
 			//Tests for '||'
-			if((parse_input.length()>1) && (parse_input[1]==front)) return 2; 
+			if((parse_input.length()>1) && (parse_input[1]==front)) result=2;
+			break;
+
 		default:
 			//No valid operator characters found
-			return 0;
+			break;
 	}
+	if(result!=0) cerr << "[GRAB_OPERATOR][SWITCH] Returned " << result << endl;
+	return result;
 }
 
 //Returns 0 if first character is not part of a valid keyword. Otherwise returns the number of characters in the keyword at the front of the string.
