@@ -12,7 +12,7 @@ if [ ! -d $RESU_DIR ]
 fi
 
 # Compile
-g++ scc.cpp -o scc
+g++ source_scc.cpp -o scc
 
 if [ "$?" != "0" ]
   then
