@@ -34,7 +34,11 @@ int main(){
 
 		//DEBUGGING CODE: DELETE AT WILL
 
-		cerr << "[DEBUG][VARV] find_at_front(\"auto\", parse_buffer) => " << find_at_front("auto", parse_buffer) << endl;
+		//Unit Test for find_at_front()
+
+		cerr << "[DEBUG][FIND_AT_FRONT] find_at_front(anto, anto) == " << find_at_front("anto", "anto") << endl;
+		cerr << "[DEBUG][FIND_AT_FRONT] find_at_front(case, casewhile) == " << find_at_front("case", "casewhile") << endl;
+		cerr << "[DEBUG][FIND_AT_FRONT] find_at_front(case, ca) == " << find_at_front("case", "ca") << endl;
 
 		//END OF DEBUGGING CODE
 
@@ -94,17 +98,11 @@ string read_input(){
 	return input_buffer;
 }
 
+//Returns true if the string 'target' can be found in the string 'source', starting with the first character of 'source'.
 bool find_at_front(string source, string target){
-	
-	size_t target_length = target.length();
-	cerr << target.length() << endl;
-	string search_substring = source.substr(0, target_length);
-		
-	cerr << "[FIND_AT_FRONT][DEBUG][VARV] " << "target => " << target << "; target_length => " << target_length << "; search_substring => " << search_substring << endl;
-
-	if(target == search_substring) return true;
-	return false;
-
+	if( source.length() < target.length() ) return false; //If source is shorter than target, automatically return false.
+	else if( target == source.substr(0,target.length()) ) return true; //If the first n characters of source are equal to target, where n is the length of target, then return true.
+	else return false; //If neither the first 'return false;' nor the 'return true;' statements were executed, return false.
 }
 
 //Returns 0 if first character of the string is not a number. Otherwise, returns the number of consecutive digits following the first character.
@@ -212,7 +210,7 @@ size_t grab_keyword(string &parse_input){
 	char front = parse_input[0];
 
 	cerr << "[GRAB_KEYWORD] Entered keyword switch." << endl;
-	
+
 	switch(front){
 
 		//Single-keyword first characters:
