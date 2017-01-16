@@ -35,10 +35,10 @@ int main(){
 		//DEBUGGING CODE: DELETE AT WILL
 
 		//Unit Test for find_at_front()
-
-		cerr << "[DEBUG][FIND_AT_FRONT] find_at_front(anto, anto) == " << find_at_front("anto", "anto") << endl;
-		cerr << "[DEBUG][FIND_AT_FRONT] find_at_front(case, casewhile) == " << find_at_front("case", "casewhile") << endl;
-		cerr << "[DEBUG][FIND_AT_FRONT] find_at_front(case, ca) == " << find_at_front("case", "ca") << endl;
+		
+		cerr << "[DEBUG][FIND_AT_FRONT] find_at_front(12345, 12345) == " << find_at_front("12345", "12345") << endl;
+		cerr << "[DEBUG][FIND_AT_FRONT] find_at_front(case, casewhile) == " << find_at_front("casewhile", "case") << endl;
+		cerr << "[DEBUG][FIND_AT_FRONT] find_at_front(case, ca) == " << find_at_front("ca", "case") << endl;
 
 		//END OF DEBUGGING CODE
 
@@ -100,9 +100,8 @@ string read_input(){
 
 //Returns true if the string 'target' can be found in the string 'source', starting with the first character of 'source'.
 bool find_at_front(string source, string target){
-	if( source.length() < target.length() ) return false; //If source is shorter than target, automatically return false.
-	else if( target == source.substr(0,target.length()) ) return true; //If the first n characters of source are equal to target, where n is the length of target, then return true.
-	else return false; //If neither the first 'return false;' nor the 'return true;' statements were executed, return false.
+	bool result = (target==source.substr(0,target.length()));
+	return result;
 }
 
 //Returns 0 if first character of the string is not a number. Otherwise, returns the number of consecutive digits following the first character.
