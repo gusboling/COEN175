@@ -1,6 +1,8 @@
-Starting main parse loop.
-Exited whitespace parse sub-loop; Returned 0
-Starting numbers parse sub-loop; Starting numbers parse sub-loop; Starting numbers parse sub-loop; Starting numbers parse sub-loop; Starting numbers parse sub-loop; Starting numbers parse sub-loop; Exited numbers parse sub-loop; Returned 6
-Exited whitespace parse sub-loop; Returned 0
-Exited numbers parse sub-loop; Returned 0
-Default erase; Remaining: 1
+[GRAB_NUMBER][START] Starting numbers parse sub-loop; [STOP] Exited numbers parse sub-loop; Returned 5
+Hello World!
+[INFO] number: 12345
+[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+Hello World!
+[INFO] whitespace: 1 spaces
+Hello World!
+[INFO] illegal: ÿ
