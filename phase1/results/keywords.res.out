@@ -1,6 +1,9 @@
 keyword: auto
+identifier: hello
 number: 123
 keyword: case
 keyword: while
 operator: ++
 operator: +
+identifier: caes
+identifier: ÿ

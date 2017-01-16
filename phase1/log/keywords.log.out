@@ -6,15 +6,7 @@
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 1 spaces
 [GRAB_KEYWORD] Entered keyword switch.
-[INFO] illegal: h
-[GRAB_KEYWORD] Entered keyword switch.
-[INFO] illegal: e
-[GRAB_KEYWORD] Entered keyword switch.
-[INFO] illegal: l
-[GRAB_KEYWORD] Entered keyword switch.
-[INFO] illegal: l
-[GRAB_KEYWORD] Entered keyword switch.
-[INFO] illegal: o
+[INFO] identifier: hello
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 1 spaces
@@ -46,16 +38,9 @@
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 1 spaces
 [GRAB_KEYWORD] Entered keyword switch.
-[INFO] illegal: c
-[GRAB_KEYWORD] Entered keyword switch.
-[GRAB_KEYWORD][INFO] 'a' detected
-[INFO] illegal: a
-[GRAB_KEYWORD] Entered keyword switch.
-[INFO] illegal: e
-[GRAB_KEYWORD] Entered keyword switch.
-[INFO] illegal: s
+[INFO] identifier: caes
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 1 spaces
 [GRAB_KEYWORD] Entered keyword switch.
-[INFO] illegal: ÿ
+[INFO] identifier: ÿ

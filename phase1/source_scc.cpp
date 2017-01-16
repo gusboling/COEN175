@@ -325,6 +325,7 @@ size_t grab_identifier(string &parse_input){
 			result++;
 		}
 	}
+	result--;
 	return result;
 }
 
