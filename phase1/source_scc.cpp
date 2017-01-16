@@ -73,6 +73,13 @@ int main(){
 			cerr << "[INFO] operator: " << token << endl;
 		}
 
+		else if(len_identifier){ //Always have this clause below the 'len_keyword' clause, in order to ensure that keywords get matched before identifiers
+			token = parse_buffer.substr(0, len_identifier);
+			parse_buffer.erase(0, len_identifier);
+			cout << "identifier: " << token << endl;
+			cerr << "[INFO] identifier: " << token << endl;
+		}
+
 		else{
 			//If none of the prior checks found a valid token starting at the first character of parse_buffer,
 			//then delete the first character and move on.
