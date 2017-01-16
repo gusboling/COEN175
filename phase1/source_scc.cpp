@@ -11,6 +11,7 @@ bool is_letter(char c);
 bool is_identifier(char c);
 
 size_t grab_whitespace(string &parse_input);
+size_t grab_comment(string &parse_input);
 size_t grab_number(string &parse_input);
 size_t grab_operator(string &parse_input);
 size_t grab_keyword(string &parse_input);
@@ -30,6 +31,7 @@ int main(){
 		const size_t len_char = 1;
 
 		size_t len_whitespace = grab_whitespace(parse_buffer);
+		size_t len_comment = grab_comment(parse_buffer);
 		size_t len_number = grab_number(parse_buffer);
 		size_t len_operator = grab_operator(parse_buffer);
 		size_t len_keyword = grab_keyword(parse_buffer);
@@ -46,6 +48,15 @@ int main(){
 			parse_buffer.erase(0,len_whitespace);
 			//Log activity
 			cerr << "[INFO] whitespace: " << len_whitespace << " spaces" << endl;
+		}
+
+		else if(len_comment){
+			//Grab token
+			parse_buffer.substr(0, len_comment);
+			//Erase comment
+			parse_buffer.erase(0, len_comment);
+			//Log activity
+			cerr << "[INFO] comment: " << token << endl;
 		}
 
 		else if(len_number){
@@ -95,7 +106,7 @@ int main(){
 
 
 
-
+//Returns the input of cin.get() until cin.eof()==true
 string read_input(){
 	string input_buffer = "";
 	while(!cin.eof()){
@@ -332,4 +343,39 @@ size_t grab_identifier(string &parse_input){
 size_t grab_string(string &parse_input){
 	size_t result = 0;
 	return result;
+}
+
+//Returns 0 if no comment-string is present starting at the first character, otherwise returns the length of the comment-string present.
+size_t grab_comment(string &parse_input){
+
+	size_t result = 0;
+	char front_two = parse_input.substr(0,2);
+
+	if(front_two == "/*"){
+
+		result = result + 2; //Account for the first two characters.
+		bool found_end = false;
+
+		while( result < parse_input.length() ){
+			//update front
+			result++;
+			//update front_two
+			front_two = parse_input.substr(result, 2);
+			//check for end of comment
+			if(front_two == "*/"){
+				found_end = true;
+				break;
+			}
+		}
+	}
+
+	if(found){
+		result = result + 2; //Account for the last two characters
+		cerr << "[GRAB_COMMENT] Returned " << result << endl;
+		return result;
+	}
+	else{
+		cerr << "[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0" << endl;
+		return 0;
+	}
 }
