@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -104,9 +105,9 @@ bool find_at_front(string source, string target){
 
 //Returns true if the character 'c' is within the set [_a-zA-Z], returns false otherwise (Note: a underscore is considered a letter within this function)
 bool is_letter(char c){
-	if( (atoi(c)>96) && (atoi(c)<123) ) return true; //lowercase clause
-	else if( (atoi(c)>64) && (atoi(c)<91) ) return true; //uppercase clause
-	else if( atoi(c)==95 ) return true;
+	if( (c>96) && (c<123) ) return true; //lowercase clause
+	else if( (c>64) && (c<91) ) return true; //uppercase clause
+	else if( c==95 ) return true;
 	else return false;
 }
 

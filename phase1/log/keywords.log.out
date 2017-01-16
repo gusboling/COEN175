@@ -1,130 +1,61 @@
 [GRAB_KEYWORD] Entered keyword switch.
 [GRAB_KEYWORD][INFO] 'a' detected
 [GRAB_KEYWORD][SWITCH] Returned 4
-[DEBUG][FIND_AT_FRONT] find_at_front(12345, 12345) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, casewhile) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, ca) == 0
 [INFO] operator: auto
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
-[DEBUG][FIND_AT_FRONT] find_at_front(12345, 12345) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, casewhile) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, ca) == 0
 [INFO] whitespace: 1 spaces
 [GRAB_KEYWORD] Entered keyword switch.
-[DEBUG][FIND_AT_FRONT] find_at_front(12345, 12345) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, casewhile) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, ca) == 0
 [INFO] illegal: h
 [GRAB_KEYWORD] Entered keyword switch.
-[DEBUG][FIND_AT_FRONT] find_at_front(12345, 12345) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, casewhile) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, ca) == 0
 [INFO] illegal: e
 [GRAB_KEYWORD] Entered keyword switch.
-[DEBUG][FIND_AT_FRONT] find_at_front(12345, 12345) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, casewhile) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, ca) == 0
 [INFO] illegal: l
 [GRAB_KEYWORD] Entered keyword switch.
-[DEBUG][FIND_AT_FRONT] find_at_front(12345, 12345) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, casewhile) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, ca) == 0
 [INFO] illegal: l
 [GRAB_KEYWORD] Entered keyword switch.
-[DEBUG][FIND_AT_FRONT] find_at_front(12345, 12345) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, casewhile) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, ca) == 0
 [INFO] illegal: o
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
-[DEBUG][FIND_AT_FRONT] find_at_front(12345, 12345) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, casewhile) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, ca) == 0
 [INFO] whitespace: 1 spaces
 [GRAB_NUMBER][START] Starting numbers parse sub-loop; [STOP] Exited numbers parse sub-loop; Returned 3
 [GRAB_KEYWORD] Entered keyword switch.
-[DEBUG][FIND_AT_FRONT] find_at_front(12345, 12345) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, casewhile) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, ca) == 0
 [INFO] number: 123
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
-[DEBUG][FIND_AT_FRONT] find_at_front(12345, 12345) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, casewhile) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, ca) == 0
 [INFO] whitespace: 1 spaces
 [GRAB_KEYWORD] Entered keyword switch.
 [GRAB_KEYWORD][SWITCH] Returned 4
-[DEBUG][FIND_AT_FRONT] find_at_front(12345, 12345) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, casewhile) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, ca) == 0
 [INFO] operator: case
 [GRAB_KEYWORD] Entered keyword switch.
 [GRAB_KEYWORD][SWITCH] Returned 5
-[DEBUG][FIND_AT_FRONT] find_at_front(12345, 12345) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, casewhile) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, ca) == 0
 [INFO] operator: while
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
-[DEBUG][FIND_AT_FRONT] find_at_front(12345, 12345) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, casewhile) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, ca) == 0
 [INFO] whitespace: 1 spaces
 [GRAB_OPERATOR][SWITCH] Returned 2
 [GRAB_KEYWORD] Entered keyword switch.
-[DEBUG][FIND_AT_FRONT] find_at_front(12345, 12345) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, casewhile) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, ca) == 0
 [INFO] operator: ++
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
-[DEBUG][FIND_AT_FRONT] find_at_front(12345, 12345) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, casewhile) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, ca) == 0
 [INFO] whitespace: 1 spaces
 [GRAB_OPERATOR][SWITCH] Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
-[DEBUG][FIND_AT_FRONT] find_at_front(12345, 12345) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, casewhile) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, ca) == 0
 [INFO] operator: +
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
-[DEBUG][FIND_AT_FRONT] find_at_front(12345, 12345) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, casewhile) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, ca) == 0
 [INFO] whitespace: 1 spaces
 [GRAB_KEYWORD] Entered keyword switch.
-[DEBUG][FIND_AT_FRONT] find_at_front(12345, 12345) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, casewhile) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, ca) == 0
 [INFO] illegal: c
 [GRAB_KEYWORD] Entered keyword switch.
 [GRAB_KEYWORD][INFO] 'a' detected
-[DEBUG][FIND_AT_FRONT] find_at_front(12345, 12345) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, casewhile) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, ca) == 0
 [INFO] illegal: a
 [GRAB_KEYWORD] Entered keyword switch.
-[DEBUG][FIND_AT_FRONT] find_at_front(12345, 12345) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, casewhile) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, ca) == 0
 [INFO] illegal: e
 [GRAB_KEYWORD] Entered keyword switch.
-[DEBUG][FIND_AT_FRONT] find_at_front(12345, 12345) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, casewhile) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, ca) == 0
 [INFO] illegal: s
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
-[DEBUG][FIND_AT_FRONT] find_at_front(12345, 12345) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, casewhile) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, ca) == 0
 [INFO] whitespace: 1 spaces
 [GRAB_KEYWORD] Entered keyword switch.
-[DEBUG][FIND_AT_FRONT] find_at_front(12345, 12345) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, casewhile) == 1
-[DEBUG][FIND_AT_FRONT] find_at_front(case, ca) == 0
 [INFO] illegal: ÿ
