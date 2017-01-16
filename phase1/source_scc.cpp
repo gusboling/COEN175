@@ -251,6 +251,41 @@ size_t grab_keyword(string &parse_input){
 			else if(find_at_front(parse_input, "double")) result=6;
 			else if(find_at_front(parse_input, "do")) result=2;
 			break;
+
+		case 'e':
+			if(find_at_front(parse_input, "else") || find_at_front(parse_input, "enum")) result=4;
+			else if(find_at_front(parse_input, "extern")) result=6;
+			break;
+
+		case 'f':
+			if(find_at_front(parse_input, "float")) result=5;
+			else if(find_at_front(parse_input, "for")) result=3;
+			break;
+
+		case 'i':
+			if(find_at_front(parse_input, "int")) result=3;
+			else if(find_at_front(parse_input, "if")) result=2;
+			break;
+
+		case 'r':
+			if(find_at_front(parse_input, "register")) result=8;
+			else if(find_at_front(parse_input, "return")) result=6;
+			break;
+
+		case 's':
+			if(find_at_front(parse_input, "signed") || find_at_front(parse_buffer, "sizeof") || find_at_front(parse_input, "static") || find_at_front(parse_input, "struct")) result=6;
+			else if(find_at_front(parse_input, "short")) result=5;
+			break;
+
+		case 'u':
+			if(find_at_front(parse_input, "unsigned")) result=8;
+			else if(find_at_front(parse_input, "union")) result=5;
+			break;
+
+		case 'v':
+			if(find_at_front(parse_input, "volatile")) result=8;
+			else if(find_at_front(parse_input, "void")) result=4;
+
 		//No keywords found
 		default:
 			result=0;
