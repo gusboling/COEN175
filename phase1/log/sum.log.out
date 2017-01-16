@@ -1,252 +1,313 @@
+[GRAB_COMMENT] Returned 11
 [GRAB_OPERATOR][SWITCH] Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
-[INFO] operator: /
-[GRAB_OPERATOR][SWITCH] Returned 1
-[GRAB_KEYWORD] Entered keyword switch.
-[INFO] operator: *
-[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
-[GRAB_KEYWORD] Entered keyword switch.
-[INFO] whitespace: 1 spaces
-[GRAB_KEYWORD] Entered keyword switch.
-[INFO] identifier: sum
-[GRAB_OPERATOR][SWITCH] Returned 1
-[GRAB_KEYWORD] Entered keyword switch.
-[INFO] operator: .
-[GRAB_KEYWORD] Entered keyword switch.
-[INFO] identifier: c
-[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
-[GRAB_KEYWORD] Entered keyword switch.
-[INFO] whitespace: 1 spaces
-[GRAB_OPERATOR][SWITCH] Returned 1
-[GRAB_KEYWORD] Entered keyword switch.
-[INFO] operator: *
-[GRAB_OPERATOR][SWITCH] Returned 1
-[GRAB_KEYWORD] Entered keyword switch.
-[INFO] operator: /
+[INFO] comment: 
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 2
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 2 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [GRAB_KEYWORD][SWITCH] Returned 3
 [INFO] operator: int
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 1 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] identifier: main
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_OPERATOR][SWITCH] Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] operator: (
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
-[INFO] identifier: void
+[GRAB_KEYWORD][SWITCH] Returned 4
+[INFO] operator: void
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_OPERATOR][SWITCH] Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] operator: )
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 1 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_OPERATOR][SWITCH] Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] operator: {
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 5
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 5 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [GRAB_KEYWORD][SWITCH] Returned 3
 [INFO] operator: int
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 1 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] identifier: i
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_OPERATOR][SWITCH] Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] operator: ,
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 1 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] identifier: n
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_OPERATOR][SWITCH] Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] operator: ,
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 1 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] identifier: sum
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_OPERATOR][SWITCH] Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] operator: ;
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 6
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 6 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] identifier: i
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 1 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_OPERATOR][SWITCH] Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] operator: =
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 1 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_NUMBER][START] Starting numbers parse sub-loop; [STOP] Exited numbers parse sub-loop; Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] number: 0
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_OPERATOR][SWITCH] Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] operator: ;
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 5
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 5 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] identifier: sum
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 1 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_OPERATOR][SWITCH] Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] operator: =
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 1 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_NUMBER][START] Starting numbers parse sub-loop; [STOP] Exited numbers parse sub-loop; Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] number: 0
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_OPERATOR][SWITCH] Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] operator: ;
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 5
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 5 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] identifier: n
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 1 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_OPERATOR][SWITCH] Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] operator: =
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 1 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_NUMBER][START] Starting numbers parse sub-loop; [STOP] Exited numbers parse sub-loop; Returned 2
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] number: 10
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_OPERATOR][SWITCH] Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] operator: ;
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 6
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 6 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [GRAB_KEYWORD][SWITCH] Returned 5
 [INFO] operator: while
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 1 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_OPERATOR][SWITCH] Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] operator: (
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] identifier: i
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 1 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_OPERATOR][SWITCH] Returned 2
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] operator: <=
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 1 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] identifier: n
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_OPERATOR][SWITCH] Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] operator: )
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 1 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_OPERATOR][SWITCH] Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] operator: {
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 2
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 2 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] identifier: sum
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 1 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_OPERATOR][SWITCH] Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] operator: =
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 1 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] identifier: sum
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 1 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_OPERATOR][SWITCH] Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] operator: +
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 1 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] identifier: i
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_OPERATOR][SWITCH] Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] operator: ;
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 2
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 2 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] identifier: i
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 1 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_OPERATOR][SWITCH] Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] operator: =
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 1 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] identifier: i
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 1 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_OPERATOR][SWITCH] Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] operator: +
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 1 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_NUMBER][START] Starting numbers parse sub-loop; [STOP] Exited numbers parse sub-loop; Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] number: 1
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_OPERATOR][SWITCH] Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] operator: ;
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 5
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 5 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_OPERATOR][SWITCH] Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] operator: }
 [GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 6
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] whitespace: 6 spaces
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] identifier: printf
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_OPERATOR][SWITCH] Returned 1
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] operator: (
+[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0
 [GRAB_KEYWORD] Entered keyword switch.
 [INFO] identifier: "%d %d\n", sum, n * (n + 1) / 2);
 }

@@ -1,14 +1,7 @@
-operator: /
-operator: *
-identifier: sum
-operator: .
-identifier: c
-operator: *
-operator: /
 keyword: int
 identifier: main
 operator: (
-identifier: void
+keyword: void
 operator: )
 operator: {
 keyword: int

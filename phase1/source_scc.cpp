@@ -314,7 +314,7 @@ size_t grab_keyword(string &parse_input){
 		case 'v':
 			if(find_at_front(parse_input, "volatile")) result=8;
 			else if(find_at_front(parse_input, "void")) result=4;
-
+			break;
 		//No keywords found
 		default:
 			result=0;
@@ -350,12 +350,12 @@ size_t grab_string(string &parse_input){
 size_t grab_comment(string &parse_input){
 
 	size_t result = 0;
-	char front_two = parse_input.substr(0,2);
-
+	string front_two = parse_input.substr(0,2);
+	bool found_end = false;
+	
 	if(front_two == "/*"){
 
 		result = result + 2; //Account for the first two characters.
-		bool found_end = false;
 
 		while( result < parse_input.length() ){
 			//update front
@@ -370,7 +370,7 @@ size_t grab_comment(string &parse_input){
 		}
 	}
 
-	if(found){
+	if(found_end){
 		result = result + 2; //Account for the last two characters
 		cerr << "[GRAB_COMMENT] Returned " << result << endl;
 		return result;
