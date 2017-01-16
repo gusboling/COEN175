@@ -205,7 +205,6 @@ size_t grab_operator(string &parse_input){
 //Returns 0 if first character is not part of a valid keyword. Otherwise returns the number of characters in the keyword at the front of the string.
 size_t grab_keyword(string &parse_input){
 	size_t result = 0;
-	return result;
 	char front = parse_input[0];
 
 	cerr << "[GRAB_KEYWORD] Entered keyword switch." << endl;
