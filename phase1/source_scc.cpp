@@ -271,7 +271,7 @@ size_t grab_keyword(string &parse_input){
 			break;
 
 		case 's':
-			if(find_at_front(parse_input, "signed") || find_at_front(parse_buffer, "sizeof") || find_at_front(parse_input, "static") || find_at_front(parse_input, "struct")) result=6;
+			if(find_at_front(parse_input, "signed") || find_at_front(parse_input, "sizeof") || find_at_front(parse_input, "static") || find_at_front(parse_input, "struct")) result=6;
 			else if(find_at_front(parse_input, "short")) result=5;
 			break;
 
