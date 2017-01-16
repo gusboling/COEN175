@@ -91,6 +91,13 @@ int main(){
 			cerr << "[INFO] identifier: " << token << endl;
 		}
 
+		else if(len_string){
+			token = parse_buffer.substr(0, len_string);
+			parse_buffer.erase(0, len_string);
+			cout << "string: " << token << endl;
+			cerr << "[INFO] string: " << token << endl;
+		}
+
 		else{
 			//If none of the prior checks found a valid token starting at the first character of parse_buffer,
 			//then delete the first character and move on.
@@ -334,17 +341,37 @@ size_t grab_identifier(string &parse_input){
 		while( (result < parse_input.length()) && (is_identifier(front)) ){
 			result++;
 			front = parse_input[result];
-			//result++;
 		}
 	}
-	//result--;
 	return result;
 }
 
 //Returns 0 if first character is not part of a valid string. Otherwise returns the number of characters in the string at the front of input string.
 size_t grab_string(string &parse_input){
 	size_t result = 0;
-	return result;
+	bool found_end = false;
+	char front = parse_input[0];
+
+	if(front == '"'){
+		while(result < parse_input.length()){
+			result++;
+			front = parse_input[result];
+			if( (front == '"') && (parse_input[result-1] != '\\') ){
+				found_end = true;
+				result++;
+				break;
+			}
+		}
+	}
+
+	if(found_end){
+		cerr << "[GRAB_COMMENT] Returned " << result << endl;
+		return result;
+	}
+	else{
+		cerr << "[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0" << endl;
+		return 0;
+	}
 }
 
 //Returns 0 if no comment-string is present starting at the first character, otherwise returns the length of the comment-string present.
