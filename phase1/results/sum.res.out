@@ -45,11 +45,7 @@ operator: ;
 operator: }
 identifier: printf
 operator: (
-operator: %
-identifier: d
-operator: %
-identifier: d
-identifier: n
+string: "%d %d\n"
 operator: ,
 identifier: sum
 operator: ,
