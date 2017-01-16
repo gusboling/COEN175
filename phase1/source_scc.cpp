@@ -6,6 +6,8 @@ using namespace std;
 string read_input();
 
 bool find_at_front(string source, string target);
+bool is_letter(char c);
+bool is_identifier(char c);
 
 size_t grab_whitespace(string &parse_input);
 size_t grab_number(string &parse_input);
@@ -13,7 +15,6 @@ size_t grab_operator(string &parse_input);
 size_t grab_keyword(string &parse_input);
 size_t grab_string(string &parse_input);
 size_t grab_identifier(string &parse_input);
-size_t grab_comment(string &parse_input);
 
 int main(){
 	size_t buffer_position = 0;
@@ -31,14 +32,10 @@ int main(){
 		size_t len_number = grab_number(parse_buffer);
 		size_t len_operator = grab_operator(parse_buffer);
 		size_t len_keyword = grab_keyword(parse_buffer);
+		size_t len_identifier = grab_identifier(parse_buffer);
+		size_t len_string = grab_string(parse_buffer);
 
 		//DEBUGGING CODE: DELETE AT WILL
-
-		//Unit Test for find_at_front()
-		
-		cerr << "[DEBUG][FIND_AT_FRONT] find_at_front(12345, 12345) == " << find_at_front("12345", "12345") << endl;
-		cerr << "[DEBUG][FIND_AT_FRONT] find_at_front(case, casewhile) == " << find_at_front("casewhile", "case") << endl;
-		cerr << "[DEBUG][FIND_AT_FRONT] find_at_front(case, ca) == " << find_at_front("ca", "case") << endl;
 
 		//END OF DEBUGGING CODE
 
@@ -88,7 +85,8 @@ int main(){
 	return 0; //END OF MAIN
 }
 
-/* FUNCTIONS AND SUCH */
+
+
 
 string read_input(){
 	string input_buffer = "";
@@ -102,6 +100,20 @@ string read_input(){
 bool find_at_front(string source, string target){
 	bool result = (target==source.substr(0,target.length()));
 	return result;
+}
+
+//Returns true if the character 'c' is within the set [_a-zA-Z], returns false otherwise (Note: a underscore is considered a letter within this function)
+bool is_letter(char c){
+	if( (atoi(c)>96) && (atoi(c)<123) ) return true; //lowercase clause
+	else if( (atoi(c)>64) && (atoi(c)<91) ) return true; //uppercase clause
+	else if( atoi(c)==95 ) return true;
+	else return false;
+}
+
+//Returns true if the character 'c' is within the set [_a-zA-Z0-9], returns false otherwise.
+bool is_identifier(char c){
+	if( is_letter(c) || isdigit(c) ) return true;
+	else return false;
 }
 
 //Returns 0 if first character of the string is not a number. Otherwise, returns the number of consecutive digits following the first character.
@@ -294,19 +306,22 @@ size_t grab_keyword(string &parse_input){
 	return result;
 }
 
+//Returns 0 if first character is not part of a valid identifier. Otherwise returns the number of characters in the string at the front of the string.
+size_t grab_identifier(string &parse_input){
+	size_t result = 0;
+	size_t pos = 0;
+	char front = parse_input[0];
+	if(is_letter(front)){
+		while( (result < parse_input.length()) && (is_identifier(front)) ){
+			front = parse_input[result];
+			result++;
+		}
+	}
+	return result;
+}
+
 //Returns 0 if first character is not part of a valid string. Otherwise returns the number of characters in the string at the front of input string.
 size_t grab_string(string &parse_input){
-	size_t result = 0;
-	return result;
-}
-
-//Returns 0 if first character is not part of a valid identifier. Otherwise returns the number of characters in the string at the front of the string.
-size_t grab_identifier(){
-	size_t result = 0;
-	return result;
-}
-
-size_t grab_comments(){
 	size_t result = 0;
 	return result;
 }
