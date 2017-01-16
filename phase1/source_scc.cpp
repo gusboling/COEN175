@@ -4,7 +4,8 @@
 using namespace std;
 
 string read_input();
-string find_at_front(string &source, string target);
+
+bool find_at_front(string source, string target);
 
 size_t grab_whitespace(string &parse_input);
 size_t grab_number(string &parse_input);
@@ -30,6 +31,13 @@ int main(){
 		size_t len_number = grab_number(parse_buffer);
 		size_t len_operator = grab_operator(parse_buffer);
 		size_t len_keyword = grab_keyword(parse_buffer);
+
+		//DEBUGGING CODE: DELETE AT WILL
+
+		cerr << "[DEBUG][VARV] find_at_front(\"auto\", parse_buffer) => " << find_at_front("auto", parse_buffer) << endl;
+
+		//END OF DEBUGGING CODE
+
 
 		if(len_whitespace){
 			//Erase consecutive whitespaces starting at the first character of parse_buffer
@@ -86,12 +94,17 @@ string read_input(){
 	return input_buffer;
 }
 
-bool find_at_front(string &source, string target){
+bool find_at_front(string source, string target){
+	
 	size_t target_length = target.length();
+	cerr << target.length() << endl;
 	string search_substring = source.substr(0, target_length);
+		
+	cerr << "[FIND_AT_FRONT][DEBUG][VARV] " << "target => " << target << "; target_length => " << target_length << "; search_substring => " << search_substring << endl;
 
 	if(target == search_substring) return true;
 	return false;
+
 }
 
 //Returns 0 if first character of the string is not a number. Otherwise, returns the number of consecutive digits following the first character.
@@ -198,11 +211,14 @@ size_t grab_keyword(string &parse_input){
 	return result;
 	char front = parse_input[0];
 
+	cerr << "[GRAB_KEYWORD] Entered keyword switch." << endl;
+	
 	switch(front){
 
 		//Single-keyword first characters:
 		case 'a':
 			if(find_at_front(parse_input, "auto")) result=4;
+			cerr << "[GRAB_KEYWORD][INFO] 'a' detected" << endl;
 			break;
 
 		case 'b':
