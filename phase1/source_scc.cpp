@@ -332,11 +332,12 @@ size_t grab_identifier(string &parse_input){
 	char front = parse_input[0];
 	if(is_letter(front)){
 		while( (result < parse_input.length()) && (is_identifier(front)) ){
-			front = parse_input[result];
 			result++;
+			front = parse_input[result];
+			//result++;
 		}
 	}
-	result--;
+	//result--;
 	return result;
 }
 
@@ -352,7 +353,7 @@ size_t grab_comment(string &parse_input){
 	size_t result = 0;
 	string front_two = parse_input.substr(0,2);
 	bool found_end = false;
-	
+
 	if(front_two == "/*"){
 
 		result = result + 2; //Account for the first two characters.
@@ -379,4 +380,5 @@ size_t grab_comment(string &parse_input){
 		cerr << "[GRAB_COMMENT][DEBUG] No end-comment found. Returned 0" << endl;
 		return 0;
 	}
+
 }
