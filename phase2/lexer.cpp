@@ -10,6 +10,7 @@
 # include <string>
 # include <iostream>
 # include "lexer.h"
+# include "tokens.h"
 
 using namespace std;
 int numerrors, lineno = 1;
@@ -82,12 +83,12 @@ void report(const string &str, const string &arg)
  *		stored in a buffer.
  */
 
-bool lexan(string &lexbuf)
+int lexan(string &lexbuf)
 {
     int p;
     unsigned i;
     static int c = cin.get();
-
+    int result;
 
     /* The invariant here is that the next character has already been read
        and is ready to be classified.  In this way, we eliminate having to
@@ -120,11 +121,11 @@ bool lexan(string &lexbuf)
 		    break;
 
 	    if (i < numKeywords)
-		cout << "keyword:" << lexbuf << endl;
+		result = AUTO + i; //tokens.h defines the first keyword - "auto" - as 261.	
 	    else
-		cout << "identifier:" << lexbuf << endl;
+		result = STRING;
 
-	    return true;
+	    return result;
 
 
 	/* Check for a number */
@@ -135,8 +136,8 @@ bool lexan(string &lexbuf)
 		c = cin.get();
 	    } while (isdigit(c));
 
-	    cout << "number:" << lexbuf << endl;
-	    return true;
+	    result = NUM; 
+	    return result;
 
 
 	/* There must be an easier way to do this.  It might seem stupid at
@@ -158,12 +159,12 @@ bool lexan(string &lexbuf)
 		if (c == '|') {
 		    lexbuf += c;
 		    c = cin.get();
-		    cout << "operator:" << lexbuf << endl;
-		    return true;
+		    result = OR;
+		    return result;
 		}
 
-		cout << "illegal:" << lexbuf << endl;
-		return true;
+		result = ERROR;
+		return result;
 
 
 	    /* Check for '=' and '==' */
@@ -176,8 +177,8 @@ bool lexan(string &lexbuf)
 		    c = cin.get();
 		}
 
-		cout << "operator:" << lexbuf << endl;
-		return true;
+		result = EQUAL;
+		return result;
 
 
 	    /* Check for '&' and '&&' */
@@ -345,12 +346,6 @@ bool lexan(string &lexbuf)
  * Description:	Read and tokenize and standard input stream.
  */
 
-int main()
-{
-    string lexbuf;
-
-    while (lexan(lexbuf))
-	continue;
-
-    return 0;
+int main(){
+	return 0;
 }
