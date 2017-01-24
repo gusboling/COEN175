@@ -15,6 +15,11 @@
 using namespace std;
 int numerrors, lineno = 1;
 
+int main(){
+  cout << "ADD => " << ADD << endl;
+  cout << "EXTERN => " << EXTERN << endl;
+  return 0;
+}
 
 /* Later, we will associate token values with each keyword */
 
@@ -121,7 +126,7 @@ int lexan(string &lexbuf)
 		    break;
 
 	    if (i < numKeywords)
-		result = AUTO + i; //tokens.h defines the first keyword - "auto" - as 261.	
+		result = AUTO + i; //tokens.h defines the first keyword - "auto" - as 261.
 	    else
 		result = STRING;
 
@@ -136,7 +141,7 @@ int lexan(string &lexbuf)
 		c = cin.get();
 	    } while (isdigit(c));
 
-	    result = NUM; 
+	    result = NUM;
 	    return result;
 
 
@@ -188,6 +193,7 @@ int lexan(string &lexbuf)
 
 		if (c == '&') {
 		    lexbuf += c;
+        result = AND;
 		    c = cin.get();
 		}
 
