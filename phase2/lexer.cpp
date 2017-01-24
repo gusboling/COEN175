@@ -15,12 +15,6 @@
 using namespace std;
 int numerrors, lineno = 1;
 
-int main(){
-  cout << "ADD => " << ADD << endl;
-  cout << "EXTERN => " << EXTERN << endl;
-  return 0;
-}
-
 /* Later, we will associate token values with each keyword */
 
 static string keywords[] = {
@@ -353,5 +347,8 @@ int lexan(string &lexbuf)
  */
 
 int main(){
+	
+	cout << "ADD => " << ADD << endl;
+	cout << "EXTERN => " << EXTERN << endl;	
 	return 0;
 }

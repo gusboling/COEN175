@@ -10,7 +10,7 @@
 
 extern int lineno, numerrors;
 
-bool lexan(std::string &lexbuf);
+int lexan(std::string &lexbuf);
 void report(const std::string &str, const std::string &arg = "");
 
 # endif /* LEXER_H */
