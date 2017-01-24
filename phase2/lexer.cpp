@@ -284,12 +284,49 @@ int lexan(string &lexbuf)
 
 	    /* Check for simple, single character tokens */
 
-	    case '*': case '%': case ':': case ';':
-	    case '(': case ')': case '[': case ']':
-	    case '{': case '}': case '.': case ',':
-		  c = cin.get();
-		cout << "operator:" << lexbuf << endl;
-		return true;
+	    case '*':
+        c = cin.get();
+        result = MUL;
+        return result;
+      case '%':
+        c = cin.get();
+        result = REM;
+        return result;
+      case ';':
+        c = cin.get();
+        result = SEMICOLON;
+        return result;
+	    case '(':
+        c = cin.get();
+        result = LPAREN;
+        return result;
+      case ')':
+        c = cin.get();
+        result = RPAREN;
+        return result;
+      case '[':
+        c = cin.get();
+        result = LBRACKET;
+      case ']':
+        c = cin.get();
+        result = RBRACKET;
+        return result;
+	    case '{':
+        c = cin.get();
+        result = LBRACE;
+        return result;
+      case '}':
+        c = cin.get();
+        result = RBRACE;
+        return result;
+      case '.':
+        c = cin.get();
+        result = PERIOD;
+        return result;
+      case ',':
+		    c = cin.get();
+		    result = COMMA;
+        return result;
 
 
 	    /* Check for '/' or a comment */
