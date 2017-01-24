@@ -262,8 +262,7 @@ int lexan(string &lexbuf)
         result = POINTER;
 		    return result;
 		}
-
-	  result = NEG;
+    result = SUB;
     return result;
 
 
@@ -333,7 +332,7 @@ int lexan(string &lexbuf)
 
 		c = cin.get();
 	  result = STRING;
-    return result;
+    	  return result;
 
 
 	    /* Handle EOF here as well */
