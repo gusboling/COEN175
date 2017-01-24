@@ -173,10 +173,12 @@ int lexan(string &lexbuf)
 
 		if (c == '=') {
 		    lexbuf += c;
-		    c = cin.get();
+        c = cin.get();
+		    result = EQUAL;
+        return result;
 		}
 
-		result = EQUAL;
+		result = ASG;
 		return result;
 
 
@@ -187,12 +189,13 @@ int lexan(string &lexbuf)
 
 		if (c == '&') {
 		    lexbuf += c;
+        c = cin.get();
         result = AND;
-		    c = cin.get();
+        return result;
 		}
 
-		cout << "operator:" << lexbuf << endl;
-		return true;
+	  result = ADDR;
+		return result;
 
 
 	    /* Check for '!' and '!=' */
@@ -202,11 +205,13 @@ int lexan(string &lexbuf)
 
 		if (c == '=') {
 		    lexbuf += c;
-		    c = cin.get();
+        c = cin.get();
+		    result = NOTEQUAL;
+        return result;
 		}
 
-		cout << "operator:" << lexbuf << endl;
-		return true;
+	  result = NOT;
+    return result;
 
 
 	    /* Check for '<' and '<=' */
@@ -216,11 +221,13 @@ int lexan(string &lexbuf)
 
 		if (c == '=') {
 		    lexbuf += c;
-		    c = cin.get();
+        c = cin.get();
+		    result = LESSTHANOREQUAL;
+        return result;
 		}
 
-		cout << "operator:" << lexbuf << endl;
-		return true;
+		result = LTN;
+    return result;
 
 
 	    /* Check for '>' and '>=' */
@@ -230,11 +237,13 @@ int lexan(string &lexbuf)
 
 		if (c == '=') {
 		    lexbuf += c;
-		    c = cin.get();
+        c = cin.get();
+		    result = GREATERTHANOREQUAL;
+        return result;
 		}
 
-		cout << "operator:" << lexbuf << endl;
-		return true;
+		result = GTN;
+    return result;
 
 
 	    /* Check for '-', '--', and '->' */
@@ -244,14 +253,18 @@ int lexan(string &lexbuf)
 
 		if (c == '-') {
 		    lexbuf += c;
-		    c = cin.get();
+        c = cin.get();
+		    result = DECREMENT;
+        return result;
 		} else if (c == '>') {
 		    lexbuf += c;
-		    c = cin.get();
+        c = cin.get();
+        result = POINTER;
+		    return result;
 		}
 
-		cout << "operator:" << lexbuf << endl;
-		return true;
+	  result = NEG;
+    return result;
 
 
 	    /* Check for '+' and '++' */
@@ -262,10 +275,12 @@ int lexan(string &lexbuf)
 		if (c == '+') {
 		    lexbuf += c;
 		    c = cin.get();
+        result = INCREMENT;
+        return result;
 		}
 
-		cout << "operator:" << lexbuf << endl;
-		return true;
+		result = ADD;
+    return result;
 
 
 	    /* Check for simple, single character tokens */
@@ -273,7 +288,7 @@ int lexan(string &lexbuf)
 	    case '*': case '%': case ':': case ';':
 	    case '(': case ')': case '[': case ']':
 	    case '{': case '}': case '.': case ',':
-		c = cin.get();
+		  c = cin.get();
 		cout << "operator:" << lexbuf << endl;
 		return true;
 
@@ -299,8 +314,8 @@ int lexan(string &lexbuf)
 		    break;
 
 		} else {
-		    cout << "operator:" << lexbuf << endl;
-		    return true;
+		    result = DIV;
+        return result;
 		}
 
 
@@ -317,14 +332,14 @@ int lexan(string &lexbuf)
 		    report("malformed string literal");
 
 		c = cin.get();
-		cout << "string:" << lexbuf << endl;
-		return true;
+	  result = STRING;
+    return result;
 
 
 	    /* Handle EOF here as well */
 
 	    case EOF:
-		return false;
+		return DONE;
 
 
 	    /* Everything else is illegal */
@@ -336,7 +351,7 @@ int lexan(string &lexbuf)
 	}
     }
 
-    return false;
+    return ERROR;
 }
 
 
@@ -347,8 +362,8 @@ int lexan(string &lexbuf)
  */
 
 int main(){
-	
+
 	cout << "ADD => " << ADD << endl;
-	cout << "EXTERN => " << EXTERN << endl;	
+	cout << "EXTERN => " << EXTERN << endl;
 	return 0;
 }
