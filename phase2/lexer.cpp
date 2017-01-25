@@ -168,18 +168,15 @@ int lexan(string &lexbuf){
 	/* Check for '=' and '==' */
 
 	case '=':
-	lexbuf += c;
-	c = cin.get();
-
-	if (c == '=') {
-		lexbuf += c;
 		c = cin.get();
-		result = EQUAL;
+		result = ASG;
+		if (c == '=') {
+		    lexbuf += c;
+		    c = cin.get();
+				result = EQUAL;
+		}
 		return result;
-	}
 
-	result = ASG;
-	return result;
 
 
 	/* Check for '&' and '&&' */
@@ -389,4 +386,3 @@ int lexan(string &lexbuf){
 
 	return ERROR;
 }
-
