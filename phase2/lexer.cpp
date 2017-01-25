@@ -120,7 +120,7 @@ int lexan(string &lexbuf){
 	if (i < numKeywords)
 	result = AUTO + i; //tokens.h defines the first keyword - "auto" - as 261.
 	else
-	result = STRING;
+	result = ID;
 
 	return result;
 
@@ -155,10 +155,10 @@ int lexan(string &lexbuf){
 	c = cin.get();
 
 	if (c == '|') {
-	lexbuf += c;
-	c = cin.get();
-	result = OR;
-	return result;
+		lexbuf += c;
+		c = cin.get();
+		result = OR;
+		return result;
 	}
 
 	result = ERROR;
@@ -172,10 +172,10 @@ int lexan(string &lexbuf){
 	c = cin.get();
 
 	if (c == '=') {
-	lexbuf += c;
-	c = cin.get();
-	result = EQUAL;
-	return result;
+		lexbuf += c;
+		c = cin.get();
+		result = EQUAL;
+		return result;
 	}
 
 	result = ASG;
@@ -188,10 +188,10 @@ int lexan(string &lexbuf){
 	c = cin.get();
 
 	if (c == '&') {
-	lexbuf += c;
-	c = cin.get();
-	result = AND;
-	return result;
+		lexbuf += c;
+		c = cin.get();
+		result = AND;
+		return result;
 	}
 
 	result = ADDR;
@@ -390,13 +390,3 @@ int lexan(string &lexbuf){
 	return ERROR;
 }
 
-
-/*
-* Function:	main
-*
-* Description:	Read and tokenize and standard input stream.
-*/
-
-int main(){
-	return 0;
-}
