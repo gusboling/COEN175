@@ -151,18 +151,14 @@ int lexan(string &lexbuf){
 	/* Check for '||' */
 
 	case '|':
-	lexbuf += c;
-	c = cin.get();
-
-	if (c == '|') {
-		lexbuf += c;
 		c = cin.get();
-		result = OR;
+		result = ERROR;
+		if (c == '|') {
+		    lexbuf += c;
+		    c = cin.get();
+		    result = OR;
+		}
 		return result;
-	}
-
-	result = ERROR;
-	return result;
 
 
 	/* Check for '=' and '==' */
