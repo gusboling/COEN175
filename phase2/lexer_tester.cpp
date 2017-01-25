@@ -1,55 +1,103 @@
-#include <iostream>
-#include <cstdlib>
-#include "tokens.h"
-#include "lexer.h"
+/*
+ * File:	lexer.cpp
+ *
+ * Description:	This file contains the public and private function and
+ *		variable definitions for the lexical analyzer for Simple C.
+ */
+
+# include <cstdio>
+# include <string>
+# include <iostream>
+# include "lexer.h"
+# include "tokens.h"
 
 using namespace std;
 
-string lex_buff;
+int lookahead;
+string lexbuf;
 
-void print_token(int token){
+static struct {
+    string lexeme;
+    int token;
+} keywords[] = {
+    {"auto",     AUTO},
+    {"break",    BREAK},
+    {"case",     CASE},
+    {"char",     CHAR},
+    {"const",    CONST},
+    {"continue", CONTINUE},
+    {"default",  DEFAULT},
+    {"do",       DO},
+    {"double",   DOUBLE},
+    {"else",     ELSE},
+    {"enum",     ENUM},
+    {"extern",   EXTERN},
+    {"float",    FLOAT},
+    {"for",      FOR},
+    {"goto",     GOTO},
+    {"if",       IF},
+    {"int",      INT},
+    {"long",     LONG},
+    {"register", REGISTER},
+    {"return",   RETURN},
+    {"short",    SHORT},
+    {"signed",   SIGNED},
+    {"sizeof",   SIZEOF},
+    {"static",   STATIC},
+    {"struct",   STRUCT},
+    {"switch",   SWITCH},
+    {"typedef",  TYPEDEF},
+    {"union",    UNION},
+    {"unsigned", UNSIGNED},
+    {"void",     VOID},
+    {"volatile", VOLATILE},
+    {"while",    WHILE},
+};
 
-  //Check token category, then print the appropriate output and debugging messages.
+# define numKeywords (sizeof(keywords) / sizeof(keywords[0]))
 
-  if(token == ERROR){
-    cerr << "[ERROR] Error token detected. Exiting (" << token << ")." << endl;
-    exit(1);
-  }
-  else if((token >= AUTO) && (token <= WHILE)){
-    cout << "keyword:" << lex_buff << endl;
-    cerr << "[INFO] Keyword token detected (" << token << ")." << endl;
-  }
-  else if(token == NUM){
-    cout << "number:" << lex_buff << endl;
-    cerr << "[INFO] Number token detected (" << token << ")." << endl;
-  }
-  else if(token == STRING){
-    cout << "string:" << lex_buff << endl;
-    cerr << "[INFO] String token detected (" << token << ")." << endl;
-  }
-  else if(token == ID){
-    cout << "identifier:" << lex_buff << endl;
-    cerr << "[INFO] Identifier token detected (" << token << ")." << endl;
-  }
-  else{
-    cout << "operator:" << lex_buff << endl;
-    cerr << "[INFO] Operator token detected (" << token << ")." << endl;
-  }
+void printFor(int token)
+{
+    int i;
 
-  return;
+    // Check for keyword
+    for (i = 0; i < numKeywords; ++i)
+    {
+        if (keywords[i].token == token)
+        {
+            cout << "keyword:" << lexbuf << endl;
+            return;
+        }
+    }
+
+    switch (token)
+    {
+        case ERROR:
+            exit(EXIT_FAILURE);
+        case ID:
+            cout << "identifier:" << lexbuf << endl;
+            return;
+        case NUM:
+            cout << "number:" << lexbuf << endl;
+            return;
+        case STRING:
+            cout << "string:" << lexbuf << endl;
+            return;
+        default:
+            cout << "operator:" << lexbuf << endl;
+            return;
+    }
 }
 
-int main(){
+int main()
+{
+    lookahead = lexan(lexbuf);
 
-  //Get initial token
-  int lookahead = lexan(lex_buff);
+    while (lookahead != DONE)
+	{
+        printFor(lookahead);
+        lookahead = lexan(lexbuf);
+    }
 
-  //While EOF token not encountered, print current token, then get next token.
-  while(lookahead != DONE){
-    print_token(lookahead);
-    lookahead = lexan(lex_buff);
-  }
-
-  //All done.
-  return 0;
+    exit(EXIT_SUCCESS);
 }
