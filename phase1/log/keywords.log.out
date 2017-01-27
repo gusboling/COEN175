@@ -1,0 +1,46 @@
+[GRAB_KEYWORD] Entered keyword switch.
+[GRAB_KEYWORD][INFO] 'a' detected
+[GRAB_KEYWORD][SWITCH] Returned 4
+[INFO] operator: auto
+[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[GRAB_KEYWORD] Entered keyword switch.
+[INFO] whitespace: 1 spaces
+[GRAB_KEYWORD] Entered keyword switch.
+[INFO] identifier: hello
+[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[GRAB_KEYWORD] Entered keyword switch.
+[INFO] whitespace: 1 spaces
+[GRAB_NUMBER][START] Starting numbers parse sub-loop; [STOP] Exited numbers parse sub-loop; Returned 3
+[GRAB_KEYWORD] Entered keyword switch.
+[INFO] number: 123
+[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[GRAB_KEYWORD] Entered keyword switch.
+[INFO] whitespace: 1 spaces
+[GRAB_KEYWORD] Entered keyword switch.
+[GRAB_KEYWORD][SWITCH] Returned 4
+[INFO] operator: case
+[GRAB_KEYWORD] Entered keyword switch.
+[GRAB_KEYWORD][SWITCH] Returned 5
+[INFO] operator: while
+[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[GRAB_KEYWORD] Entered keyword switch.
+[INFO] whitespace: 1 spaces
+[GRAB_OPERATOR][SWITCH] Returned 2
+[GRAB_KEYWORD] Entered keyword switch.
+[INFO] operator: ++
+[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[GRAB_KEYWORD] Entered keyword switch.
+[INFO] whitespace: 1 spaces
+[GRAB_OPERATOR][SWITCH] Returned 1
+[GRAB_KEYWORD] Entered keyword switch.
+[INFO] operator: +
+[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[GRAB_KEYWORD] Entered keyword switch.
+[INFO] whitespace: 1 spaces
+[GRAB_KEYWORD] Entered keyword switch.
+[INFO] identifier: caes
+[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[GRAB_KEYWORD] Entered keyword switch.
+[INFO] whitespace: 1 spaces
+[GRAB_KEYWORD] Entered keyword switch.
+[INFO] identifier: ÿ

@@ -1,0 +1,67 @@
+[GRAB_NUMBER][START] Starting numbers parse sub-loop; [STOP] Exited numbers parse sub-loop; Returned 3
+[DEBUG][VARV] find_at_front("auto", parse_buffer) => 0
+[INFO] number: 123
+[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[DEBUG][VARV] find_at_front("auto", parse_buffer) => 0
+[INFO] whitespace: 1 spaces
+[GRAB_NUMBER][START] Starting numbers parse sub-loop; [STOP] Exited numbers parse sub-loop; Returned 3
+[DEBUG][VARV] find_at_front("auto", parse_buffer) => 0
+[INFO] number: 567
+[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[DEBUG][VARV] find_at_front("auto", parse_buffer) => 0
+[INFO] whitespace: 1 spaces
+[DEBUG][VARV] find_at_front("auto", parse_buffer) => 0
+[INFO] illegal: h
+[DEBUG][VARV] find_at_front("auto", parse_buffer) => 0
+[INFO] illegal: e
+[DEBUG][VARV] find_at_front("auto", parse_buffer) => 0
+[INFO] illegal: l
+[DEBUG][VARV] find_at_front("auto", parse_buffer) => 0
+[INFO] illegal: l
+[DEBUG][VARV] find_at_front("auto", parse_buffer) => 0
+[INFO] illegal: o
+[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[DEBUG][VARV] find_at_front("auto", parse_buffer) => 0
+[INFO] whitespace: 1 spaces
+[DEBUG][VARV] find_at_front("auto", parse_buffer) => 0
+[INFO] illegal: w
+[DEBUG][VARV] find_at_front("auto", parse_buffer) => 0
+[INFO] illegal: o
+[DEBUG][VARV] find_at_front("auto", parse_buffer) => 0
+[INFO] illegal: r
+[DEBUG][VARV] find_at_front("auto", parse_buffer) => 0
+[INFO] illegal: l
+[DEBUG][VARV] find_at_front("auto", parse_buffer) => 0
+[INFO] illegal: d
+[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[DEBUG][VARV] find_at_front("auto", parse_buffer) => 0
+[INFO] whitespace: 1 spaces
+[DEBUG][VARV] find_at_front("auto", parse_buffer) => 0
+[INFO] illegal: i
+[DEBUG][VARV] find_at_front("auto", parse_buffer) => 0
+[INFO] illegal: n
+[DEBUG][VARV] find_at_front("auto", parse_buffer) => 0
+[INFO] illegal: t
+[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[DEBUG][VARV] find_at_front("auto", parse_buffer) => 0
+[INFO] whitespace: 1 spaces
+[GRAB_NUMBER][START] Starting numbers parse sub-loop; [STOP] Exited numbers parse sub-loop; Returned 3
+[DEBUG][VARV] find_at_front("auto", parse_buffer) => 0
+[INFO] number: 890
+[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[DEBUG][VARV] find_at_front("auto", parse_buffer) => 0
+[INFO] whitespace: 1 spaces
+[GRAB_NUMBER][START] Starting numbers parse sub-loop; [STOP] Exited numbers parse sub-loop; Returned 3
+[DEBUG][VARV] find_at_front("auto", parse_buffer) => 0
+[INFO] number: 900
+[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[DEBUG][VARV] find_at_front("auto", parse_buffer) => 0
+[INFO] whitespace: 1 spaces
+[GRAB_NUMBER][START] Starting numbers parse sub-loop; [STOP] Exited numbers parse sub-loop; Returned 4
+[DEBUG][VARV] find_at_front("auto", parse_buffer) => 0
+[INFO] number: 6590
+[GRAB_WHITESPACE][START] Entered whitespace parse sub-loop; [STOP] Exited whitespace parse sub-loop; Returned 1
+[DEBUG][VARV] find_at_front("auto", parse_buffer) => 0
+[INFO] whitespace: 1 spaces
+[DEBUG][VARV] find_at_front("auto", parse_buffer) => 0
+[INFO] illegal: ÿ
