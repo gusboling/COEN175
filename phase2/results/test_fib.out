@@ -8,11 +8,11 @@ operator:{
 keyword:if
 operator:(
 identifier:n
-operator:===
+operator:==
 number:0
-operator:|||
+operator:||
 identifier:n
-operator:===
+operator:==
 number:1
 operator:)
 keyword:return
