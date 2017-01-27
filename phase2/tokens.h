@@ -8,7 +8,7 @@ enum{
 	SWITCH, TYPEDEF, UNION, UNSIGNED,
 	VOID, VOLATILE, WHILE, OR, AND,
 	EQUAL, NOTEQUAL, GREATERTHANOREQUAL,
-	LESSTHANOREQUAL, INCREMENT, DECREMENT, //END OF JESSE'S SUGGESTIONS
+	LESSTHANOREQUAL, INCREMENT, //END OF JESSE'S SUGGESTIONS
 
 	POINTER,		//Not sure how to deal with '->' operator; treating it like a two-character operator for now
 	DEREF,			//Character conflict with multiplication operator
