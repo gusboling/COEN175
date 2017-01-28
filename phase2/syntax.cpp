@@ -1,3 +1,16 @@
+/* THE STORY THUS FAR:
+ * 
+ * Armed with nought but an aging laptop, our hero sets forth to write
+ * a simple syntax-analysis program. Racing against time, he will need to
+ * overcome multiple test cases before he can face the ultimate challenge of 
+ * Lord Atkinson's scorching gaze. This is his story... and his code.
+ *
+ * Written by Augustus G. "The 'G' stands for 'generally sane'" Boling
+ * 29 January 2017
+ * COEN 175L
+ */
+
+
 #include <iostream>
 #include <string>
 #include <cstdlib>
@@ -12,6 +25,8 @@ void match();
 void xprsOR();
 void xprsAND();
 void xprsEQUAL();
+void xprsNOTEQUAL();
+void xprsINEQUAL();
 
 string lexbuf; //Buffer for token-text
 int lookahead; //Variable for storing token #'s
@@ -30,8 +45,6 @@ void match(int token){
 //FUNCTION: "xprsOR" -> expression-OR
 //PRE: lookahead is an integer
 void xprsOR(){
-	match(OR);
-	cout << "or" << endl;
 	xprsAND();
 	while(lookahead == OR){
 		match(OR);
@@ -41,8 +54,6 @@ void xprsOR(){
 }
 
 void xprsAND(){
-	match(AND);
-	cout << "and" << endl;
 	xprsEQUAL();
 	while(lookahead == AND){
 		match(AND);
@@ -52,7 +63,25 @@ void xprsAND(){
 }
 
 void xprsEQUAL(){
-	//TODO	
+	xprsNOTEQUAL();
+	while(lookahead == EQUAL){
+		match(EQUAL);
+		cout << "eql" << endl;
+		xprsNOTEQUAL();
+	}
+}
+
+void xprsNOTEQUAL(){
+	xprsINEQUAL();
+	while(lookahead == NOTEQUAL){
+		match(NOTEQUAL);
+		cout << "neq" << endl;
+		xprsINEQUAL();
+	}
+}
+
+void xprsINEQUAL(){
+	//TODO
 }
 
 void statement(){
@@ -61,10 +90,10 @@ void statement(){
 }
 
 int main(){
-	cout << "Compilation successful." << endl;
 	lookahead = lexan(lexbuf);
 	while(lookahead != DONE){
-		statement();
+		cerr << "Found token: " << lexbuf << endl;
+		lookahead = lexan(lexbuf);
 	}	
 	return 0;
 }

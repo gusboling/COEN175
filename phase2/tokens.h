@@ -10,6 +10,7 @@ enum{
 	EQUAL, NOTEQUAL, GREATERTHANOREQUAL,
 	LESSTHANOREQUAL, INCREMENT, //END OF JESSE'S SUGGESTIONS
 
+	DECREMENT,
 	POINTER,		//Not sure how to deal with '->' operator; treating it like a two-character operator for now
 	DEREF,			//Character conflict with multiplication operator
 	NEGATIVE,		//Character conflict with subtraction operator
