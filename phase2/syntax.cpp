@@ -10,18 +10,20 @@
  * COEN 175L
  */
 
-
 #include <iostream>
 #include <string>
 #include <cstdlib>
 #include "tokens.h"
 #include "lexer.h"
 
+
+#define BAD_MATCH 1
+#define BAD_SPECI 2
+
+
 using namespace std;
 
-#define BAD_MATCH 666
-
-void match();
+//Expression Rules
 void xprsOR();
 void xprsAND();
 void xprsEQUAL();
@@ -32,9 +34,36 @@ void xprsMDR();
 void xprsOPS();
 void xprsINDEX();
 void xprsLAST();
+void xprsLIST();
 
+//Asignment Rule
+void assignment();
+
+//Declarator Rules
+void declarator();
+void declaratorList();
+void declaration();
+void declarations();
+
+//Specifier Rule
+void specifier();
+
+//Statement Rules
+void statement();
+void statements();
+
+//Pointer Rule
+size_t pointers(); //Should never return a negative number.
+
+//Parameter Rules
+void parameter();
+void parameterList();
+void parameters();
+
+//Global Variables
 string lexbuf; //Buffer for token-text
 int lookahead; //Variable for storing token #'s
+
 
 //FUNCTION: "match"
 //PRE: token and lookahead are both integers
@@ -152,7 +181,7 @@ void xprsMDR(){
 
 void xprsOPS(){
 	xprsINDEX();
-	while( (lookahead=='&') || (lookahead=='*') || (lookahead=='!') || (lookahead=='-') || (lookahead==SIZEOF) ){ //TODO: straighten out what these equivalences should be WRT tokens.h
+	while( (lookahead==ADDR) || (lookahead=='*') || (lookahead==NOT) || (lookahead=='-') || (lookahead==SIZEOF) ){ //TODO: straighten out what these equivalences should be WRT tokens.h
 		if(lookahead == '&'){
 			match('&');
 			cout << "addr" << endl;
@@ -181,18 +210,142 @@ void xprsOPS(){
 }
 
 void xprsINDEX(){
-	//TODO
+	if(lookahead==LBRACKET){
+		match(LBRACKET);
+		xprsOR();
+		match(RBRACKET);
+		cout << "index" << endl;  
+	}
+	else xprsLAST();	
 }
 
 void xprsLAST(){
-	//TODO
+	if(lookahead == ID){ //ID, ID(), and ID(Expression-List) case
+		match(ID);
+		if(lookahead == LPAREN){
+			match(LPAREN);
+			xprsLIST();
+			match(RPAREN); 
+		}
+	}
+	else if(lookahead == LPAREN){ //(Expression-Or) case
+		match(LPAREN);
+		xprsOR();
+		match(RPAREN);
+	}
+	else if(lookahead == NUM){ //Number case
+		match(NUM);
+	}
+	else if(lookahead == STRING){ //String case
+		match(STRING);
+	}
 }
 
+void xprsLIST(){
+	xprsOR();
+	while(lookahead == COMMA){
+		match(COMMA);
+		xprsLIST();
+	}
+}
+
+//Assignment Rules Implementation
+void assignment(){
+	xprsOR();
+	while(lookahead == '='){
+		match('=');
+		xprsOR();
+	}
+
+	
+}
+
+//Declarator Rules Implementation
+void declarator(){
+	pointers();
+	match(ID);
+	if(lookahead == LBRACKET){
+		match(LBRACKET);
+		match(NUM);
+		match(RBRACKET);
+	}
+}
+
+void declaratorList(){
+	declarator();
+	while(lookahead == COMMA){
+		match(COMMA);
+		declarator();
+	}
+}
+
+void declaration(){
+	specifier();
+	declaratorList();
+	match(SEMICOLON);//Fails if no semicolon present.
+}
+
+void declarations(){
+	declaration();
+	while( (lookahead == INT) || (lookahead == CHAR) || (lookahead == VOID) ){
+		//TODO: Unsure if this avoid left-recursion or not.
+		match(lookahead);
+		declaration();
+		//declarations();
+	}
+}
+
+//Pointer Rule Implementation
+size_t pointers(){
+	size_t deref_num=0;
+	while(lookahead == DEREF){
+		match(DEREF);
+		deref_num++;
+	}
+	return deref_num;
+}
+
+//Parameter Rules Implementation
+void parameter(){
+	specifier();
+	pointers();
+	match(ID); //Fails if ID not present after removing a specifier and a pointer from the front of input
+}
+
+void parameterList(){
+	parameter();
+	while(lookahead == COMMA){
+		match(COMMA);
+		parameter();
+		//parameterList();
+	}
+}
+
+void parameters(){
+	if(lookahead == VOID){
+		match(VOID);
+	}
+	else parameterList();
+}
+
+//Specifier Rule Implementation
+void specifier(){
+	if(lookahead == INT) match(INT);
+	else if(lookahead == CHAR) match(CHAR);
+	else if(lookahead == VOID) match(VOID);
+	else{
+		report("Bad specifier. Exiting");
+		exit(BAD_SPECI);
+	}
+}
+
+//Statement Rules Implementation
 void statement(){
 	//TODO
 
 }
 
+//Main
 int main(){
 	lookahead = lexan(lexbuf);
 	cerr << "Found token: " << lookahead << endl;
