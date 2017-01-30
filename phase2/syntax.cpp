@@ -1,8 +1,8 @@
 /* THE STORY THUS FAR:
- * 
+ *
  * Armed with nought but an aging laptop, our hero sets forth to write
  * a simple syntax-analysis program. Racing against time, he will need to
- * overcome multiple test cases before he can face the ultimate challenge of 
+ * overcome multiple test cases before he can face the ultimate challenge of
  * Lord Atkinson's scorching gaze. This is his story... and his code.
  *
  * Written by Augustus G. "The 'G' stands for 'generally sane'" Boling
@@ -16,10 +16,8 @@
 #include "tokens.h"
 #include "lexer.h"
 
-
 #define BAD_MATCH 1
 #define BAD_SPECI 2
-
 
 using namespace std;
 
@@ -60,23 +58,27 @@ void parameter();
 void parameterList();
 void parameters();
 
+//Global Declaration Rules
+void globalDeclaration();
+void globalDecList();
+void globalDec();
+
 //Global Variables
 string lexbuf; //Buffer for token-text
 int lookahead; //Variable for storing token #'s
 
-
 //FUNCTION: "match"
 //PRE: token and lookahead are both integers
 //POST: If token != lookahead, report the error and exit. Otherwise, set lookahead equal to the next token from the input.
-void match(int token){	
+void match(int token){
 	if(token == lookahead) lookahead = lexan(lexbuf);
 	else{
 		report("Token and lookahead don't match. Exiting.");
 		exit(BAD_MATCH);
-	}  
+	}
 }
 
-//Rule for "||" expressions
+//Expression Rules Implementation
 void xprsOR(){
 	xprsAND(); //Recurse
 	while(lookahead == OR){
@@ -86,7 +88,6 @@ void xprsOR(){
 	}
 }
 
-//Rule for "&&" expressions
 void xprsAND(){
 	xprsEQUAL(); //Recurse
 	while(lookahead == AND){
@@ -96,7 +97,6 @@ void xprsAND(){
 	}
 }
 
-//Rule for "==" and "!=" expressions
 void xprsEQUAL(){
 	xprsINEQUAL();
 	while( (lookahead == EQUAL) || (lookahead == NOTEQUAL) ){
@@ -109,11 +109,10 @@ void xprsEQUAL(){
 			match(NOTEQUAL);
 			cout << "neq" << endl;
 			xprsINEQUAL();
-		}			
+		}
 	}
 }
 
-//Rule for "<", "<", ">=", and ">" expressions
 void xprsINEQUAL(){
 	xprsPLMN();
 	while( (lookahead == GTN) || (lookahead == LTN) || (lookahead == GREATERTHANOREQUAL) || (lookahead == LESSTHANOREQUAL) ) { //TODO: Should this be an "if" statement instead of a loop?
@@ -140,7 +139,6 @@ void xprsINEQUAL(){
 	}
 }
 
-//Rule for "+" and "-" expressions
 void xprsPLMN(){
 	xprsMDR();
 	while( (lookahead==ADD) || (lookahead==SUB) ){
@@ -153,11 +151,10 @@ void xprsPLMN(){
 			match(SUB);
 			cout << "sub" << endl;
 			xprsMDR();
-		}	
+		}
 	}
 }
 
-//Rule for "*", "/", and "%" expressions [(M)ultiplication, (D)ivision, (R)emainder]
 void xprsMDR(){
 	xprsOPS();
 	while( (lookahead == MUL) || (lookahead == DIV) || (lookahead == REM)){
@@ -190,7 +187,7 @@ void xprsOPS(){
 		else if(lookahead == '*'){
 			match('*');
 			cout << "deref" << endl;
-			xprsINDEX();	
+			xprsINDEX();
 		}
 		else if(lookahead == '!'){
 			match('!');
@@ -205,7 +202,7 @@ void xprsOPS(){
 		else{
 			match(SIZEOF);
 			cout << "sizeof" << endl;
-		}	
+		}
 	}
 }
 
@@ -214,9 +211,9 @@ void xprsINDEX(){
 		match(LBRACKET);
 		xprsOR();
 		match(RBRACKET);
-		cout << "index" << endl;  
+		cout << "index" << endl;
 	}
-	else xprsLAST();	
+	else xprsLAST();
 }
 
 void xprsLAST(){
@@ -225,7 +222,7 @@ void xprsLAST(){
 		if(lookahead == LPAREN){
 			match(LPAREN);
 			xprsLIST();
-			match(RPAREN); 
+			match(RPAREN);
 		}
 	}
 	else if(lookahead == LPAREN){ //(Expression-Or) case
@@ -257,7 +254,7 @@ void assignment(){
 		xprsOR();
 	}
 
-	
+
 }
 
 //Declarator Rules Implementation
@@ -341,7 +338,110 @@ void specifier(){
 
 //Statement Rules Implementation
 void statement(){
-	//TODO
+	if(lookahead == LBRACE){
+		match(LBRACE);
+		declarations();
+		statements();
+		match(RBRACE);
+	}
+	else if(lookahead == RETURN){
+		match(RETURN);
+		xprsOR();
+		match(SEMICOLON);
+	}
+	else if(lookahead == WHILE){
+		match(WHILE);
+		match(LPAREN);
+		xprsOR();
+		match(RPAREN);
+		statement();
+	}
+	else if(lookahead == FOR){
+		match(FOR);
+		match(LPAREN);
+		assignment();
+		match(SEMILCOLON);
+		xprsOR();
+		match(SEMILCOLON);
+		assignment();
+		match(RPAREN);
+		statement();
+	}
+	else if(lookahead == IF){
+		match(IF);
+		match(LPAREN);
+		xprsOR();
+		match(RPAREN);
+		statement();
+		if(lookahead == ELSE){
+			match(ELSE);
+			statement();
+		}
+	}
+	else{
+		assignment();
+		match(SEMICOLON);
+	}
+
+}
+
+void statements(){
+	while(lookahead != RBRACE) statement();
+}
+
+//Global Declaration Rules Implementation
+void globalDec(){
+	pointers();
+	match(ID);
+	if(lookahead == LPAREN){
+		match(LPAREN);
+		parameters();
+		match(RPAREN);
+	}
+	else if(lookahead == LBRACKET){
+		match(LBRACKET);
+		match(NUM);
+		match(RBRACKET);
+	}
+}
+
+void globalDecList(){
+	globalDec();
+	if(lookahead == COMMA){
+		match(COMMA);
+		globalDecList();
+	}
+}
+
+void globalDeclaration(){
+	specifier();
+	pointers();
+	match(ID);
+	if(lookahead == LPAREN){
+		match(LPAREN);
+		parameters();
+		match(RPAREN);
+		if(lookahead == LBRACE){ //Function definition rules
+			match(LBRACE);
+			declarations();
+			statements();
+			match(RBRACE);
+		}
+		else globalDecList();
+	}
+	else if(lookahead == LBRACKET){
+		match(LBRACKET);
+		match(NUM);
+		match(RBRACKET);
+		if(lookahead == COMMA){
+			match(COMMA);
+			globalDecList();
+		}
+	}
+	else if(lookahead == COMMA){
+		match(COMMA);
+		globalDecList();
+	}
 
 }
 
@@ -349,9 +449,12 @@ void statement(){
 int main(){
 	lookahead = lexan(lexbuf);
 	cerr << "Found token: " << lookahead << endl;
+
 	while(lookahead != DONE){
 		lookahead = lexan(lexbuf);
 		cerr << "Found token: " << lookahead << endl;
-	}	
+		globalDeclaration();
+	}
+
 	return 0;
 }
