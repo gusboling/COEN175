@@ -1,3 +1,3 @@
-[FOG] specifier, pointer, and ID check good.
+[FOG] specifier, pointer, and identifier check good.
 [FOG] parameter check good. 
 line 14: Token and lookahead don't match. Exiting.

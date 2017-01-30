@@ -420,7 +420,7 @@ void fog(){ //function or global declaration rule
 	specifier();
 	pointers();
 	match(ID);
-	cerr << "[FOG] specifier, pointer, and ID check good." << endl;
+	cerr << "[FOG] specifier, pointer, and identifier check good." << endl;
 	if(lookahead == LPAREN){
 		match(LPAREN);
 		parameters();
@@ -435,20 +435,22 @@ void fog(){ //function or global declaration rule
 		}
 		else globalDecList();
 	}
-	else if(lookahead == LBRACKET){
+	else if(lookahead == LBRACKET ){
 		match(LBRACKET);
 		match(NUM);
 		match(RBRACKET);
+		cerr << "[FOG] Index check good." << endl;
 		if(lookahead == COMMA){
 			match(COMMA);
 			globalDecList();
 		}
+		cerr << "[FOG] Global declarator or global declarator list check good." << endl;
 	}
 	else if(lookahead == COMMA){
 		match(COMMA);
 		globalDecList();
 	}
-
+	else cerr << "[FOG] Did nothing this time round." << endl;
 }
 
 //Main

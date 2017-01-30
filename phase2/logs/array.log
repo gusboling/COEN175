@@ -1,5 +1,7 @@
-[FOG] specifier, pointer, and ID check good.
+[FOG] specifier, pointer, and identifier check good.
+[FOG] Index check good.
+[FOG] Global declarator or global declarator list check good.
 [MAIN] fog() exited without errors.
-[MAIN] lookahead: 93
+[MAIN] lookahead: 59
 line 1: Bad specifier. Exiting
-lookahead => 93
+lookahead => 59

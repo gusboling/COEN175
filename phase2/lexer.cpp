@@ -300,6 +300,7 @@ int lexan(string &lexbuf){
 	case '[':
 	c = cin.get();
 	result = LBRACKET;
+	return result;
 	case ']':
 	c = cin.get();
 	result = RBRACKET;
