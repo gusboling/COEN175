@@ -1,3 +1,13 @@
 [FOG] specifier, pointer, and identifier check good.
 [FOG] parameter check good. 
+[FOG] Entered function definition check...
+[FOG] Declaration checks good.
+[STATEMENTS] Entered statements rule.
+[STATEMENTS] Entered statements rule.
+[STATEMENTS] Entered statements rule.
+[STATEMENTS] Entered statements rule.
+[STATEMENTS] Entered statements rule.
+[STATEMENTS] Entered statements rule.
+[MATCH] token => 41
+[MATCH] lookahead => 259
 line 14: Token and lookahead don't match. Exiting.

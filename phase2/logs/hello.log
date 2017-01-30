@@ -1,5 +1,9 @@
 [FOG] specifier, pointer, and identifier check good.
 [FOG] parameter check good. 
+[FOG] Entered function definition check...
+[FOG] Declaration checks good.
+[STATEMENTS] Entered statements rule.
+[FOG] Statements check good. 
 [FOG] Function-definition check good.
 [MAIN] fog() exited without errors.
 [MAIN] lookahead: 257

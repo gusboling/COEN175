@@ -73,6 +73,8 @@ int lookahead; //Variable for storing token #'s
 void match(int token){
 	if(token == lookahead) lookahead = lexan(lexbuf);
 	else{
+		cerr << "[MATCH] token => " << token << endl;
+		cerr << "[MATCH] lookahead => " << lookahead << endl;
 		report("Token and lookahead don't match. Exiting.");
 		exit(BAD_MATCH);
 	}
@@ -297,8 +299,8 @@ void declarations(){
 //Pointer Rule Implementation
 size_t pointers(){
 	size_t deref_num=0;
-	while(lookahead == DEREF){
-		match(DEREF);
+	while(lookahead == MUL){
+		match(MUL);
 		deref_num++;
 	}
 	return deref_num;
@@ -341,6 +343,7 @@ void specifier(){
 
 //Statement Rules Implementation
 void statement(){
+	cerr << "[STATEMENTS] Entered statements rule." << endl;
 	if(lookahead == LBRACE){
 		match(LBRACE);
 		declarations();
@@ -383,7 +386,7 @@ void statement(){
 	}
 	else{
 		assignment();
-		match(SEMICOLON);
+		if(lookahead == SEMICOLON) match(SEMICOLON);
 	}
 
 }
@@ -427,9 +430,12 @@ void fog(){ //function or global declaration rule
 		match(RPAREN);
 		cerr << "[FOG] parameter check good. " << endl;
 		if(lookahead == LBRACE){ //Function definition rules
+			cerr << "[FOG] Entered function definition check..." << endl;
 			match(LBRACE);
 			declarations();
+			cerr << "[FOG] Declaration checks good." << endl;
 			statements();
+			cerr << "[FOG] Statements check good. " << endl;
 			match(RBRACE);
 			cerr << "[FOG] Function-definition check good." << endl;
 		}
@@ -443,14 +449,18 @@ void fog(){ //function or global declaration rule
 		if(lookahead == COMMA){
 			match(COMMA);
 			globalDecList();
+			match(SEMICOLON);
 		}
 		cerr << "[FOG] Global declarator or global declarator list check good." << endl;
 	}
 	else if(lookahead == COMMA){
 		match(COMMA);
 		globalDecList();
+		match(SEMICOLON);
 	}
 	else cerr << "[FOG] Did nothing this time round." << endl;
+
+	
 }
 
 //Main

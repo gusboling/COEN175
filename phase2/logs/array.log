@@ -2,6 +2,18 @@
 [FOG] Index check good.
 [FOG] Global declarator or global declarator list check good.
 [MAIN] fog() exited without errors.
-[MAIN] lookahead: 59
-line 1: Bad specifier. Exiting
-lookahead => 59
+[MAIN] lookahead: 277
+[FOG] specifier, pointer, and identifier check good.
+[FOG] parameter check good. 
+[FOG] Entered function definition check...
+[FOG] Declaration checks good.
+[STATEMENTS] Entered statements rule.
+[STATEMENTS] Entered statements rule.
+[STATEMENTS] Entered statements rule.
+[STATEMENTS] Entered statements rule.
+[STATEMENTS] Entered statements rule.
+[STATEMENTS] Entered statements rule.
+[STATEMENTS] Entered statements rule.
+[MATCH] token => 93
+[MATCH] lookahead => 259
+line 11: Token and lookahead don't match. Exiting.

@@ -4,15 +4,11 @@ g++ -o scc lexer.o syntax.cpp
 ******** fib results (result < | > correct) ********
 ******** end fib results ********
 ******** array results (result < | > correct) ********
-0a1,18
-> addr
-> addr
-> addr
-> sub
-> index
+6c6
+< deref
+---
 > mul
-> index
-> div
+8a9,18
 > index
 > gtn
 > index
