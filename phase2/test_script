@@ -11,8 +11,16 @@ TESTS="fib array hello malloc params sum"
 make clean
 make
 
-# Run SCC, and store output in the appropriate folders
-./$PROG < $TST_DIR/fib.c > $RES_DIR/fib.res 2>$LOG_DIR/fib.log
+for itest in $TESTS; do
+	# Run SCC, and store output in the appropriate folders
+	./$PROG < $TST_DIR/${itest}.c > $RES_DIR/${itest}.res 2>$LOG_DIR/${itest}.log
 
-# Compare SCC results to correct answer
-diff $RES_DIR/fib.res $TST_DIR/fib.out
+	#print test-specific banner
+	printf "******** ${itest} results (result < | > correct) ********\n"
+	
+	# Compare SCC results to correct answer
+	diff $RES_DIR/${itest}.res $TST_DIR/${itest}.out
+	
+	#print foot banner
+	printf "******** end ${itest} results ********\n"
+done

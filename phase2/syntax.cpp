@@ -83,8 +83,8 @@ void xprsOR(){
 	xprsAND(); //Recurse
 	while(lookahead == OR){
 		match(OR); //Advance the lexer
-		cout << "or" << endl;
 		xprsAND();
+		cout << "or" << endl;
 	}
 }
 
@@ -144,13 +144,13 @@ void xprsPLMN(){
 	while( (lookahead==ADD) || (lookahead==SUB) ){
 		if(lookahead == ADD){
 			match(ADD);
-			cout << "add" << endl;
 			xprsMDR();
+			cout << "add" << endl;
 		}
 		else{
 			match(SUB);
-			cout << "sub" << endl;
 			xprsMDR();
+			cout << "sub" << endl;
 		}
 	}
 }
@@ -179,24 +179,24 @@ void xprsMDR(){
 void xprsOPS(){
 	xprsINDEX();
 	while( (lookahead==ADDR) || (lookahead=='*') || (lookahead==NOT) || (lookahead=='-') || (lookahead==SIZEOF) ){ //TODO: straighten out what these equivalences should be WRT tokens.h
-		if(lookahead == '&'){
-			match('&');
-			cout << "addr" << endl;
+		if(lookahead == ADDR){
+			match(ADDR);
 			xprsINDEX();
+			cout << "addr" << endl;
 		}
-		else if(lookahead == '*'){
+		else if(lookahead == '*'){ 
 			match('*');
 			cout << "deref" << endl;
 			xprsINDEX();
 		}
-		else if(lookahead == '!'){
-			match('!');
+		else if(lookahead == NOT){
+			match(NOT);
 			cout << "not" << endl;
 			xprsINDEX();
 		}
 		else if(lookahead == '-'){
 			match('-');
-			cout << "neg" << endl;
+			cout << "sub" << endl;
 			xprsINDEX();
 		}
 		else{
@@ -205,6 +205,7 @@ void xprsOPS(){
 		}
 	}
 }
+
 
 void xprsINDEX(){
 	if(lookahead==LBRACKET){
@@ -283,12 +284,14 @@ void declaration(){
 }
 
 void declarations(){
-	declaration();
-	while( (lookahead == INT) || (lookahead == CHAR) || (lookahead == VOID) ){
-		//TODO: Unsure if this avoid left-recursion or not.
-		match(lookahead);
+	if((lookahead == INT) || (lookahead==CHAR) || (lookahead==VOID)){
 		declaration();
-		//declarations();
+		while( (lookahead == INT) || (lookahead == CHAR) || (lookahead == VOID) ){
+			//TODO: Unsure if this avoid left-recursion or not.
+			match(lookahead);
+			declaration();
+			//declarations();
+		}
 	}
 }
 
@@ -332,6 +335,7 @@ void specifier(){
 	else if(lookahead == VOID) match(VOID);
 	else{
 		report("Bad specifier. Exiting");
+		cerr << "lookahead => " << lookahead << endl;
 		exit(BAD_SPECI);
 	}
 }
@@ -360,9 +364,9 @@ void statement(){
 		match(FOR);
 		match(LPAREN);
 		assignment();
-		match(SEMILCOLON);
+		match(SEMICOLON);
 		xprsOR();
-		match(SEMILCOLON);
+		match(SEMICOLON);
 		assignment();
 		match(RPAREN);
 		statement();
@@ -413,19 +417,22 @@ void globalDecList(){
 	}
 }
 
-void globalDeclaration(){
+void fog(){ //function or global declaration rule
 	specifier();
 	pointers();
 	match(ID);
+	cerr << "[FOG] specifier, pointer, and ID check good." << endl;
 	if(lookahead == LPAREN){
 		match(LPAREN);
 		parameters();
 		match(RPAREN);
+		cerr << "[FOG] parameter check good. " << endl;
 		if(lookahead == LBRACE){ //Function definition rules
 			match(LBRACE);
 			declarations();
 			statements();
 			match(RBRACE);
+			cerr << "[FOG] Function-definition check good." << endl;
 		}
 		else globalDecList();
 	}
@@ -448,12 +455,11 @@ void globalDeclaration(){
 //Main
 int main(){
 	lookahead = lexan(lexbuf);
-	cerr << "Found token: " << lookahead << endl;
 
 	while(lookahead != DONE){
-		lookahead = lexan(lexbuf);
-		cerr << "Found token: " << lookahead << endl;
-		globalDeclaration();
+		fog();
+		cerr << "[MAIN] fog() exited without errors." << endl;
+		cerr << "[MAIN] lookahead: " << lookahead << endl;
 	}
 
 	return 0;

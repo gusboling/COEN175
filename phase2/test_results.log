@@ -1,0 +1,48 @@
+rm -f -f scc core *.o
+g++ -g -Wall   -c -o lexer.o lexer.cpp
+g++ -o scc lexer.o syntax.cpp
+******** fib results (result < | > correct) ********
+******** end fib results ********
+******** array results (result < | > correct) ********
+0a1,18
+> addr
+> addr
+> addr
+> sub
+> index
+> mul
+> index
+> div
+> index
+> gtn
+> index
+> rem
+> index
+> mul
+> geq
+> deref
+> ltn
+> and
+******** end array results ********
+******** hello results (result < | > correct) ********
+******** end hello results ********
+******** malloc results (result < | > correct) ********
+0a1,3
+> deref
+> sizeof
+> mul
+******** end malloc results ********
+******** params results (result < | > correct) ********
+0a1,5
+> neg
+> not
+> mul
+> add
+> neq
+******** end params results ********
+******** sum results (result < | > correct) ********
+4d3
+< deref
+5a5
+> mul
+******** end sum results ********

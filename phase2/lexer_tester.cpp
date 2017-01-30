@@ -4,12 +4,15 @@
  * Description:	This file contains the public and private function and
  *		variable definitions for the lexical analyzer for Simple C.
  */
-
+# include <cstdlib>
 # include <cstdio>
 # include <string>
 # include <iostream>
 # include "lexer.h"
 # include "tokens.h"
+
+#define EXIT_SUCCESS 0
+#define EXIT_FAILURE 1
 
 using namespace std;
 

@@ -1,0 +1,5 @@
+[FOG] specifier, pointer, and ID check good.
+[MAIN] fog() exited without errors.
+[MAIN] lookahead: 93
+line 1: Bad specifier. Exiting
+lookahead => 93
