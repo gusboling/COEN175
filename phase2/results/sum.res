@@ -1,6 +1,6 @@
 leq
 add
 add
-deref
 add
+deref
 div

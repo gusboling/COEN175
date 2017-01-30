@@ -161,17 +161,14 @@ void xprsMDR(){
 		if(lookahead == MUL){
 			match(MUL);
 			cout << "mul" << endl;
-			xprsOPS();
 		}
 		else if(lookahead == DIV){
 			match(DIV);
 			cout << "div" << endl;
-			xprsOPS();
 		}
 		else{
 			match(REM);
 			cout << "rem" << endl;
-			xprsOPS();
 		}
 	}
 }
@@ -181,26 +178,28 @@ void xprsOPS(){
 	while( (lookahead==ADDR) || (lookahead=='*') || (lookahead==NOT) || (lookahead=='-') || (lookahead==SIZEOF) ){ //TODO: straighten out what these equivalences should be WRT tokens.h
 		if(lookahead == ADDR){
 			match(ADDR);
-			xprsINDEX();
+			xprsOPS();
 			cout << "addr" << endl;
 		}
 		else if(lookahead == '*'){ 
 			match('*');
+			xprsOPS();
 			cout << "deref" << endl;
-			xprsINDEX();
 		}
 		else if(lookahead == NOT){
 			match(NOT);
+			xprsOPS();
 			cout << "not" << endl;
-			xprsINDEX();
+			
 		}
 		else if(lookahead == '-'){
 			match('-');
+			xprsOPS();
 			cout << "sub" << endl;
-			xprsINDEX();
 		}
 		else{
 			match(SIZEOF);
+			xprsOPS();
 			cout << "sizeof" << endl;
 		}
 	}

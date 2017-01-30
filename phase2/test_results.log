@@ -41,8 +41,8 @@ g++ -o scc lexer.o syntax.cpp
 > neq
 ******** end params results ********
 ******** sum results (result < | > correct) ********
-4d3
+5c5
 < deref
-5a5
+---
 > mul
 ******** end sum results ********
