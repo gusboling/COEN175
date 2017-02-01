@@ -103,10 +103,14 @@ static void specifier()
  *		  * pointers
  */
 
-static void pointers()
+static unsigned pointers()
 {
-    while (lookahead == '*')
+    unsigned ind = 0;
+    while (lookahead == '*'){
+	ind++;
 	match('*');
+    }
+    return ind;
 }
 
 
@@ -677,8 +681,9 @@ static void parameters()
  */
 
 static void globalDeclarator(int spec){
-    size_t ind = pointers();
-    string name = expect(ID);//TODO: Implement 'expect()' function
+
+    unsigned ind = pointers();
+    string name = expect(ID);
     match(ID);
 
     if (lookahead == '[') {
@@ -715,7 +720,7 @@ static void remainingDeclarators()
 {
     while (lookahead == ',') {
 	match(',');
-	globalDeclarator();
+	globalDeclarator();//TODO: figure out what the specifier argument to this should be.
     }
 
     match(';');
