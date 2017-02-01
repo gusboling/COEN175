@@ -91,9 +91,12 @@ static int specifier()
     if (isSpecifier(lookahead)){
         int spec = lookahead;
         match(lookahead);
-        return lookahead;
+        return spec;
     }
-    else error();
+    else{
+	return 0; //So the compiler will quit whining... 
+	error();
+    }
 }
 
 
@@ -129,10 +132,10 @@ static unsigned pointers()
  *		  pointers identifier [ num ]
  */
 
-static void declarator(int s){ //TODO: Add some form of output to this function
+static void declarator(int spec){ //TODO: Add some form of output to this function
     unsigned ind = pointers();
     string name = expect(ID);
-
+    cout << "declare variable " << name << " with ind " << ind << " and spec " << spec << endl;
     if (lookahead == '[') {
     	match('[');
     	match(NUM);
@@ -745,6 +748,7 @@ static void topLevelDeclaration()
     string name = expect(ID);
 
     if (lookahead == '[') {
+	cout << "declare variable " << name << " with ind " << ind << " and spec " << spec << endl;
     	match('[');
     	match(NUM);
     	match(']');
