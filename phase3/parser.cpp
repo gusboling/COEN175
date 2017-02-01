@@ -86,9 +86,13 @@ static bool isSpecifier(int token)
  *		  void
  */
 
-static void specifier()
+static int specifier()
 {
-    if (isSpecifier(lookahead)) match(lookahead);
+    if (isSpecifier(lookahead)){
+        int spec = lookahead;
+        match(lookahead);
+        return lookahead;
+    }
     else error();
 }
 
@@ -125,15 +129,14 @@ static unsigned pointers()
  *		  pointers identifier [ num ]
  */
 
-static void declarator()
-{
-    pointers();
-    match(ID);
+static void declarator(int s){ //TODO: Add some form of output to this function
+    unsigned ind = pointers();
+    string name = expect(ID);
 
     if (lookahead == '[') {
-	match('[');
-	match(NUM);
-	match(']');
+    	match('[');
+    	match(NUM);
+    	match(']');
     }
 }
 
@@ -153,16 +156,13 @@ static void declarator()
  *		  declarator , declarator-list
  */
 
-static void declaration()
-{
-    specifier();
-    declarator();
+static void declaration(int spec){
+    declarator(spec);
 
-    while (lookahead == ',') {
-	match(',');
-	declarator();
+    while (lookahead == ','){
+    	match(',');
+    	declarator(spec);
     }
-
     match(';');
 }
 
@@ -177,10 +177,8 @@ static void declaration()
  *		  declaration declarations
  */
 
-static void declarations()
-{
-    while (isSpecifier(lookahead))
-	declaration();
+static void declarations(int s){
+    while (isSpecifier(lookahead)) declaration(s);
 }
 
 
@@ -564,49 +562,50 @@ static void assignment()
 static void statement()
 {
     if (lookahead == '{') {
-	match('{');
-	declarations();
-	statements();
-	match('}');
+    	match('{');
+        int spec = specifier();
+    	declarations(spec);
+    	statements();
+    	match('}');
+    }
+    else if (lookahead == RETURN) {
+    	match(RETURN);
+    	expression();
+    	match(';');
+    }
+    else if (lookahead == WHILE) {
+    	match(WHILE);
+    	match('(');
+    	expression();
+    	match(')');
+    	statement();
+    }
+    else if (lookahead == FOR) {
+    	match(FOR);
+    	match('(');
+    	assignment();
+    	match(';');
+    	expression();
+    	match(';');
+    	assignment();
+    	match(')');
+    	statement();
+    }
+    else if (lookahead == IF) {
+    	match(IF);
+    	match('(');
+    	expression();
+    	match(')');
+    	statement();
 
-    } else if (lookahead == RETURN) {
-	match(RETURN);
-	expression();
-	match(';');
-
-    } else if (lookahead == WHILE) {
-	match(WHILE);
-	match('(');
-	expression();
-	match(')');
-	statement();
-
-    } else if (lookahead == FOR) {
-	match(FOR);
-	match('(');
-	assignment();
-	match(';');
-	expression();
-	match(';');
-	assignment();
-	match(')');
-	statement();
-
-    } else if (lookahead == IF) {
-	match(IF);
-	match('(');
-	expression();
-	match(')');
-	statement();
-
-	if (lookahead == ELSE) {
-	    match(ELSE);
-	    statement();
-	}
-
-    } else {
-	assignment();
-	match(';');
+    	if (lookahead == ELSE) {
+    	    match(ELSE);
+    	    statement();
+    	}
+    }
+    else {
+    	assignment();
+    	match(';');
     }
 }
 
@@ -716,19 +715,19 @@ static void globalDeclarator(int spec){
  * 		  , global-declarator remaining-declarators
  */
 
-static void remainingDeclarators()
+static void remainingDeclarators(int spec)
 {
-    while (lookahead == ',') {
-	match(',');
-	globalDeclarator();//TODO: figure out what the specifier argument to this should be.
-    }
 
+    while (lookahead == ',') {
+	       match(',');
+           globalDeclarator(spec);
+    }
     match(';');
 }
 
 
 /*
- * Function:	topLevelDeclaration
+ * Function:
  *
  * Description:	Parse a global declaration or function definition.
  *
@@ -741,33 +740,31 @@ static void remainingDeclarators()
 
 static void topLevelDeclaration()
 {
-    specifier();
-    pointers();
-    match(ID);
+    int spec = specifier();
+    unsigned ind = pointers();
+    string name = expect(ID);
 
     if (lookahead == '[') {
-	match('[');
-	match(NUM);
-	match(']');
-	remainingDeclarators();
+    	match('[');
+    	match(NUM);
+    	match(']');
+    	remainingDeclarators(spec);
+    }
+    else if (lookahead == '(') {
+    	match('(');
+    	parameters();
+    	match(')');
 
-    } else if (lookahead == '(') {
-	match('(');
+    	if (lookahead == '{') {
+    	    match('{');
+    	    declarations(spec);
+    	    statements();
+    	    match('}');
+    	}
 
-	parameters();
-	match(')');
-
-	if (lookahead == '{') {
-	    match('{');
-	    declarations();
-	    statements();
-	    match('}');
-
-	} else
-	    remainingDeclarators();
-
-    } else
-	remainingDeclarators();
+        else remainingDeclarators(spec);
+    }
+    else remainingDeclarators(spec);
 }
 
 
