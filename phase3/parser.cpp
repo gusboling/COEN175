@@ -83,9 +83,12 @@ static int specifier(){
     if (isSpecifier(lookahead)){
         int spec = lookahead;
         match(lookahead);
-        return lookahead;
+        return spec;
     }
-    else error();
+    else{
+	return 0; //So the compiler will quit whining...
+	error();
+    }
 }
 
 
