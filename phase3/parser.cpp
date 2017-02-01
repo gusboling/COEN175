@@ -10,6 +10,7 @@
 #include <iostream>
 #include <string>
 #include "tokens.h"
+#include "checker.h"
 #include "lexer.h"
 
 using namespace std;
@@ -26,9 +27,7 @@ static void statement();
  *
  * Description:	Report a syntax error to standard error.
  */
-
-static void error()
-{
+static void error(){
     if (lookahead == DONE)
 	report("syntax error at end of file");
     else
@@ -45,16 +44,13 @@ static void error()
  *		failure indicates a syntax error and will terminate the
  *		program since our parser does not do error recovery.
  */
-
-static void match(int token)
-{
+static void match(int token){
     if (lookahead != token) error();
     lookahead = lexan(lexbuf);
 }
 
 //Function: expect
 //Description: get the current lexbuf and return it if match succeeds.
-
 static string expect(int token){
     string buffer = lexbuf;
     match(token);
@@ -67,9 +63,7 @@ static string expect(int token){
  *
  * Description:	Return whether the given token is a type specifier.
  */
-
-static bool isSpecifier(int token)
-{
+static bool isSpecifier(int token){
     return token == INT || token == CHAR || token == VOID;
 }
 
@@ -85,9 +79,7 @@ static bool isSpecifier(int token)
  *		  char
  *		  void
  */
-
-static int specifier()
-{
+static int specifier(){
     if (isSpecifier(lookahead)){
         int spec = lookahead;
         match(lookahead);
@@ -107,8 +99,7 @@ static int specifier()
  *		  * pointers
  */
 
-static unsigned pointers()
-{
+static unsigned pointers(){
     unsigned ind = 0;
     while (lookahead == '*'){
 	ind++;
@@ -129,10 +120,10 @@ static unsigned pointers()
  *		  pointers identifier [ num ]
  */
 
-static void declarator(int s){ //TODO: Add some form of output to this function
+static void declarator(int spec){ //TODO: Add some form of output to this function
     unsigned ind = pointers();
     string name = expect(ID);
-
+    printVarDec(name, ind, spec);
     if (lookahead == '[') {
     	match('[');
     	match(NUM);
@@ -200,39 +191,36 @@ static void declarations(int s){
  *		  expression , expression-list
  */
 
-static void primaryExpression()
-{
+static void primaryExpression(){
     if (lookahead == '(') {
-	match('(');
-	expression();
-	match(')');
+    	match('(');
+    	expression();
+    	match(')');
+    }
+    else if (lookahead == STRING) {
+	       match(STRING);
+    }
+    else if (lookahead == NUM) {
+	       match(NUM);
+    }
+    else if (lookahead == ID) {
+    	match(ID);
 
-    } else if (lookahead == STRING) {
-	match(STRING);
+    	if (lookahead == '(') {
+    	    match('(');
 
-    } else if (lookahead == NUM) {
-	match(NUM);
+    	    if (lookahead != ')') {
+        		expression();
+        		while (lookahead == ',') {
+        		    match(',');
+        		    expression();
+        		}
+    	    }
 
-    } else if (lookahead == ID) {
-	match(ID);
-
-	if (lookahead == '(') {
-	    match('(');
-
-	    if (lookahead != ')') {
-		expression();
-
-		while (lookahead == ',') {
-		    match(',');
-		    expression();
-		}
-	    }
-
-	    match(')');
-	}
-
-    } else
-	error();
+    	    match(')');
+    	}
+    }
+    else error();
 }
 
 
@@ -246,8 +234,7 @@ static void primaryExpression()
  *		  postfix-expression [ expression ]
  */
 
-static void postfixExpression()
-{
+static void postfixExpression(){
     primaryExpression();
 
     while (lookahead == '[') {
@@ -273,8 +260,7 @@ static void postfixExpression()
  *		  sizeof prefix-expression
  */
 
-static void prefixExpression()
-{
+static void prefixExpression(){
     if (lookahead == '!') {
 	match('!');
 	prefixExpression();
@@ -319,8 +305,7 @@ static void prefixExpression()
  *		  multiplicative-expression % prefix-expression
  */
 
-static void multiplicativeExpression()
-{
+static void multiplicativeExpression(){
     prefixExpression();
 
     while (1) {
@@ -356,8 +341,7 @@ static void multiplicativeExpression()
  *		  additive-expression - multiplicative-expression
  */
 
-static void additiveExpression()
-{
+static void additiveExpression(){
     multiplicativeExpression();
 
     while (1) {
@@ -392,8 +376,7 @@ static void additiveExpression()
  *		  relational-expression >= additive-expression
  */
 
-static void relationalExpression()
-{
+static void relationalExpression(){
     additiveExpression();
 
     while (1) {
@@ -434,8 +417,7 @@ static void relationalExpression()
  *		  equality-expression != relational-expression
  */
 
-static void equalityExpression()
-{
+static void equalityExpression(){
     relationalExpression();
 
     while (1) {
@@ -466,8 +448,7 @@ static void equalityExpression()
  *		  logical-and-expression && equality-expression
  */
 
-static void logicalAndExpression()
-{
+static void logicalAndExpression(){
     equalityExpression();
 
     while (lookahead == AND) {
@@ -490,8 +471,7 @@ static void logicalAndExpression()
  *		  expression || logical-and-expression
  */
 
-static void expression()
-{
+static void expression(){
     logicalAndExpression();
 
     while (lookahead == OR) {
@@ -515,8 +495,7 @@ static void expression()
  *		  statement statements
  */
 
-static void statements()
-{
+static void statements(){
     while (lookahead != '}')
 	statement();
 }
@@ -532,8 +511,7 @@ static void statements()
  *		  expression
  */
 
-static void assignment()
-{
+static void assignment(){
     expression();
 
     if (lookahead == '=') {
@@ -559,8 +537,7 @@ static void assignment()
  *		  assignment ;
  */
 
-static void statement()
-{
+static void statement(){
     if (lookahead == '{') {
     	match('{');
         int spec = specifier();
@@ -620,8 +597,7 @@ static void statement()
  *		  specifier pointers identifier
  */
 
-static void parameter()
-{
+static void parameter(){
     specifier();
     pointers();
     match(ID);
@@ -645,8 +621,7 @@ static void parameter()
  *		  , parameter remaining-parameters
  */
 
-static void parameters()
-{
+static void parameters(){
     if (lookahead == VOID) {
 	match(VOID);
 
@@ -686,21 +661,21 @@ static void globalDeclarator(int spec){
     match(ID);
 
     if (lookahead == '[') {
-        cout << "declare array " << name << " with ind " << ind << " and spec " << spec << endl;
+        printArrayDec(name, ind, spec);
         match('[');
         match(NUM);
         match(']');
     }
     else if (lookahead == '(') {
-        cout << "declare function " << name << " with ind " << ind << " and spec " << spec << endl;
-        cout << "open function" << endl;
+        printFunDec(name, ind, spec);
+        printOpen();
         match('(');
         parameters();
         match(')');
-        cout << "close function" << endl;
+        printClose();
     }
     else{
-        cout << "define scalar " << name << " with ind " << ind << " and spec " << spec << endl;
+        printScalarDec(name, ind, spec);
     }
 }
 
@@ -715,8 +690,7 @@ static void globalDeclarator(int spec){
  * 		  , global-declarator remaining-declarators
  */
 
-static void remainingDeclarators(int spec)
-{
+static void remainingDeclarators(int spec){
 
     while (lookahead == ',') {
 	       match(',');
@@ -738,13 +712,13 @@ static void remainingDeclarators(int spec)
  * 		  specifier pointers identifier ( parameters ) { ... }
  */
 
-static void topLevelDeclaration()
-{
+static void topLevelDeclaration(){
     int spec = specifier();
     unsigned ind = pointers();
     string name = expect(ID);
 
     if (lookahead == '[') {
+        printArrayDec(name, ind, spec);
     	match('[');
     	match(NUM);
     	match(']');
@@ -754,14 +728,15 @@ static void topLevelDeclaration()
     	match('(');
     	parameters();
     	match(')');
-
+        printFunDec(name, ind, spec);
     	if (lookahead == '{') {
+            printOpen();
     	    match('{');
     	    declarations(spec);
     	    statements();
     	    match('}');
+            printClose();
     	}
-
         else remainingDeclarators(spec);
     }
     else remainingDeclarators(spec);
@@ -774,8 +749,7 @@ static void topLevelDeclaration()
  * Description:	Analyze the standard input stream.
  */
 
-int main()
-{
+int main(){
     lookahead = lexan(lexbuf);
 
     while (lookahead != DONE)
