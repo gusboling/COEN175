@@ -6,10 +6,11 @@
  *		Simple C.
  */
 
-# include <cstdlib>
-# include <iostream>
-# include "tokens.h"
-# include "lexer.h"
+#include <cstdlib>
+#include <iostream>
+#include <string>
+#include "tokens.h"
+#include "lexer.h"
 
 using namespace std;
 
@@ -45,12 +46,19 @@ static void error()
  *		program since our parser does not do error recovery.
  */
 
-static void match(int t)
+static void match(int token)
 {
-    if (lookahead != t)
-	error();
-
+    if (lookahead != token) error();
     lookahead = lexan(lexbuf);
+}
+
+//Function: expect
+//Description: get the current lexbuf and return it if match succeeds.
+
+static string expect(int token){
+    string buffer = lexbuf;
+    match(token);
+    return buffer;
 }
 
 
@@ -80,10 +88,8 @@ static bool isSpecifier(int token)
 
 static void specifier()
 {
-    if (isSpecifier(lookahead))
-	match(lookahead);
-    else
-	error();
+    if (isSpecifier(lookahead)) match(lookahead);
+    else error();
 }
 
 
@@ -670,20 +676,27 @@ static void parameters()
  *		  pointers identifier ( parameters )
  */
 
-static void globalDeclarator()
-{
-    pointers();
+static void globalDeclarator(int spec){
+    size_t ind = pointers();
+    string name = expect(ID);//TODO: Implement 'expect()' function
     match(ID);
 
     if (lookahead == '[') {
-	match('[');
-	match(NUM);
-	match(']');
-
-    } else if (lookahead == '(') {
-	match('(');
-	parameters();
-	match(')');
+        cout << "declare array " << name << " with ind " << ind << " and spec " << spec << endl;
+        match('[');
+        match(NUM);
+        match(']');
+    }
+    else if (lookahead == '(') {
+        cout << "declare function " << name << " with ind " << ind << " and spec " << spec << endl;
+        cout << "open function" << endl;
+        match('(');
+        parameters();
+        match(')');
+        cout << "close function" << endl;
+    }
+    else{
+        cout << "define scalar " << name << " with ind " << ind << " and spec " << spec << endl;
     }
 }
 
@@ -717,7 +730,7 @@ static void remainingDeclarators()
  * 		global-or-function:
  * 		  specifier pointers identifier remaining-decls
  * 		  specifier pointers identifier [ num ] remaining-decls
- * 		  specifier pointers identifier ( parameters ) remaining-decls 
+ * 		  specifier pointers identifier ( parameters ) remaining-decls
  * 		  specifier pointers identifier ( parameters ) { ... }
  */
 
