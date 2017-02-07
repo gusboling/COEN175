@@ -1,5 +1,9 @@
-#ifndef OUTPUT_H
-#define OUTPUT_H
+#include <string>
+
+using namespace std;
+
+#ifndef CHECKER_H
+#define CHECKER_H
 
 //Output functions for open and close scopes
 static void printOpen();
@@ -17,4 +21,4 @@ static void printDef(string name, unsigned ind, int spec);
 //Output function for symbol uses
 static void printSymUse(); //TODO: figure out if this needs to take arguments...
 
-#endif
+#endif /* CHECKER_H */

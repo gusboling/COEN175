@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "checker.h"
 
 static void printOpen(){
