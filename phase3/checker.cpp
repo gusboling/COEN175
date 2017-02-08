@@ -2,6 +2,8 @@
 #include <string>
 #include "checker.h"
 
+using namespace std;
+
 void printOpen(){
     cout << "Open scope" << endl;
 }

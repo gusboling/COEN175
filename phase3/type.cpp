@@ -31,7 +31,9 @@ bool Type::operator !=(const Type &that) const{
 	return !(*this == that);
 }
 
+/*
 std::ostream &operator <<(std::ostream &ostr, const Type &type){
 	ostr << "(" << type.get_kind() << "," << type.get_specifier() << "," << type.get_indirection() << ")";
 	return ostr;
 }
+*/ //Commented out due to wierd errors in the header file. TODO: Fix and uncomment.

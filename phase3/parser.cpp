@@ -9,6 +9,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
+
 #include "tokens.h"
 #include "checker.h"
 #include "lexer.h"
@@ -57,7 +58,6 @@ static string expect(int token){
     return buffer;
 }
 
-
 /*
  * Function:	isSpecifier
  *
@@ -66,7 +66,6 @@ static string expect(int token){
 static bool isSpecifier(int token){
     return token == INT || token == CHAR || token == VOID;
 }
-
 
 /*
  * Function:	specifier

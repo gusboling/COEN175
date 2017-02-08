@@ -24,7 +24,7 @@ public:
 	//Operator Overloads
 	bool operator ==(const Type &that) const;
 	bool operator !=(const Type &that) const;
-	std::ostream &operator <<(std::ostream &ostr, const Type &type);
+	//std::ostream &operator <<(std::ostream &ostr, const Type &type); //Commented out due to wierd errors
 	
 };
 
