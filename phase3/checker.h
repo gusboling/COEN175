@@ -1,5 +1,7 @@
 #include <string>
 
+#include "type.h"
+
 using namespace std;
 
 #ifndef CHECKER_H
@@ -21,4 +23,6 @@ void printDef(string name, unsigned ind, int spec);
 //Output function for symbol uses
 void printSymUse(); //TODO: figure out if this needs to take arguments...
 
+void declareArray(string name, int spec, unsigned ind, unsigned length);
+void declareVar(string name, Type t);
 #endif /* CHECKER_H */

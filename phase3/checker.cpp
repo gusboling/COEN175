@@ -1,6 +1,9 @@
 #include <iostream>
 #include <string>
+
 #include "checker.h"
+#include "type.h"
+#include "symbol.h"
 
 using namespace std;
 
@@ -30,4 +33,11 @@ void printFunDec(string name, unsigned ind, int spec){
 
 void printSymUse(){
     cout << "Used symbol" << endl; //TODO: get this to say what symbol was used.
+}
+
+void declareArray(string name, int spec, unsigned ind, unsigned length){
+    Type t(ARRAY, spec, ind);
+    t.length = length;
+    Symbol sym(name, t);
+    //TODO: Is there supposed to be more here?
 }

@@ -125,10 +125,9 @@ static unsigned pointers(){
 static void declarator(int spec){ //TODO: Add some form of output to this function
     unsigned ind = pointers();
     string name = expect(ID);
-    printVarDec(name, ind, spec);
     if (lookahead == '[') {
     	match('[');
-    	match(NUM);
+    	unsigned length = atoi(expect(NUM));
     	match(']');
     }
 }
