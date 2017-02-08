@@ -2,30 +2,30 @@
 #include <string>
 #include "checker.h"
 
-static void printOpen(){
+void printOpen(){
     cout << "Open scope" << endl;
 }
 
-static void printClose(){
+void printClose(){
     cout << "Close scope" << endl;
 }
 
-static void printArrayDec(string name, unsigned ind, int spec){
+void printArrayDec(string name, unsigned ind, int spec){
     cout << "Declare array " << name << " with ind " << ind << " and spec " << spec << endl;
 }
 
-static void printScalarDec(string name, unsigned ind, int spec){
+void printScalarDec(string name, unsigned ind, int spec){
     cout << "Declare scalar " << name << " with ind " << ind << " and spec " << spec << endl;
 }
 
-static void printVarDec(string name, unsigned ind, int spec){
+void printVarDec(string name, unsigned ind, int spec){
     cout << "Declare variable " << name << " with ind " << ind << " and spec " << spec << endl;
 }
 
-static void printFunDec(string name, unsigned ind, int spec){
+void printFunDec(string name, unsigned ind, int spec){
     cout << "Declare function " << name << " with ind " << ind << "and spec " << spec << endl;
 }
 
-static void printSymUse(){
+void printSymUse(){
     cout << "Used symbol" << endl; //TODO: get this to say what symbol was used.
 }
