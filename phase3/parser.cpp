@@ -7,6 +7,7 @@
  */
 
 #include <cstdlib>
+#include <cstdio>
 #include <iostream>
 #include <string>
 
@@ -56,6 +57,16 @@ static string expect(int token){
     string buffer = lexbuf;
     match(token);
     return buffer;
+}
+
+//Function: expectNumber
+//Description: get the current lexbuf, and return its integer equivalent if match(NUM) suceeds.
+static unsigned expectNumber(){
+    unsigned number_result;
+    string buffer = lexbuf;
+    match(NUM);
+    sscanf(buffer.c_str(), "%d", &number_result);
+    return number_result;
 }
 
 /*
@@ -127,9 +138,13 @@ static void declarator(int spec){ //TODO: Add some form of output to this functi
     string name = expect(ID);
     if (lookahead == '[') {
     	match('[');
-    	unsigned length = atoi(expect(NUM));
+    	unsigned length = expectNumber(); 
     	match(']');
+	Type t(ARRAY, spec, ind);
+	t.length = length;
+	declareVar(name, t);
     }
+    else declareVar(name, Type(SCALAR, spec, ind));
 }
 
 

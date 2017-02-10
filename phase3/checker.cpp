@@ -1,9 +1,13 @@
+//Libraries
 #include <iostream>
 #include <string>
 
-#include "checker.h"
+//Program Headers
 #include "type.h"
 #include "symbol.h"
+
+//File Header
+#include "checker.h"
 
 using namespace std;
 
@@ -41,3 +45,10 @@ void declareArray(string name, int spec, unsigned ind, unsigned length){
     Symbol sym(name, t);
     //TODO: Is there supposed to be more here?
 }
+
+void declareVar(string name, Type t){
+    Symbol sym(name, t);
+    //TODO: Likely supposed to be more here...
+}
+
+

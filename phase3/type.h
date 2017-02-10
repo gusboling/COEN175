@@ -1,3 +1,4 @@
+#include <vector>
 #include <ostream>
 
 #ifndef TYPE_H
@@ -7,12 +8,17 @@ enum kind{
 	SCALAR, ARRAY, FUNCTION
 };
 
+typedef std::vector<class Type> Parameters;
+
 class Type{
 private:
 	kind _kind;
 	int _specifier;
 	unsigned _indirection;
 public:
+	unsigned length;
+	Parameters *paramList;
+
 	//Constructor
 	Type(kind kind, int specifier, unsigned indirection=0);
 

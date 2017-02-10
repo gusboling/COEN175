@@ -1,4 +1,13 @@
+//Library
 #include <string>
+
+//Program Headers
+#include "type.h"
+
+//File Header
+#include "symbol.h"
+
+using namespace std;
 
 Symbol::Symbol(string name, Type t, bool def=false){
     _name = name;

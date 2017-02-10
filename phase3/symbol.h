@@ -2,6 +2,8 @@
 
 #include "type.h"
 
+using namespace std;
+
 class Symbol{
 private:
     string _name;

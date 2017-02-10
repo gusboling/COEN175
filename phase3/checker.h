@@ -1,5 +1,8 @@
+//Libraries
 #include <string>
 
+//Program Headers
+#include "symbol.h"
 #include "type.h"
 
 using namespace std;
