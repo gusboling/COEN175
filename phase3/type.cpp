@@ -2,6 +2,9 @@
 #include <cstdlib>
 #include <ostream>
 
+Type::Type(){
+}
+
 Type::Type(kind new_kind, int specifier, unsigned indirection){
 	_kind = new_kind;
 	_specifier = specifier;

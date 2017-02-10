@@ -20,6 +20,7 @@ public:
 	Parameters *paramList;
 
 	//Constructor
+	Type();
 	Type(kind kind, int specifier, unsigned indirection=0);
 
 	//Getters	

@@ -9,14 +9,17 @@
 
 using namespace std;
 
-Symbol::Symbol(string name, Type t, bool def=false){
+Symbol::Symbol(){
+}
+
+Symbol::Symbol(string name, const Type& t, bool def){
     _name = name;
     _t = t;
     _def = def;
 }
 
 string Symbol::name() const{
-    return name;
+    return _name;
 }
 
 bool Symbol::isDef() const{
