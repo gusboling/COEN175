@@ -29,7 +29,16 @@ Symbol* Scope::find(string name){
 }
 
 Symbol* Scope::lookup(string name){
-	return NULL;
+	//Check current scope first
+	Symbol* localResult = this->find(name);
+	if(localResult != NULL) return localResult;
+
+	//If name isn't in current scope, try parent (RECURSIVE)
+	else if(this->_parent != NULL){
+		return this->_parent->lookup(name);
+	}
+	
+	else return NULL;
 }
 
 void Scope::insert(Symbol* s){
