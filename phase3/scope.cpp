@@ -12,12 +12,17 @@
 using namespace std;
 
 Scope::Scope(){
+	_parent = NULL;
+}
+
+Scope::Scope(Scope* parent){
+	_parent = parent;
 }
 
 Symbol* Scope::find(string name){
-	for(unsigned i=0; i < this->symPointers.size(); i++){
-		if(name == this->symPointers[i]->name()){
-			return this->symPointers[i];
+	for(unsigned i=0; i < _symPointers.size(); i++){
+		if(name == _symPointers[i]->name()){
+			return _symPointers[i];
 		}
 	}
 	return NULL;
@@ -28,5 +33,5 @@ Symbol* Scope::lookup(string name){
 }
 
 void Scope::insert(Symbol* s){
-	this->symPointers.push_back(s);
+	_symPointers.push_back(s);
 }

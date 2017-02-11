@@ -13,10 +13,12 @@ typedef std::vector<Symbol *> SymbolList;
 
 class Scope{
 private:
-	SymbolList symPointers;
+	Scope* _parent;
+	SymbolList _symPointers;
 public:
 	//Constructors
 	Scope();
+	Scope(Scope* parent);
 	
 	//Getters
 
