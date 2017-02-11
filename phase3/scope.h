@@ -9,11 +9,11 @@
 #ifndef SCOPE_H
 #define SCOPE_H
 
-typedef std::vector<class Symbol> SymbolList; 
+typedef std::vector<Symbol *> SymbolList; 
 
 class Scope{
 private:
-	SymbolList scope_syms;
+	SymbolList symPointers;
 public:
 	//Constructors
 	Scope();
@@ -25,5 +25,6 @@ public:
 	//Methods
 	Symbol* find(string name);
 	Symbol* lookup(string name);
+	void insert(Symbol* s);
 };
 #endif
