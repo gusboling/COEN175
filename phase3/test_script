@@ -1,27 +1,37 @@
 #!/bin/bash
 
+GREEN=$(tput setaf 2)
+RED=$(tput setaf 1)
+NORMAL=$(tput sgr0)
+
 PROG=scc
 TST_DIR=examples
-OUT_DIR=results
-ERR_DIR=logs
+OUT_DIR=outs
+ERR_DIR=errors
 
-TESTS="fib array hello malloc params sum" 
+# Example files for phase3
+TESTS="conflicting functions nesting previously void" 
 
-# Compile a fresh copy of the SCC executable
+# Compile a fresh copy of the SCC executable ('clear' for aesthetic preference)
 clear
 make clean
 make
 
+if [ $? -ne 0 ]; then
+	echo "${RED} Error Compiling During Compilation ${NORMAL}"
+	exit 1 
+fi
+
 for itest in $TESTS; do
 	# Run SCC, and store output in the appropriate folders
-	./$PROG < $TST_DIR/${itest}.c > $RES_DIR/${itest}.res 2>$ERR_DIR/${itest}.err
+	./$PROG < $TST_DIR/${itest}.c > $OUT_DIR/${itest}.res 2>$ERR_DIR/${itest}.err
 
 	#print test-specific banner
-	printf "******** ${itest} results (result < | > correct) ********\n"
+	printf "${GREEN}\n******** ${itest} results (result < | > correct) ********\n${NORMAL}"
 	
 	# Compare SCC results to correct answer
-	diff $RES_DIR/${itest}.res $TST_DIR/${itest}.out
+	diff $ERR_DIR/${itest}.err $TST_DIR/${itest}.err
 	
 	#print foot banner
-	printf "******** end ${itest} results ********\n"
+	printf "${GREEN}\n******** end ${itest} results ********\n\n${NORMAL}"
 done
