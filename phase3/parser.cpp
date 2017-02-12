@@ -23,7 +23,6 @@ static string lexbuf;
 static void expression();
 static void statement();
 
-
 /*
  * Function:	error
  *
@@ -47,7 +46,10 @@ static void error(){
  *		program since our parser does not do error recovery.
  */
 static void match(int token){
-    if (lookahead != token) error();
+    if (lookahead != token){
+		cerr << "[MATCH] Lookahead(" << lookahead <<") does not match expected Token(" << token << ")" << endl;
+		error();
+	}
     lookahead = lexan(lexbuf);
 }
 
@@ -96,8 +98,8 @@ static int specifier(){
         return spec;
     }
     else{
-	return 0; //So the compiler will quit whining...
 	error();
+	return 0;
     }
 }
 
@@ -117,6 +119,7 @@ static unsigned pointers(){
     while (lookahead == '*'){
 	ind++;
 	match('*');
+	cout << "[MATCH] Matched '*'" << endl;
     }
     return ind;
 }
@@ -136,6 +139,7 @@ static unsigned pointers(){
 static void declarator(int spec){ //TODO: Add some form of output to this function
     unsigned ind = pointers();
     string name = expect(ID);
+    cout << "Pointer ID => " << name << endl;
     if (lookahead == '[') {
     	match('[');
     	unsigned length = expectNumber(); 

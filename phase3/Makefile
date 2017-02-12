@@ -8,4 +8,4 @@ all:		$(PROG)
 $(PROG):	$(OBJS)
 		$(CXX) -o $(PROG) $(OBJS)
 
-clean:;		$(RM) -f $(PROG) core *.o
+clean:;		$(RM) -f $(PROG) core *.o outs/* errors/*

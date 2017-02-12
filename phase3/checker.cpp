@@ -18,9 +18,10 @@ Scope* CUR_SCOPE = GLO_SCOPE; //Pointer to current scope (initialized to the glo
 
 
 void openScope(){
-    cout << "Open scope" << endl;
+    cout << "Open Scope\tEnclosing(" << CUR_SCOPE << ")\tNew(";
     Scope newScope(CUR_SCOPE); //Initialize new scope instance with current scope as the parent
     CUR_SCOPE = &newScope; //Set current scope to point to newest scope
+	cout << CUR_SCOPE << ")" << endl;
 }
 
 void closeScope(){
@@ -41,7 +42,7 @@ void printVarDec(string name, unsigned ind, int spec){
 }
 
 void printFunDec(string name, unsigned ind, int spec){
-    cout << "Declare function " << name << " with ind " << ind << "and spec " << spec << endl;
+    cout << "Declare function " << name << " with ind " << ind << " and spec " << spec << endl;
 }
 
 void printSymUse(){
@@ -52,12 +53,12 @@ void declareArray(string name, int spec, unsigned ind, unsigned length){
     Type t(ARRAY, spec, ind);
     t.length = length;
     Symbol sym(name, t);
-    //TODO: Is there supposed to be more here?
+	cout << "Declare Array " << name << " with ind " << ind << " and spec " << spec << endl;
 }
 
 void declareVar(string name, Type t){
     Symbol sym(name, t);
-    //TODO: Likely supposed to be more here...
+	cout << "Declare Variable " << name << "with type " << t.get_kind_string() << endl;
 }
 
 

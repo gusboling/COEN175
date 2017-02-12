@@ -1,6 +1,10 @@
-#include "type.h"
+//Libraries
 #include <cstdlib>
 #include <ostream>
+#include <string>
+
+//File Header
+#include "type.h"
 
 Type::Type(){
 }
@@ -10,6 +14,12 @@ Type::Type(kind new_kind, int specifier, unsigned indirection){
 	_specifier = specifier;
 	_indirection = indirection;
 }
+
+string Type::get_kind_string() const{
+	if(_kind == SCALAR) return "SCALAR";
+	else if(_kind == ARRAY) return "ARRAY";
+	else return "FUNCTION";
+} 
 
 kind Type::get_kind() const{ 
 	return _kind;
