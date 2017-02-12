@@ -1,0 +1,3 @@
+line 5: redeclaration of 'z'
+line 7: redeclaration of 'x'
+line 23: redefinition of 'g'

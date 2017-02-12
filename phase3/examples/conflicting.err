@@ -1,0 +1,5 @@
+line 7: conflicting types for 'a'
+line 9: conflicting types for 'x'
+line 12: conflicting types for 'g'
+line 20: conflicting types for 'f'
+line 23: conflicting types for 'h'
