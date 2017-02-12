@@ -41,6 +41,10 @@ Symbol* Scope::lookup(string name){
 	else return NULL;
 }
 
+Scope* Scope::getParent() const{
+	return _parent;
+}
+
 void Scope::insert(Symbol* s){
 	_symPointers.push_back(s);
 }

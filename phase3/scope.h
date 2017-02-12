@@ -21,12 +21,13 @@ public:
 	Scope(Scope* parent);
 	
 	//Getters
+	Scope* getParent() const;	
 
 	//Setters
+	void insert(Symbol* s);
 
 	//Methods
 	Symbol* find(string name);
 	Symbol* lookup(string name);
-	void insert(Symbol* s);
 };
 #endif
