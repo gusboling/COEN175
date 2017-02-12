@@ -684,11 +684,11 @@ static void globalDeclarator(int spec){
     }
     else if (lookahead == '(') {
         printFunDec(name, ind, spec);
-        printOpen();
+        openScope(); 
         match('(');
         parameters();
         match(')');
-        printClose();
+        closeScope();
     }
     else{
         printScalarDec(name, ind, spec);
@@ -746,12 +746,12 @@ static void topLevelDeclaration(){
     	match(')');
         printFunDec(name, ind, spec);
     	if (lookahead == '{') {
-            printOpen();
+            openScope(); 
     	    match('{');
     	    declarations(spec);
     	    statements();
     	    match('}');
-            printClose();
+            closeScope();
     	}
         else remainingDeclarators(spec);
     }

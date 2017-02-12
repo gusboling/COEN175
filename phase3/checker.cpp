@@ -5,18 +5,27 @@
 //Program Headers
 #include "type.h"
 #include "symbol.h"
+#include "scope.h"
 
 //File Header
 #include "checker.h"
 
 using namespace std;
 
-void printOpen(){
+//Scope Pointers
+Scope* GLO_SCOPE = new Scope(); //Pointer to global scope
+Scope* CUR_SCOPE = GLO_SCOPE; //Pointer to current scope (initialized to the global scope by default)
+
+
+void openScope(){
     cout << "Open scope" << endl;
+    Scope newScope(CUR_SCOPE); //Initialize new scope instance with current scope as the parent
+    CUR_SCOPE = &newScope; //Set current scope to point to newest scope
 }
 
-void printClose(){
+void closeScope(){
     cout << "Close scope" << endl;
+    CUR_SCOPE = CUR_SCOPE->getParent();
 }
 
 void printArrayDec(string name, unsigned ind, int spec){
