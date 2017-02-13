@@ -119,9 +119,9 @@ static int specifier(){
 static unsigned pointers(){
     unsigned ind = 0;
     while (lookahead == '*'){
-	ind++;
-	match('*');
-	cout << "[MATCH] Matched '*'" << endl;
+	       ind++;
+	       match('*');
+	       cout << "[MATCH] Matched '*'" << endl;
     }
     return ind;
 }
@@ -144,7 +144,7 @@ static void declarator(int spec){ //TODO: Add some form of output to this functi
     cout << "Pointer ID => " << name << endl;
     if (lookahead == '[') {
     	match('[');
-    	unsigned length = expectNumber(); 
+    	unsigned length = expectNumber();
     	match(']');
 	Type t(ARRAY, spec, ind);
 	t.length = length;
@@ -690,7 +690,8 @@ static void globalDeclarator(int spec){
     }
     else if (lookahead == '(') {
 		declareFunction(name, spec, ind);
-        openScope(); 
+        //TODO: Something about parameters here
+        openScope();
         match('(');
         parameters();
         match(')');
@@ -735,35 +736,37 @@ static void remainingDeclarators(int spec){
  */
 
 static void topLevelDeclaration(){
-    int spec = specifier();
-    unsigned ind = pointers();
-    string name = expect(ID);
+    int spec = specifier(); //GET implied specifier (func&dec)
+    unsigned ind = pointers(); //GET implied indirection (includes '0')
+    string name = expect(ID); //GET implied identifier for declaration
 
+    //Global-declarator Array subrule
     if (lookahead == '[') {
     	match('[');
     	int length = expectNumber();
     	match(']');
-		declareArray(name, spec, ind, length); 
+		declareArray(name, spec, ind, length);
     	remainingDeclarators(spec);
     }
 
+    //Function-definition & function-declaration subrule
     else if (lookahead == '(') {
-    	match('(');
+        match('(');
     	parameters();
     	match(')');
-		declareFunction(name, spec, ind);
+
     	if (lookahead == '{') {
-            openScope(); 
     	    match('{');
     	    declarations(spec);
     	    statements();
     	    match('}');
-            closeScope();
+            closeScope(); //Close function scope
     	}
         else remainingDeclarators(spec);
     }
 
-    else{ 
+
+    else{
 		declareVar(name, Type(SCALAR, spec, ind));
 		remainingDeclarators(spec);
 	}

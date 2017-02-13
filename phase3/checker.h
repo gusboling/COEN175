@@ -24,14 +24,15 @@ void printArrayDec(string name, unsigned ind, int spec);
 void printScalarDec(string name, unsigned ind, int spec);
 void printVarDec(string name, unsigned ind, int spec);
 
-//Ouput function for definitions
-void printDef(string name, unsigned ind, int spec);
-
 //Output function for symbol uses
-void printSymUse(); //TODO: figure out if this needs to take arguments...
+void symUse(string name);
+
+//Ouput function for definitions
+void defineFunction(string name);
 
 //Output functions for declarations
 void declareArray(string name, int spec, unsigned ind, unsigned length);
 void declareVar(string name, Type t);
 void declareFunction(string name, int spec, unsigned ind);
+
 #endif /* CHECKER_H */

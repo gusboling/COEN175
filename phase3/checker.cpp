@@ -28,8 +28,12 @@ void closeScope(){
     CUR_SCOPE = CUR_SCOPE->getParent();
 }
 
-void printSymUse(){
-    cout << "Used symbol" << endl; //TODO: get this to say what symbol was used.
+void symUse(string name){
+    cout << "[INFO] Used symbol " << name << endl;
+}
+
+void defineFunction(string name){
+    cout << "[INFO] Defined function " << name << endl;
 }
 
 void declareArray(string name, int spec, unsigned ind, unsigned length){
@@ -45,8 +49,7 @@ void declareVar(string name, Type t){
 }
 
 void declareFunction(string name, int spec, unsigned ind){
-	Type t(FUNCTION, spec, ind);
+    Type t(FUNCTION, spec, ind);
 	Symbol sym(name, t);
 	cout << "Declare Function " << name << " with ind " << ind << " and spec " << spec << endl;
 }
-
