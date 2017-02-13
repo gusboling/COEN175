@@ -681,10 +681,10 @@ static void globalDeclarator(int spec){
     match(ID);
 
     if (lookahead == '[') {
-        printArrayDec(name, ind, spec);
         match('[');
-        match(NUM);
+		int length = expectNumber();
         match(']');
+		declareArray(name, spec, ind, length);
     }
     else if (lookahead == '(') {
         printFunDec(name, ind, spec);
@@ -695,7 +695,7 @@ static void globalDeclarator(int spec){
         closeScope();
     }
     else{
-        printScalarDec(name, ind, spec);
+        declareVariable(name, spec, ind);
     }
 }
 
@@ -738,12 +738,13 @@ static void topLevelDeclaration(){
     string name = expect(ID);
 
     if (lookahead == '[') {
-        printArrayDec(name, ind, spec);
     	match('[');
-    	match(NUM);
+    	int length = expectNumber();
     	match(']');
+		declareArray(name, spec, ind, length); 
     	remainingDeclarators(spec);
     }
+
     else if (lookahead == '(') {
     	match('(');
     	parameters();
@@ -759,7 +760,11 @@ static void topLevelDeclaration(){
     	}
         else remainingDeclarators(spec);
     }
-    else remainingDeclarators(spec);
+
+    else{ 
+		declareVar(name, Type(SCALAR, spec, ind));
+		remainingDeclarators(spec);
+	}
 }
 
 

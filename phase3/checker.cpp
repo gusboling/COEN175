@@ -37,10 +37,6 @@ void printScalarDec(string name, unsigned ind, int spec){
     cout << "Declare scalar " << name << " with ind " << ind << " and spec " << spec << endl;
 }
 
-void printVarDec(string name, unsigned ind, int spec){
-    cout << "Declare variable " << name << " with ind " << ind << " and spec " << spec << endl;
-}
-
 void printFunDec(string name, unsigned ind, int spec){
     cout << "Declare function " << name << " with ind " << ind << " and spec " << spec << endl;
 }
@@ -58,7 +54,7 @@ void declareArray(string name, int spec, unsigned ind, unsigned length){
 
 void declareVar(string name, Type t){
     Symbol sym(name, t);
-	cout << "Declare Variable " << name << "with type " << t.get_kind_string() << endl;
+	cout << "Declare Variable " << name << " with type (" << t.get_kind_string()<< ", " << t.get_indirection() << ", " << t.get_specifier() << ")" << endl;
 }
 
 
