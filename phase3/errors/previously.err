@@ -1,0 +1,2 @@
+[MATCH] Lookahead(272) does not match expected Token(297)
+line 7: syntax error at 'int'

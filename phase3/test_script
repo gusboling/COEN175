@@ -33,5 +33,5 @@ for itest in $TESTS; do
 	diff $ERR_DIR/${itest}.err $TST_DIR/${itest}.err
 	
 	#print foot banner
-	printf "${GREEN}\n******** end ${itest} results ********\n\n${NORMAL}"
+	printf "\n\n"
 done

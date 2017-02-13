@@ -1,0 +1,16 @@
+Declare Function foo with ind 0 and spec 272
+[MATCH] Matched '*'
+Declare Function bar with ind 0 and spec 272
+Declare Function foo with ind 0 and spec 272
+Open Scope	Enclosing(0x23e9010)	New(0x7ffcbd2092d0)
+Close scope
+Declare Function foo with ind 0 and spec 259
+[MATCH] Matched '*'
+Declare Function bar with ind 0 and spec 272
+[MATCH] Matched '*'
+Declare Function bar with ind 0 and spec 272
+Open Scope	Enclosing(0x6085e0)	New(0x7ffcbd2092d0)
+Close scope
+Declare Function foobar with ind 0 and spec 285
+Open Scope	Enclosing(0x6085e0)	New(0x7ffcbd2092d0)
+Close scope

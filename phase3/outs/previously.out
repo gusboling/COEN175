@@ -1,0 +1,3 @@
+Declare Variable a with type (SCALAR, 0, 272)
+Declare Function f with ind 0 and spec 272
+Open Scope	Enclosing(0xfdb010)	New(0x7ffff8ea25a0)
