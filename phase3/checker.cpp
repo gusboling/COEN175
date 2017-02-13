@@ -29,18 +29,6 @@ void closeScope(){
     CUR_SCOPE = CUR_SCOPE->getParent();
 }
 
-void printArrayDec(string name, unsigned ind, int spec){
-    cout << "Declare array " << name << " with ind " << ind << " and spec " << spec << endl;
-}
-
-void printScalarDec(string name, unsigned ind, int spec){
-    cout << "Declare scalar " << name << " with ind " << ind << " and spec " << spec << endl;
-}
-
-void printFunDec(string name, unsigned ind, int spec){
-    cout << "Declare function " << name << " with ind " << ind << " and spec " << spec << endl;
-}
-
 void printSymUse(){
     cout << "Used symbol" << endl; //TODO: get this to say what symbol was used.
 }
@@ -53,8 +41,13 @@ void declareArray(string name, int spec, unsigned ind, unsigned length){
 }
 
 void declareVar(string name, Type t){
-    Symbol sym(name, t);
+	Symbol sym(name, t);
 	cout << "Declare Variable " << name << " with type (" << t.get_kind_string()<< ", " << t.get_indirection() << ", " << t.get_specifier() << ")" << endl;
 }
 
+void declareFunction(string name, int spec, unsigned ind){
+	Type t(FUNCTION, spec, ind);
+	Symbol sym(name, t);
+	cout << "Declare Function " << name << " with ind " << ind << " and spec " << spec << endl;
+}
 

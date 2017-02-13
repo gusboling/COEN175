@@ -46,5 +46,6 @@ Scope* Scope::getParent() const{
 }
 
 void Scope::insert(Symbol* s){
+	//TODO: insert code for redefintiion/redeclaration errors
 	_symPointers.push_back(s);
 }

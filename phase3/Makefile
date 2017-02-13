@@ -1,6 +1,6 @@
 CXX		= g++
 CXXFLAGS	= -g -Wall
-OBJS		= lexer.o parser.o checker.o type.o symbol.o scope.o
+OBJS		= lexer.o parser.o checker.o type.o symbol.o scope.o error.o
 PROG		= scc
 
 all:		$(PROG)

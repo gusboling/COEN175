@@ -6,11 +6,13 @@
  *		Simple C.
  */
 
+//Libraries
 #include <cstdlib>
 #include <cstdio>
 #include <iostream>
 #include <string>
 
+//Program Headers
 #include "tokens.h"
 #include "checker.h"
 #include "lexer.h"
@@ -687,7 +689,7 @@ static void globalDeclarator(int spec){
 		declareArray(name, spec, ind, length);
     }
     else if (lookahead == '(') {
-        printFunDec(name, ind, spec);
+		declareFunction(name, spec, ind);
         openScope(); 
         match('(');
         parameters();
@@ -695,7 +697,7 @@ static void globalDeclarator(int spec){
         closeScope();
     }
     else{
-        declareVariable(name, spec, ind);
+        declareVar(name, Type(SCALAR, spec, ind));
     }
 }
 
@@ -749,7 +751,7 @@ static void topLevelDeclaration(){
     	match('(');
     	parameters();
     	match(')');
-        printFunDec(name, ind, spec);
+		declareFunction(name, spec, ind);
     	if (lookahead == '{') {
             openScope(); 
     	    match('{');
