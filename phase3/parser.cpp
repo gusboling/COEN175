@@ -79,6 +79,11 @@ static unsigned expectNumber(){
  * Description:	Return whether the given token is a type specifier.
  */
 static bool isSpecifier(int token){
+
+	if(token == INT || token == CHAR || token == VOID){
+		cout << "[INFO] Function-definition parameter found" << endl;
+	}
+
     return token == INT || token == CHAR || token == VOID;
 }
 
@@ -100,8 +105,8 @@ static int specifier(){
         return spec;
     }
     else{
-	error();
-	return 0;
+		error();
+		return 0;
     }
 }
 

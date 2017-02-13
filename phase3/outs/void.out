@@ -1,7 +1,0 @@
-Declare Function f with ind 0 and spec 285
-Open Scope	Enclosing(0x9e3010)	New(0x7ffc2ee39a90)
-Close scope
-Declare Variable x with type (SCALAR, 0, 285)
-Declare Function g with ind 0 and spec 285
-[MATCH] Matched '*'
-Declare Function h with ind 1 and spec 285
