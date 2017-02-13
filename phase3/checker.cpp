@@ -16,7 +16,6 @@ using namespace std;
 Scope* GLO_SCOPE = new Scope(); //Pointer to global scope
 Scope* CUR_SCOPE = GLO_SCOPE; //Pointer to current scope (initialized to the global scope by default)
 
-
 void openScope(){
     cout << "Open Scope\tEnclosing(" << CUR_SCOPE << ")\tNew(";
     Scope newScope(CUR_SCOPE); //Initialize new scope instance with current scope as the parent
