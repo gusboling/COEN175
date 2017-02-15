@@ -1,31 +1,27 @@
-/*
- * File:	parser.c
- *
- * Description:	This file contains the public and private function and
- *		variable definitions for the recursive-descent parser for
- *		Simple C.
- */
+//TODO: Update defunct calls to "void expression()". Needs to be 
 
+
+// PARSER.CPP: Recursive descent parser implementation
+
+//Libraries
 # include <cstdlib>
 # include <iostream>
+
+//Program Headers
 # include "checker.h"
 # include "tokens.h"
 # include "lexer.h"
 
+
 using namespace std;
 
+//Global Variables
 static int lookahead;
 static string lexbuf;
 
 static void expression();
 static void statement();
-
-
-/*
- * Function:	error
- *
- * Description:	Report a syntax error to standard error.
- */
+//End Global Variables
 
 static void error()
 {
@@ -48,9 +44,11 @@ static void error()
 
 static void match(int t)
 {
-    if (lookahead != t)
-	error();
-
+    if (lookahead != t){
+		cout << "[MATCH][ERROR] lookahead(" << lookahead << ") does not match token(" << t << ")" << endl;
+		error();
+	}
+	
     lookahead = lexan(lexbuf);
 }
 
@@ -325,7 +323,7 @@ static void postfixExpression()
  *		  sizeof prefix-expression
  */
 
-static void prefixExpression()
+static Type  prefixExpression(bool &lvalue)
 {
     if (lookahead == '!') {
 	match('!');
@@ -366,24 +364,31 @@ static void prefixExpression()
  *		  multiplicative-expression % prefix-expression
  */
 
-static void multiplicativeExpression()
+static Type multiplicativeExpression(bool &lvalue)
 {
-    prefixExpression();
+    Type left = prefixExpression(lvalue);
 
     while (1) {
 	if (lookahead == '*') {
 	    match('*');
-	    prefixExpression();
+	    Type right = prefixExpression(lvalue);
+		//left = checkMultiplicativeExpression(left, right);
+		lvalue = false;
 
 	} else if (lookahead == '/') {
 	    match('/');
-	    prefixExpression();
+	    Type right = prefixExpression(lvalue);
+		//left = checkMultiplicativeExpression(left, right);
+		lvalue = false;
 
 	} else if (lookahead == '%') {
 	    match('%');
-	    prefixExpression();
+	    Type right = prefixExpression(lvalue);
+		//left = checkMultiplicativeExpression(left, right);
+		lvalue = false;
 
 	} else
+		return left;
 	    break;
     }
 }
@@ -400,20 +405,25 @@ static void multiplicativeExpression()
  *		  additive-expression - multiplicative-expression
  */
 
-static void additiveExpression()
+static Type additiveExpression(bool &lvalue)
 {
-    multiplicativeExpression();
+    Type left = multiplicativeExpression(lvalue);
 
     while (1) {
 	if (lookahead == '+') {
 	    match('+');
-	    multiplicativeExpression();
-
-	} else if (lookahead == '-') {
+	    Type right = multiplicativeExpression(lvalue);
+		//left = checkAdditiveExpression(left, right); //TODO: Implement in checker
+		lvalue = false;
+	} 
+	else if (lookahead == '-') {
 	    match('-');
-	    multiplicativeExpression();
-
-	} else
+	    Type right = multiplicativeExpression(lvalue);
+		//left = checkAdditiveExpression(left, right); //TODO: Implement in checker
+		lvalue = false;
+	} 
+	else
+		return left;
 	    break;
     }
 }
@@ -434,28 +444,37 @@ static void additiveExpression()
  *		  relational-expression >= additive-expression
  */
 
-static void relationalExpression()
+static Type relationalExpression(bool &lvalue)
 {
-    additiveExpression();
+    Type left = additiveExpression(lvalue);
 
     while (1) {
 	if (lookahead == '<') {
 	    match('<');
-	    additiveExpression();
+	    Type right = additiveExpression(lvalue);
+		//left = checkRelationalExpression(left, right); //TODO:Implement in checker
+		lvalue = false;
 
 	} else if (lookahead == '>') {
 	    match('>');
-	    additiveExpression();
+	    Type right = additiveExpression(lvalue);
+		//left = checkRelationalExpression(left, right); //TODO: Implement in checker
+		lvalue = false;
 
 	} else if (lookahead == LEQ) {
 	    match(LEQ);
-	    additiveExpression();
+	    Type right = additiveExpression(lvalue);
+		//left = checkRelationalExpression(left, right); //TODO: Implement in checker
+		lvalue = false;
 
 	} else if (lookahead == GEQ) {
 	    match(GEQ);
-	    additiveExpression();
+	    Type right = additiveExpression(lvalue);
+		//left = checkRelationalExpression(left, right); //TODO: Implement in checker
+		lvalue = false;
 
 	} else
+		return left;
 	    break;
     }
 }
@@ -472,20 +491,23 @@ static void relationalExpression()
  *		  equality-expression != relational-expression
  */
 
-static void equalityExpression()
-{
-    relationalExpression();
+static Type equalityExpression(bool &lvalue){
+    Type left = relationalExpression(lvalue);
 
     while (1) {
 	if (lookahead == EQL) {
 	    match(EQL);
-	    relationalExpression();
+	    Type right = relationalExpression(lvalue);
+		//left = checkLogicalEQ(left, right); //TODO: Implement in checker
+		lvalue = false;
 
 	} else if (lookahead == NEQ) {
 	    match(NEQ);
-	    relationalExpression();
+	    Type right = relationalExpression(lvalue);
+		lvalue = false;
 
 	} else
+		return left; //TODO: Is this correct?
 	    break;
     }
 }
@@ -502,16 +524,17 @@ static void equalityExpression()
  *		  logical-and-expression && equality-expression
  */
 
-static void logicalAndExpression()
-{
-    equalityExpression();
+static Type logicalAndExpression(bool &lvalue){
+    Type left = equalityExpression(lvalue);
 
     while (lookahead == AND) {
-	match(AND);
-	equalityExpression();
+		match(AND);
+		Type right = equalityExpression(lvalue);
+		//left = checkLogicalAND(left, right); //TODO: Implement in checker
+		lvalue = false;
     }
+	return left;
 }
-
 
 /*
  * Function:	expression
@@ -525,14 +548,16 @@ static void logicalAndExpression()
  *		  expression || logical-and-expression
  */
 
-static void expression()
-{
-    logicalAndExpression();
+static Type expression(bool &lvalue){
+    Type left = logicalAndExpression(lvalue); 
 
     while (lookahead == OR) {
-	match(OR);
-	logicalAndExpression();
+		match(OR);
+		Type right = logicalAndExpression(lvalue);
+		//left = checkLogicalOR(left, right); //TODO: Implement in checker
+		lvalue = false;
     }
+	return left;
 }
 
 
