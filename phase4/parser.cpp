@@ -19,7 +19,7 @@ using namespace std;
 static int lookahead;
 static string lexbuf;
 
-static void expression();
+static Type expression(bool &lvalue);
 static void statement();
 //End Global Variables
 
@@ -245,45 +245,43 @@ static void declarations()
  *		  expression , expression-list
  */
 
-static void primaryExpression()
+static Type primaryExpression(bool &lvalue)
 {
     string name;
 
-
     if (lookahead == '(') {
-	match('(');
-	expression();
-	match(')');
+		match('(');
+		Type left = expression(lvalue);
+		match(')');
 
     } else if (lookahead == STRING) {
-	match(STRING);
+		match(STRING);
 
     } else if (lookahead == NUM) {
-	match(NUM);
+		match(NUM);
 
     } else if (lookahead == ID) {
-	name = expect(ID);
+		name = expect(ID);
 
-	if (lookahead == '(') {
-	    match('(');
 
-	    if (lookahead != ')') {
-		expression();
+		if (lookahead == '(') {
+	    	match('(');
 
-		while (lookahead == ',') {
-		    match(',');
-		    expression();
-		}
-	    }
+	    	if (lookahead != ')') {
+				expression(lvalue);
 
-	    match(')');
-	    checkFunction(name);
+				while (lookahead == ',') {
+		    		match(',');
+		    		expression(lvalue);
+				}
+	    	}
 
-	} else
-	    checkIdentifier(name);
+	    	match(')');
+	    	checkFunction(name);
 
-    } else
-	error();
+		} else checkIdentifier(name);
+
+    } else error();
 }
 
 
@@ -297,15 +295,19 @@ static void primaryExpression()
  *		  postfix-expression [ expression ]
  */
 
-static void postfixExpression()
+static Type postfixExpression(bool &lvalue)
 {
-    primaryExpression();
+    Type right = primaryExpression(lvalue);
 
     while (lookahead == '[') {
 	match('[');
-	expression();
+	expression(lvalue);
 	match(']');
     }
+	
+	Type left = Type(right.specifier(), right.indirection()-1);
+	lvalue = true;
+	return left;
 }
 
 
@@ -326,27 +328,44 @@ static void postfixExpression()
 static Type  prefixExpression(bool &lvalue)
 {
     if (lookahead == '!') {
-	match('!');
-	prefixExpression();
+		match('!');
+		Type right = prefixExpression(lvalue);
+		Type left = Type(INT, right.indirection()); //TODO: Don't know if this is correct 
+		lvalue = false;
+		return left;
 
-    } else if (lookahead == '-') {
-	match('-');
-	prefixExpression();
+   	} else if (lookahead == '-') {
+		match('-');
+		Type right = prefixExpression(lvalue);
+		Type left = Type(INT, right.indirection()); //TODO: Don't know if this is correct
+		lvalue = false;
+		return left;
 
     } else if (lookahead == '*') {
-	match('*');
-	prefixExpression();
+		match('*');
+		Type right = prefixExpression(lvalue);
+		Type left = Type(right.specifier(), right.indirection()-1, right.length());
+		lvalue = true;
+		return left;
 
     } else if (lookahead == '&') {
-	match('&');
-	prefixExpression();
+		match('&');
+		Type right = prefixExpression(lvalue);
+		Type left = Type(right.specifier(), right.indirection()+1, right.length());
+		lvalue = false;
+		return left;
 
     } else if (lookahead == SIZEOF) {
-	match(SIZEOF);
-	prefixExpression();
-
-    } else
-	postfixExpression();
+		match(SIZEOF);
+		Type right = prefixExpression(lvalue);
+		Type left = Type(INT, right.indirection());
+		lvalue = false;
+		return left;
+    
+	} else {
+		Type left = postfixExpression(lvalue);
+		return left;
+	}
 }
 
 
