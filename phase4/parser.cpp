@@ -253,17 +253,33 @@ static Type primaryExpression(bool &lvalue)
 		match('(');
 		Type left = expression(lvalue);
 		match(')');
+		
+		lvalue = lvalue; // I don't know if this is actually necessary, but it seems like it might provide more explicit intent.
+		
+		return left; //Result type is the same as enclosed expression type, lvalue is same as enclosed expression lvalue.
 
-    } else if (lookahead == STRING) {
-		match(STRING);
+    } 
+	else if (lookahead == STRING) {
+		string buf_string = expect(STRING);
+		Type result = Type(CHAR, 1, buf_string.length()); //No recursion necessary
+		
+		lvalue = false;
+		
+		return result; //Result is of type "array of char, length=string.length" and is not an lvalue
 
-    } else if (lookahead == NUM) {
+    } 
+	else if (lookahead == NUM) {
 		match(NUM);
+		Type result = Type(INT);
+		
+		lvalue = false;
+		
+		return result; //Result is of type "int" and is not an lvalue
 
-    } else if (lookahead == ID) {
+    } 
+	else if (lookahead == ID) {
 		name = expect(ID);
-
-
+		
 		if (lookahead == '(') {
 	    	match('(');
 
@@ -277,11 +293,12 @@ static Type primaryExpression(bool &lvalue)
 	    	}
 
 	    	match(')');
-	    	checkFunction(name);
+	    	checkFunction(name); //TODO: Make this return a type for the primaryExpression result. Might need to pass parameter types somehow.
+		
+		} else checkIdentifier(name); //TODO: Make this return a type for the primaryExpression result
 
-		} else checkIdentifier(name);
-
-    } else error();
+    } 
+	else error();
 }
 
 
