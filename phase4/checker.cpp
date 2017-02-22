@@ -29,13 +29,52 @@ using namespace std;
 
 static Scope *outermost, *toplevel;
 static const Type error;
+static const Type integer_type = Type(INT);
 
+//Symbol Errors
 static string redefined = "redefinition of '%s'";
 static string redeclared = "redeclaration of '%s'";
 static string conflicting = "conflicting types for '%s'";
 static string undeclared = "'%s' undeclared";
 static string void_object = "'%s' has type void";
 
+//Type Errors
+static string return_type = "invalid return type"; //E1
+static string test_expression = "invalid type for test expression"; //E2
+static string lvalue_required = "lvalue required in expression"; //E3
+static string invalid_binary = "invalid operands to binary '%s'"; //E4
+static string invalid_unary = "invalid operands to unary '%s'"; //E5
+static string not_function = "called object is not a function"; //E6
+static string invalid_arguments = "invalid arguments to called function"; //E7
+
+Type promote(Type t){
+	//If t is of type 'char', promote to int and return int-type
+	if( t.isScalar() && (t.specifier() == CHAR) && (t.indirection()==0) ){
+		return Type(INT);
+	}
+	//If t is of type 'array of T' promote to type 'pointer to T' and return pointer-type
+	else if( t.isArray() ){
+		return Type(t.specifier(), 1);
+	}
+
+	else return t;
+}
+
+/*
+ * Function:	isPredicate
+ * 
+ * Description: Check if t is predicate after any promotion, and return result.
+ */
+bool isPredicate(Type t){
+	Type pt = promote(t); //Promote t before checking
+	if(pt == integer_type){ //int subcase
+		return true;	
+	}
+	else if( !(pt.isFunction()) && (pt.indirection()>0) ){ //pointer subcase
+		return true;
+	}
+	else return false;
+}
 
 /*
  * Function:	checkIfVoidObject
@@ -165,6 +204,7 @@ Symbol *declareVariable(const string &name, const Type &type)
 }
 
 
+
 /*
  * Function:	checkIdentifier
  *
@@ -203,3 +243,16 @@ Symbol *checkFunction(const string &name)
 
     return symbol;
 }
+
+Type checkLogicalOR(Type left, Type right){
+	if(isPredicate(left) && isPredicate(right)){
+		cout << "[CHECKER] Valid OR operand types detected." << endl;
+		return Type(INT);
+	}
+	else{
+		report(invalid_binary, ""); //E4: invalid operands to binary ||
+		return error;
+	}
+}
+
+
