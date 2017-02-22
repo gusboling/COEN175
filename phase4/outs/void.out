@@ -1,0 +1,8 @@
+i: int
+j: int
+k: int
+ip: int *
+iq: int *
+vp: void *
+vq: void *
+main: int(void)

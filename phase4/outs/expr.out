@@ -1,0 +1,9 @@
+x: int
+y: int *
+foo: int(int, int *)
+a: int[10]
+i: int
+p: int *
+d: char
+s: char *
+printf: int()

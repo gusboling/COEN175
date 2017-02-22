@@ -254,14 +254,12 @@ static Type primaryExpression(bool &lvalue)
 		Type left = expression(lvalue);
 		match(')');
 		
-		lvalue = lvalue; // I don't know if this is actually necessary, but it seems like it might provide more explicit intent.
-		
 		return left; //Result type is the same as enclosed expression type, lvalue is same as enclosed expression lvalue.
 
     } 
 	else if (lookahead == STRING) {
 		string buf_string = expect(STRING);
-		Type result = Type(CHAR, 1, buf_string.length()); //No recursion necessary
+		Type result = Type(CHAR, 0, buf_string.length()); 
 		
 		lvalue = false;
 		
@@ -277,6 +275,7 @@ static Type primaryExpression(bool &lvalue)
 		return result; //Result is of type "int" and is not an lvalue
 
     } 
+	
 	else if (lookahead == ID) {
 		name = expect(ID);
 		
@@ -293,12 +292,14 @@ static Type primaryExpression(bool &lvalue)
 	    	}
 
 	    	match(')');
-	    	checkFunction(name); //TODO: Make this return a type for the primaryExpression result. Might need to pass parameter types somehow.
+	    	Symbol *result = checkFunction(name); //TODO: Make this return a type for the primaryExpression result. Might need to pass parameter types somehow.
+			Type left = result->type(); 
 		
 		} else checkIdentifier(name); //TODO: Make this return a type for the primaryExpression result
 
     } 
 	else error();
+	return Type(ERROR);
 }
 
 
@@ -315,6 +316,7 @@ static Type primaryExpression(bool &lvalue)
 static Type postfixExpression(bool &lvalue)
 {
     Type right = primaryExpression(lvalue);
+	Type left;
 
     while (lookahead == '[') {
 	match('[');
@@ -322,7 +324,7 @@ static Type postfixExpression(bool &lvalue)
 	match(']');
     }
 	
-	Type left = Type(right.specifier(), right.indirection()-1);
+	//Type left = checkPostFixExpr(right); //TODO: Implement in checker
 	lvalue = true;
 	return left;
 }
@@ -344,38 +346,39 @@ static Type postfixExpression(bool &lvalue)
 
 static Type  prefixExpression(bool &lvalue)
 {
+	Type left;
     if (lookahead == '!') {
 		match('!');
 		Type right = prefixExpression(lvalue);
-		Type left = Type(INT, right.indirection()); //TODO: Don't know if this is correct 
+		//Type left = checkNegationExpr(right); //TODO: Implement in checker
 		lvalue = false;
 		return left;
 
    	} else if (lookahead == '-') {
 		match('-');
 		Type right = prefixExpression(lvalue);
-		Type left = Type(INT, right.indirection()); //TODO: Don't know if this is correct
+		//Type left = checkNegativeExpr(right); //TODO: Implement in checker
 		lvalue = false;
 		return left;
 
     } else if (lookahead == '*') {
 		match('*');
 		Type right = prefixExpression(lvalue);
-		Type left = Type(right.specifier(), right.indirection()-1, right.length());
+		//Type left = checkDerefExpr(right); //TODO: Implement in checker
 		lvalue = true;
 		return left;
 
     } else if (lookahead == '&') {
 		match('&');
 		Type right = prefixExpression(lvalue);
-		Type left = Type(right.specifier(), right.indirection()+1, right.length());
+		//Type left = checkAddressExpr(right); //TODO: Implement in checker
 		lvalue = false;
 		return left;
 
     } else if (lookahead == SIZEOF) {
 		match(SIZEOF);
 		Type right = prefixExpression(lvalue);
-		Type left = Type(INT, right.indirection());
+		//Type left = checkSizeofExpression(right); //TODO: Implement in checker
 		lvalue = false;
 		return left;
     
@@ -405,28 +408,29 @@ static Type multiplicativeExpression(bool &lvalue)
     Type left = prefixExpression(lvalue);
 
     while (1) {
-	if (lookahead == '*') {
-	    match('*');
-	    Type right = prefixExpression(lvalue);
-		//left = checkMultiplicativeExpression(left, right);
-		lvalue = false;
+		if (lookahead == '*') {
+	    	match('*');
+	    	Type right = prefixExpression(lvalue);
+			//left = checkMultiplicativeExpression(left, right); //TODO: Implement in checker
+			lvalue = false;
 
-	} else if (lookahead == '/') {
-	    match('/');
-	    Type right = prefixExpression(lvalue);
-		//left = checkMultiplicativeExpression(left, right);
-		lvalue = false;
+		} else if (lookahead == '/') {
+	    	match('/');
+	    	Type right = prefixExpression(lvalue);
+			//left = checkMultiplicativeExpression(left, right); //TODO: Implement in checker
+			lvalue = false;
 
-	} else if (lookahead == '%') {
-	    match('%');
-	    Type right = prefixExpression(lvalue);
-		//left = checkMultiplicativeExpression(left, right);
-		lvalue = false;
+		} else if (lookahead == '%') {
+	    	match('%');
+	    	Type right = prefixExpression(lvalue);
+			//left = checkMultiplicativeExpression(left, right); //TODO: Implement in checker
+			lvalue = false;
 
-	} else
-		return left;
-	    break;
-    }
+		} else {
+			return left;
+	    	break;
+    	}
+	}
 }
 
 
@@ -446,22 +450,23 @@ static Type additiveExpression(bool &lvalue)
     Type left = multiplicativeExpression(lvalue);
 
     while (1) {
-	if (lookahead == '+') {
-	    match('+');
-	    Type right = multiplicativeExpression(lvalue);
-		//left = checkAdditiveExpression(left, right); //TODO: Implement in checker
-		lvalue = false;
-	} 
-	else if (lookahead == '-') {
-	    match('-');
-	    Type right = multiplicativeExpression(lvalue);
-		//left = checkAdditiveExpression(left, right); //TODO: Implement in checker
-		lvalue = false;
-	} 
-	else
-		return left;
-	    break;
-    }
+		if (lookahead == '+') {
+	    	match('+');
+	    	Type right = multiplicativeExpression(lvalue);
+			//left = checkAdditiveExpression(left, right); //TODO: Implement in checker
+			lvalue = false;
+		} 
+		else if (lookahead == '-') {
+	    	match('-');
+	    	Type right = multiplicativeExpression(lvalue);
+			//left = checkAdditiveExpression(left, right); //TODO: Implement in checker
+			lvalue = false;
+		}	 
+		else{
+			return left;
+	    	break;
+    	}
+	}
 }
 
 
@@ -485,35 +490,37 @@ static Type relationalExpression(bool &lvalue)
     Type left = additiveExpression(lvalue);
 
     while (1) {
-	if (lookahead == '<') {
-	    match('<');
-	    Type right = additiveExpression(lvalue);
-		//left = checkRelationalExpression(left, right); //TODO:Implement in checker
-		lvalue = false;
+		if (lookahead == '<') {
+	    	match('<');
+	    	Type right = additiveExpression(lvalue);
+			//left = checkRelationalExpression(left, right); //TODO:Implement in checker
+			lvalue = false;
 
-	} else if (lookahead == '>') {
-	    match('>');
-	    Type right = additiveExpression(lvalue);
-		//left = checkRelationalExpression(left, right); //TODO: Implement in checker
-		lvalue = false;
+		} else if (lookahead == '>') {
+	    	match('>');
+	    	Type right = additiveExpression(lvalue);
+			//left = checkRelationalExpression(left, right); //TODO: Implement in checker
+			lvalue = false;
 
-	} else if (lookahead == LEQ) {
+		} else if (lookahead == LEQ) {
 	    match(LEQ);
 	    Type right = additiveExpression(lvalue);
 		//left = checkRelationalExpression(left, right); //TODO: Implement in checker
 		lvalue = false;
 
-	} else if (lookahead == GEQ) {
-	    match(GEQ);
-	    Type right = additiveExpression(lvalue);
-		//left = checkRelationalExpression(left, right); //TODO: Implement in checker
-		lvalue = false;
-
-	} else
-		return left;
-	    break;
-    }
+		} else if (lookahead == GEQ) {
+	    	match(GEQ);
+	    	Type right = additiveExpression(lvalue);
+			//left = checkRelationalExpression(left, right); //TODO: Implement in checker
+			lvalue = false;
+	
+		} else {
+			return left;
+	    	break;
+		}
+	}
 }
+
 
 
 /*
@@ -531,20 +538,22 @@ static Type equalityExpression(bool &lvalue){
     Type left = relationalExpression(lvalue);
 
     while (1) {
-	if (lookahead == EQL) {
-	    match(EQL);
-	    Type right = relationalExpression(lvalue);
-		//left = checkLogicalEQ(left, right); //TODO: Implement in checker
-		lvalue = false;
+		if (lookahead == EQL) {
+	    	match(EQL);
+	    	Type right = relationalExpression(lvalue);
+			//left = checkLogicalEQ(left, right); //TODO: Implement in checker
+			lvalue = false;
 
-	} else if (lookahead == NEQ) {
-	    match(NEQ);
-	    Type right = relationalExpression(lvalue);
-		lvalue = false;
+		} else if (lookahead == NEQ) {
+	    	match(NEQ);
+	    	Type right = relationalExpression(lvalue);
+			//left = checkLogicalEQ(left, right); //TODO: Implement in checker
+			lvalue = false;
 
-	} else
-		return left; //TODO: Is this correct?
-	    break;
+		} else {
+			return left; //TODO: Is this correct?
+	    	break;
+		}
     }
 }
 
@@ -629,12 +638,15 @@ static void statements()
 
 static void assignment()
 {
-    expression();
+	bool lvalue_original = false;
+    Type left = expression(lvalue_original); //Is this right? (1/2)
 
     if (lookahead == '=') {
-	match('=');
-	expression();
+		match('=');
+		Type right = expression(lvalue_original); //Is this right? (2/2)
     }
+
+	//TODO: Implement something for this in checker.
 }
 
 
@@ -656,52 +668,60 @@ static void assignment()
 
 static void statement()
 {
+	bool lvalue_original = false;
+	Type right;
+
     if (lookahead == '{') {
-	match('{');
-	openScope();
-	declarations();
-	statements();
-	closeScope();
-	match('}');
+		match('{');
+		openScope();
+		declarations();
+		statements();
+		closeScope();
+		match('}');
 
     } else if (lookahead == RETURN) {
-	match(RETURN);
-	expression();
-	match(';');
+		match(RETURN);
+		right = expression(lvalue_original);
+		match(';');
+		//checkReturnStatement(right); //TODO: Implement in checker
 
     } else if (lookahead == WHILE) {
-	match(WHILE);
-	match('(');
-	expression();
-	match(')');
-	statement();
+		match(WHILE);
+		match('(');
+		right = expression(lvalue_original);
+		match(')');
+		statement();
+		//checkWhileStatement(right); //TODO: Implement in checker
 
     } else if (lookahead == FOR) {
-	match(FOR);
-	match('(');
-	assignment();
-	match(';');
-	expression();
-	match(';');
-	assignment();
-	match(')');
-	statement();
+		match(FOR);
+		match('(');
+		assignment();
+		match(';');
+		right = expression(lvalue_original);
+		match(';');
+		assignment();
+		match(')');
+		statement();
+		//checkForStatement(right); //TODO: Implement in checker
 
     } else if (lookahead == IF) {
-	match(IF);
-	match('(');
-	expression();
-	match(')');
-	statement();
+		match(IF);
+		match('(');
+		right = expression(lvalue_original);
+		//CheckIfStatement(right); //TODO: Implement in checker
+		match(')');
+		statement();
+		
 
-	if (lookahead == ELSE) {
-	    match(ELSE);
-	    statement();
-	}
+		if(lookahead == ELSE) {
+	    	match(ELSE);
+	    	statement();
+		}
 
     } else {
-	assignment();
-	match(';');
+		assignment();
+		match(';');
     }
 }
 

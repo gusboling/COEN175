@@ -1,0 +1,37 @@
+#!/bin/bash
+
+GREEN=$(tput setaf 2)
+RED=$(tput setaf 1)
+NORMAL=$(tput sgr0)
+
+PROG=scc
+TST_DIR=examples
+OUT_DIR=outs
+ERR_DIR=errors
+
+# Example files for phase3
+TESTS="expr stmt tree void" 
+
+# Compile a fresh copy of the SCC executable ('clear' for aesthetic preference)
+clear
+make clean
+make
+
+if [ $? -ne 0 ]; then
+	echo "${RED} Error Compiling During Compilation ${NORMAL}"
+	exit 1 
+fi
+
+for itest in $TESTS; do
+	# Run SCC, and store output in the appropriate folders
+	./$PROG < $TST_DIR/${itest}.c > $OUT_DIR/${itest}.out 2>$ERR_DIR/${itest}.err
+
+	#print test-specific banner
+	printf "${GREEN}\n******** ${itest} results (result < | > correct) ********\n${NORMAL}"
+	
+	# Compare SCC results to correct answer
+	diff $ERR_DIR/${itest}.err $TST_DIR/${itest}.err
+	
+	#print foot banner
+	printf "\n\n"
+done
