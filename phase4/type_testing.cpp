@@ -8,6 +8,20 @@
 using namespace std;
 
 int main(){
+	Type int_type = Type(INT);
+	Type error_type = Type();
+	Type char_type = Type(CHAR);
+	Type array_type = Type(INT, 0, 10);
+	Type pointer_type = Type(INT, 1);
+	Type void_pointer_type = Type(VOID, 1);\
+
+	Parameters p;
+	p.push_back(Type(INT));
+	p.push_back(Type());
+	Type function_type = Type(INT, 0, &p);
+
+
+	/* 
 	//OVERLOADED ASSIGNMENT OPERATOR TESTS
 	Type int_type = Type(INT);
 	Type error_type = Type();
@@ -17,9 +31,9 @@ int main(){
 	error_type = int_type;
 	result = (int_type == error_type);
 	cout << "int_type == (error_type = int_type):\nCORRECT: 1\nACTUAL: " << result << endl;
-
+	*/
 	
-	
+	/*
 	//PROMOTION TESTS (CHAR -> INT)
 	Type char_type = Type(CHAR);
 	result = (char_type == int_type);
@@ -32,9 +46,9 @@ int main(){
 	Type promoted_int_type = int_type.promote();
     Type fresh_int_type = Type(INT);
 	cout << "promoted_int_type == int_type:\nCORRECT: 1\nACTUAL: " << (promoted_char_type == fresh_int_type) << endl;
-
+	*/
 	
-	
+	/*
 	//PROMOTION TESTS (ARRAY<T> -> POINTER<T>)
 	Type array_type = Type(INT, 0, 10); //Type of "Array of INT, length=10"
 	Type pointer_type = Type(INT, 1);
@@ -45,7 +59,8 @@ int main(){
 
 	Type promoted_pointer_type = pointer_type.promote();
 	cout << "promoted_pointer_type == pointer_type:\nCORRECT: 1\nACTUAL: " << (promoted_pointer_type == pointer_type) << endl;
-
+	*/
+	
 
 	//PREDICATE TESTS
 	cout << "pointer_type.isPredicate():\nCORRECT: 1\nACTUAL: " << pointer_type.isPredicate() << endl;
@@ -54,13 +69,12 @@ int main(){
 	cout << "int_type.isPredicate():\nCORRECT: 1\nACTUAL: " << int_type.isPredicate() << endl;
 	cout << "char_type.isPredicate():\nCORRECT: 1\nACTUAL: " << char_type.isPredicate() << endl;
 
-
-	Parameters p;
-	p.push_back(Type(INT));
-	p.push_back(Type());
-	Type function_type = Type(INT, 0, &p);
-	cout << "function_type.isPredicate():\nCORRECT: 0\nACTUAL: " << function_type.isPredicate() << endl;	
+	cout << "function_type.isPredicate():\nCORRECT: 0\nACTUAL: " << function_type.isPredicate() << endl;
 
 	//TYPE COMPATIBILITY TESTS
+	cout << "int_type.isCompatible(char_type):\nCORRECT: 1\nACTUAL: " << int_type.isCompatible(char_type) << endl;
+	cout << "int_type.isCompatible(pointer_type):\nCORRECT: 0\nACTUAL: " << int_type.isCompatible(pointer_type) << endl;
 
+	cout << "pointer_type.isCompatible(void_pointer_type):\nCORRECT: 1\nACTUAL: " << pointer_type.isCompatible(void_pointer_type) << endl;
+	cout << "void_pointer_type.isCompatible(pointer_type):\nCORRECT: 1\nACTUAL: " << void_pointer_type.isCompatible(pointer_type) << endl;
 return 0;}

@@ -312,15 +312,18 @@ bool Type::isCompatible(const Type &that) const
 	if(promoted_this.isPredicate() && promoted_that.isPredicate())
 	{
 		if(promoted_this == promoted_that) return true; //this and that are identical predicate types
-		else if(promoted_this.isPointer() && (promoted_this.specifier() != VOID))
-		{
-			if(promoted_that.isPointer() && (promoted_that.specifier() == VOID)) return true; //this is of type 'POINTER<T>' and that is of type 'POINTER<VOID>' 
-		}
-		else if(promoted_that.isPointer() && (promoted_that.specifier() != VOID))
-		{
-			if(promoted_this.isPointer() && (promoted_this.specifier() == VOID)) return true; //that is of type 'POINTER<T>' and this is of type 'POINTER<VOID>'
-		}
 	}
+
+	else if(promoted_this.isPointer() && (promoted_this.specifier() != VOID))
+	{
+		if(promoted_that.isPointer() && (promoted_that.specifier() == VOID)) return true; //this is of type 'POINTER<T>' and that is of type 'POINTER<VOID>
+	}
+
+	else if(promoted_that.isPointer() && (promoted_that.specifier() != VOID))
+	{
+		if(promoted_this.isPointer() && (promoted_this.specifier() == VOID)) return true; //that is of type 'POINTER<T>' and this is of type 'POINTER<VOID>'
+	}
+
  	return false;
 }
 
