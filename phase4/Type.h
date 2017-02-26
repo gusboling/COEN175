@@ -46,6 +46,7 @@ public:
 
     bool operator ==(const Type &rhs) const;
     bool operator !=(const Type &rhs) const;
+	void operator =(const Type &rhs);
 
     bool isArray() const;
     bool isScalar() const;
@@ -56,6 +57,12 @@ public:
     unsigned indirection() const;
     unsigned length() const;
     Parameters *parameters() const;
+
+	Type promote() const;
+	bool isInt() const;
+	bool isPointer() const;
+	bool isPredicate() const;
+	bool isCompatible(const Type &that);
 };
 
 std::ostream &operator <<(std::ostream &ostr, const Type &type);

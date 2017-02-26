@@ -129,6 +129,32 @@ bool Type::operator !=(const Type &rhs) const
 
 
 /*
+ * Function:	Type::operator =
+ *
+ * Description: An overloaded assignment operator for the Type class.All members of this 
+ * 		type are set equal to the corresponding members of the rhs type.
+ */
+void Type::operator =(const Type &rhs) 
+{
+	_specifier = rhs.specifier();
+	_indirection = rhs.indirection();
+
+	if(rhs.isScalar()) _kind = SCALAR;
+	else if(rhs.isArray())
+	{
+		_kind = ARRAY;
+		_length = rhs.length();
+	}
+	else if(rhs.isFunction())
+	{
+		_kind = FUNCTION;
+		_parameters = rhs.parameters();
+	}
+	else _kind = ERROR;
+}
+
+
+/*
  * Function:	Type::isArray
  *
  * Description:	Return whether this type is an array type.
@@ -228,6 +254,36 @@ Parameters *Type::parameters() const
     return _parameters;
 }
 
+/*
+ * Function:	Type::promote 
+ *
+ * Description: If applicable, return the promoted form of this type.
+ * 		Otherwise, return a copy of this type.
+ *
+ * 		char -> int
+ *		array of T -> pointer to a T
+ */
+
+Type Type::promote() const
+{
+	Type promote_result = Type(); 
+
+	if(isScalar() && (_specifier == CHAR))
+	{
+		promote_result = Type(INT);
+	}
+	else if(isArray())
+	{
+		int ptr_specifier = _specifier;
+		unsigned ptr_indirection = 1;
+		promote_result = Type(ptr_specifier, ptr_indirection);
+	}
+	else
+	{
+		promote_result = *this;	
+	}
+	return promote_result;
+}
 
 /*
  * Function:	operator <<
