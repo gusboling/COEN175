@@ -62,7 +62,7 @@ public:
 	bool isInt() const;
 	bool isPointer() const;
 	bool isPredicate() const;
-	bool isCompatible(const Type &that);
+	bool isCompatible(const Type &that) const;
 };
 
 std::ostream &operator <<(std::ostream &ostr, const Type &type);
