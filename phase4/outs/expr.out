@@ -6,147 +6,100 @@ i: int
 p: int *
 d: char
 s: char *
-[POSTFIX][DEFAULT] left: int *
 [AND] left: int *
 [OR] left: int *
-[POSTFIX][DEFAULT] left: char
 [AND] left: error
 [OR] left: error
-[POSTFIX][DEFAULT] left: int *
 [AND] left: int *
 [OR] left: int *
-[POSTFIX][DEFAULT] left: int[10]
 [AND] left: error
 [OR] left: error
-[POSTFIX][DEFAULT] left: int *
 [AND] left: int *
 [OR] left: int *
-[POSTFIX][DEFAULT] left: int
 [AND] left: int
 [OR] left: int
 [CHECKER][POSTFIX] left: int[10]
 [CHECKER][POSTFIX] right: int
-[POSTFIX][ACTIVE] left: error
 [AND] left: error
 [OR] left: error
-[POSTFIX][DEFAULT] left: int *
 [AND] left: int *
 [OR] left: int *
-[POSTFIX][DEFAULT] left: int
 [AND] left: error
 [OR] left: error
-[POSTFIX][DEFAULT] left: int
 [AND] left: int
 [OR] left: int
-[POSTFIX][DEFAULT] left: int
 [AND] left: int
 [OR] left: int
-[POSTFIX][DEFAULT] left: int
 [AND] left: int
 [OR] left: int
-[POSTFIX][DEFAULT] left: char
 [AND] left: char
 [OR] left: char
-[POSTFIX][DEFAULT] left: char
 [AND] left: char
 [OR] left: char
-[POSTFIX][DEFAULT] left: int
 [AND] left: int
 [OR] left: int
-[POSTFIX][DEFAULT] left: int
 [AND] left: int
 [OR] left: int
 [CHECKER][POSTFIX] left: int[10]
 [CHECKER][POSTFIX] right: int
-[POSTFIX][ACTIVE] left: error
 [AND] left: error
 [OR] left: error
-[POSTFIX][DEFAULT] left: int
 [AND] left: int
 [OR] left: int
-[POSTFIX][DEFAULT] left: int *
 [AND] left: int *
 [OR] left: int *
 [CHECKER][POSTFIX] left: int[10]
 [CHECKER][POSTFIX] right: int *
-[POSTFIX][ACTIVE] left: error
 [AND] left: error
 [OR] left: error
-[POSTFIX][DEFAULT] left: int
 [AND] left: int
 [OR] left: int
-[POSTFIX][DEFAULT] left: int
 [AND] left: int
 [OR] left: int
-[POSTFIX][DEFAULT] left: int
 [AND] left: int
 [OR] left: int
-[POSTFIX][DEFAULT] left: char[15]
 [AND] left: char[15]
 [OR] left: char[15]
 printf: int()
-[POSTFIX][DEFAULT] left: int()
 [AND] left: int()
 [OR] left: int()
-[POSTFIX][DEFAULT] left: char *
 [AND] left: char *
 [OR] left: char *
-[POSTFIX][DEFAULT] left: char
 [AND] left: error
 [OR] left: error
-[POSTFIX][DEFAULT] left: int
 [AND] left: error
 [OR] left: error
-[POSTFIX][DEFAULT] left: int
 [AND] left: int
 [OR] left: int
-[POSTFIX][DEFAULT] left: int[10]
 [AND] left: error
 [OR] left: error
-[POSTFIX][DEFAULT] left: int
 [AND] left: int
 [OR] left: int
-[POSTFIX][DEFAULT] left: int *
 [AND] left: int *
 [OR] left: int *
-[POSTFIX][DEFAULT] left: int *
-[POSTFIX][DEFAULT] left: int
 [AND] left: int *
 [OR] left: int *
-[POSTFIX][DEFAULT] left: int
 [AND] left: int
 [OR] left: int
-[POSTFIX][DEFAULT] left: int *
-[POSTFIX][DEFAULT] left: int(int, int *)
-[AND] left: int *
-[OR] left: int *
-[POSTFIX][DEFAULT] left: int *
-[AND] left: int *
-[OR] left: int *
-[POSTFIX][DEFAULT] left: int
+[AND] left: int
+[OR] left: int
+[AND] left: int
+[OR] left: int
 [AND] left: error
 [OR] left: error
-[POSTFIX][DEFAULT] left: int *
 [AND] left: int *
 [OR] left: int *
-[POSTFIX][DEFAULT] left: char
 [AND] left: char
 [OR] left: char
-[POSTFIX][DEFAULT] left: int[10]
 [AND] left: int[10]
 [OR] left: int[10]
-[POSTFIX][DEFAULT] left: int(int, int *)
 [AND] left: int(int, int *)
 [OR] left: int(int, int *)
-[POSTFIX][DEFAULT] left: int
 [AND] left: int
 [OR] left: int
-[POSTFIX][DEFAULT] left: int
 [AND] left: int
 [OR] left: int
-[POSTFIX][DEFAULT] left: int
 [AND] left: int
 [OR] left: int
-[POSTFIX][DEFAULT] left: int(int, int *)
 [AND] left: int(int, int *)
 [OR] left: int(int, int *)

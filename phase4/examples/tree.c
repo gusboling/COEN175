@@ -1,4 +1,4 @@
-*
+/*
  * tree.c, or I've always thought structures were overrated, didn't you?
  *
  * Believe it or not, your compiler will be able to generate assembly code

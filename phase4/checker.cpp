@@ -42,8 +42,8 @@ static string void_object = "'%s' has type void";
 static string return_type = "invalid return type"; //E1
 static string test_expression = "invalid type for test expression"; //E2
 static string lvalue_required = "lvalue required in expression"; //E3
-static string invalid_binary = "invalid operands to binary '%s'"; //E4
-static string invalid_unary = "invalid operands to unary '%s'"; //E5
+static string invalid_binary = "invalid operands to binary %s"; //E4
+static string invalid_unary = "invalid operands to unary %s"; //E5
 static string not_function = "called object is not a function"; //E6
 static string invalid_arguments = "invalid arguments to called function"; //E7
 
@@ -205,18 +205,31 @@ Symbol *checkIdentifier(const string &name)
  *		undeclared, then implicitly declare it.
  */
 
-Symbol *checkFunction(const string &name)
+Symbol *checkFunction(const string &name, Parameters params)
 {
     Symbol *symbol = toplevel->lookup(name);
+    if (symbol == nullptr){
+		symbol = declareFunction(name, Type(INT, 0, nullptr));
+	}
 
-    if (symbol == nullptr)
-	symbol = declareFunction(name, Type(INT, 0, nullptr));
+	Type id_type = symbol->type();
+	if(!id_type.isFunction()){
+		report(not_function, ""); //E6: called object is not a function
+	}
+	
+	else if(params.size() > 0){
+		for(unsigned i=0; i < params.size(); i++){
+			if(!params[i].isPredicate()){
+				report(invalid_arguments,"");
+				break;
+			}
+		}
+	}	
 
     return symbol;
 }
 
 Type checkLogicalOR(Type left, Type right){
-
 	if(left.isPredicate() && right.isPredicate()){
 		return Type(INT);
 	}
@@ -225,6 +238,71 @@ Type checkLogicalOR(Type left, Type right){
 		return error;
 	}
 }
+
+Type checkLogicalAND(Type left, Type right){
+	if(left.isPredicate() && right.isPredicate()) return Type(INT);
+	else
+	{
+		report(invalid_binary, "&&"); //E4: invalid operands to binary &&
+		return error;
+	}
+}
+
+Type checkLogicalEQ(Type left, Type right){
+	if(left.isCompatible(right)) return Type(INT);
+	else
+	{
+		report(invalid_binary,"==");
+		return error;
+	}
+}
+
+Type checkLogicalNEQ(Type left, Type right){
+	if(left.isCompatible(right)) return Type(INT);
+	else
+	{
+		report(invalid_binary, "!=");
+		return error;
+	}
+}
+
+Type checkRelationalExpr(Type left, Type right, string binary_operator)
+{
+	Type p_left = left.promote();
+	Type p_right = left.promote();
+
+	if((p_left == p_right) && p_left.isPredicate()) return Type(INT);
+	else
+	{
+		report(invalid_binary, binary_operator);
+		return error;
+	}
+}
+
+Type checkAdditiveExpr(Type left, Type right, string binary_operator)
+{
+	Type result;
+
+	if((left.specifier()==VOID) || (right.specifier()==VOID)){
+		result = error;
+	}
+
+	else if(left.isInt() || right.isInt())
+	{
+		if(left.isInt() && right.isInt()) result = Type(INT);
+		else if(left.isPointer() && right.isInt()) result = Type(left.specifier(), left.indirection());
+		else if((binary_operator=="+") && left.isInt() && right.isPointer()) result = Type(right.specifier(), right.indirection());
+	}
+
+	else if((binary_operator=="-") && left.isPointer() && right.isPointer()){
+		if(left == right) result = Type(left.specifier(), left.indirection());
+	}
+
+	if(result == error) report(invalid_binary, binary_operator);
+
+	return result;
+}
+
 
 Type checkPostFixExpr(Type left, Type right)
 {

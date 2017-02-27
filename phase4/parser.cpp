@@ -273,20 +273,21 @@ static Type primaryExpression(bool &lvalue)
 	
 	else if (lookahead == ID) {
 		name = expect(ID);
-		
+		Parameters params;
+
 		if (lookahead == '(') {
 	    	match('(');
 
 	    	if (lookahead != ')') {
-				Type temp = expression(lvalue);
+				params.push_back(expression(lvalue));
 				while (lookahead == ',') {
 		    		match(',');
-					temp = expression(lvalue);
+					params.push_back(expression(lvalue));
 				}
 	    	}
 
 	    	match(')');
-	    	Symbol *result = checkFunction(name); //TODO: Make this return a type for the primaryExpression result. Might need to pass parameter types somehow.
+	    	Symbol *result = checkFunction(name, params); 
 			left = result->type(); 
 		}
 		else 
@@ -325,11 +326,9 @@ static Type postfixExpression(bool &lvalue)
 		match(']');
 		left = checkPostFixExpr(left, right);
 		lvalue = true;
-		cout << "[POSTFIX][ACTIVE] left: " << left << endl;
 		return left;
     }
 
-	cout << "[POSTFIX][DEFAULT] left: " << left << endl;
 	return left;
 }
 
@@ -457,13 +456,13 @@ static Type additiveExpression(bool &lvalue)
 		if (lookahead == '+') {
 	    	match('+');
 	    	Type right = multiplicativeExpression(lvalue);
-			//left = checkAdditiveExpression(left, right); //TODO: Implement in checker
+			left = checkAdditiveExpr(left, right, "+"); //TODO: Implement in checker
 			lvalue = false;
 		} 
 		else if (lookahead == '-') {
 	    	match('-');
 	    	Type right = multiplicativeExpression(lvalue);
-			//left = checkAdditiveExpression(left, right); //TODO: Implement in checker
+			left = checkAdditiveExpr(left, right, "-"); //TODO: Implement in checker
 			lvalue = false;
 		}	 
 		else{
@@ -497,25 +496,25 @@ static Type relationalExpression(bool &lvalue)
 		if (lookahead == '<') {
 	    	match('<');
 	    	Type right = additiveExpression(lvalue);
-			//left = checkRelationalExpression(left, right); //TODO:Implement in checker
+			left = checkRelationalExpr(left, right, "<"); 
 			lvalue = false;
 
 		} else if (lookahead == '>') {
 	    	match('>');
 	    	Type right = additiveExpression(lvalue);
-			//left = checkRelationalExpression(left, right); //TODO: Implement in checker
+			left = checkRelationalExpr(left, right, ">"); 
 			lvalue = false;
 
 		} else if (lookahead == LEQ) {
 	    match(LEQ);
 	    Type right = additiveExpression(lvalue);
-		//left = checkRelationalExpression(left, right); //TODO: Implement in checker
+		left = checkRelationalExpr(left, right, "<=");
 		lvalue = false;
 
 		} else if (lookahead == GEQ) {
 	    	match(GEQ);
 	    	Type right = additiveExpression(lvalue);
-			//left = checkRelationalExpression(left, right); //TODO: Implement in checker
+			left = checkRelationalExpr(left, right, ">=");
 			lvalue = false;
 	
 		} else {
@@ -545,17 +544,17 @@ static Type equalityExpression(bool &lvalue){
 		if (lookahead == EQL) {
 	    	match(EQL);
 	    	Type right = relationalExpression(lvalue);
-			//left = checkLogicalEQ(left, right); //TODO: Implement in checker
+			left = checkLogicalEQ(left, right); 
 			lvalue = false;
 
 		} else if (lookahead == NEQ) {
 	    	match(NEQ);
 	    	Type right = relationalExpression(lvalue);
-			//left = checkLogicalEQ(left, right); //TODO: Implement in checker
+			left = checkLogicalNEQ(left, right); 
 			lvalue = false;
 
 		} else {
-			return left; //TODO: Is this correct?
+			return left;
 	    	break;
 		}
     }
@@ -581,7 +580,7 @@ static Type logicalAndExpression(bool &lvalue){
 		match(AND);
 		Type right = equalityExpression(lvalue);
 		cout << "[AND][2] right: " << right << endl;
-		//left = checkLogicalAND(left, right); //TODO: Implement in checker
+		left = checkLogicalAND(left, right); 
 		lvalue = false;
     }
 	return left;
