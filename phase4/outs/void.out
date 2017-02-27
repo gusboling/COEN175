@@ -12,3 +12,4 @@ main: int(void)
 [CHECKER][RelExp] p_left: void * p_right: int *
 [CHECKER][RelExp] left: int * right: void *
 [CHECKER][RelExp] p_left: int * p_right: void *
+[CHECKER][ASSIGNMENT] right: int *

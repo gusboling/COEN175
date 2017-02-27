@@ -6,8 +6,21 @@ i: int
 p: int *
 d: char
 s: char *
-[CHECKER][PstFix] left: int[10] right: int *
-[CHECKER][PstFix] promoted left: int *
+[CHECKER][ASSIGNMENT] right: char *
+[CHECKER][ASSIGNMENT] right: int *
+[CHECKER][ASSIGNMENT] right: int *
+[CHECKER][ASSIGNMENT] right: int *
+[CHECKER][ASSIGNMENT] right: int
+[CHECKER][ASSIGNMENT] right: char
+[CHECKER][ASSIGNMENT] right: int
+[CHECKER][ASSIGNMENT] right: int
+[CHECKER][ASSIGNMENT] right: int
 printf: int()
+[CHECKER][ASSIGNMENT] right: char *
+[CHECKER][ASSIGNMENT] right: int
+[CHECKER][ASSIGNMENT] right: int
+[CHECKER][ASSIGNMENT] right: int *
 [CHECKER][RelExp] left: int * right: int(int, int *)
 [CHECKER][RelExp] p_left: int * p_right: int(int, int *)
+[CHECKER][ASSIGNMENT] right: error
+[CHECKER][ASSIGNMENT] right: int *

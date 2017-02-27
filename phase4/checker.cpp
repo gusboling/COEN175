@@ -438,8 +438,6 @@ Type checkPostFixExpr(Type left, Type right)
 	}
 	else
 	{	
-		cout << "[CHECKER][PstFix] left: " << left << " right: " << right << endl;
-		cout << "[CHECKER][PstFix] promoted left: " << left.promote() << endl;
 		report(invalid_binary, "[]"); //E4: invalid operands to binary []
 		return Type();
 	}
@@ -452,8 +450,13 @@ Type checkPostFixExpr(Type left, Type right)
  */
 void checkAssignment(Type left, Type right, bool lvalue)
 {
+	cout << "[CHECKER][ASSIGNMENT] right: " << right << endl;
+
 	if(!lvalue) report(lvalue_required, ""); //E3: lvalue required in expression
-	else if(!left.isCompatible(right)) report(invalid_binary, "="); //E4: invalid operands to binary =
+	else if(!left.isCompatible(right))
+	{
+		report(invalid_binary, "="); //E4: invalid operands to binary =
+	}
 	else return;
 }
 
@@ -472,7 +475,7 @@ void checkReturnStmt(Type right){
 		if(right.isCompatible(function_type)) return;
 		else report(return_type, "");
 	}
-	else cout << "[CHECKER] NULL scope encountered" << endl;
+	else return; 
 }
 
 /*

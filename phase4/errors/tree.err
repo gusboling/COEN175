@@ -1,54 +1,42 @@
-line 12: invalid operand to unary !
-line 13: invalid operand to unary sizeof
-line 13: invalid operands to binary *
-line 13: invalid arguments to called function
 line 13: invalid operands to binary =
 line 14: invalid operands to binary =
 line 15: invalid operands to binary =
 line 16: invalid operands to binary =
 line 17: invalid operands to binary <
+line 17: invalid type for test expression
 line 18: invalid arguments to called function
 line 18: invalid operands to binary =
 line 19: invalid operands to binary >
+line 19: invalid type for test expression
 line 20: invalid arguments to called function
 line 20: invalid operands to binary =
-line 27: invalid operand to unary !
+line 22: invalid return type
+line 28: invalid return type
 line 30: invalid operands to binary <
+line 30: invalid type for test expression
 line 31: invalid arguments to called function
+line 31: invalid return type
 line 33: invalid operands to binary >
+line 33: invalid type for test expression
 line 34: invalid arguments to called function
+line 34: invalid return type
+line 36: invalid return type
 line 43: invalid operands to binary =
+line 44: invalid arguments to called function
 line 45: invalid arguments to called function
 line 46: invalid arguments to called function
 line 54: invalid operands to binary =
 line 55: invalid arguments to called function
+line 56: invalid arguments to called function
 line 57: invalid arguments to called function
-line 69: invalid operands to binary []
-line 69: invalid operands to binary =
 line 73: invalid operands to binary =
-line 74: invalid operands to binary []
-line 74: invalid arguments to called function
 line 74: invalid operands to binary =
-line 75: invalid operands to binary []
-line 75: invalid arguments to called function
 line 75: invalid operands to binary =
-line 76: invalid operands to binary []
-line 76: invalid arguments to called function
 line 76: invalid operands to binary =
-line 77: invalid operands to binary []
-line 77: invalid arguments to called function
 line 77: invalid operands to binary =
-line 78: invalid operands to binary []
-line 78: invalid arguments to called function
 line 78: invalid operands to binary =
-line 79: invalid operands to binary []
-line 79: invalid arguments to called function
 line 79: invalid operands to binary =
-line 80: invalid operands to binary []
-line 80: invalid arguments to called function
 line 80: invalid operands to binary =
-line 81: invalid operands to binary []
-line 81: invalid arguments to called function
 line 81: invalid operands to binary =
-line 83: invalid arguments to called function
-line 85: invalid arguments to called function
+line 82: invalid arguments to called function
+line 84: invalid arguments to called function
