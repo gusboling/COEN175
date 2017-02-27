@@ -1,9 +1,3 @@
 f: int **(void)
 p: int *
-[AND] left: int *
-[OR] left: int *
 main: int(void)
-[AND] left: int(void)
-[OR] left: int(void)
-[AND] left: int(void)
-[OR] left: int(void)

@@ -43,7 +43,7 @@ static string return_type = "invalid return type"; //E1
 static string test_expression = "invalid type for test expression"; //E2
 static string lvalue_required = "lvalue required in expression"; //E3
 static string invalid_binary = "invalid operands to binary %s"; //E4
-static string invalid_unary = "invalid operands to unary %s"; //E5
+static string invalid_unary = "invalid operand to unary %s"; //E5
 static string not_function = "called object is not a function"; //E6
 static string invalid_arguments = "invalid arguments to called function"; //E7
 
@@ -229,6 +229,11 @@ Symbol *checkFunction(const string &name, Parameters params)
     return symbol;
 }
 
+/*
+ * Function: checkLogicalOR
+ *
+ * Description: performs typechecking for '||' operator
+ */
 Type checkLogicalOR(Type left, Type right){
 	if(left.isPredicate() && right.isPredicate()){
 		return Type(INT);
@@ -239,6 +244,11 @@ Type checkLogicalOR(Type left, Type right){
 	}
 }
 
+/*
+ * Function: checkLogicalAND
+ *
+ * Description: performs typechecking for '&&' operator
+ */
 Type checkLogicalAND(Type left, Type right){
 	if(left.isPredicate() && right.isPredicate()) return Type(INT);
 	else
@@ -248,6 +258,11 @@ Type checkLogicalAND(Type left, Type right){
 	}
 }
 
+/*
+ * Function: checkLogicalEQ
+ *
+ * Description: performs typechecking for '==' operator
+ */
 Type checkLogicalEQ(Type left, Type right){
 	if(left.isCompatible(right)) return Type(INT);
 	else
@@ -257,6 +272,11 @@ Type checkLogicalEQ(Type left, Type right){
 	}
 }
 
+/*
+ * Function: checkLogicalNEQ
+ *
+ * Description: peforms typechecking for '!=' operator
+ */
 Type checkLogicalNEQ(Type left, Type right){
 	if(left.isCompatible(right)) return Type(INT);
 	else
@@ -266,10 +286,18 @@ Type checkLogicalNEQ(Type left, Type right){
 	}
 }
 
+/*
+ * Function: checkRelationalExpr
+ *
+ * Description: performs typechecking for '>', '<', '>=', '<=' operators
+ */
 Type checkRelationalExpr(Type left, Type right, string binary_operator)
 {
 	Type p_left = left.promote();
-	Type p_right = left.promote();
+	Type p_right = right.promote();
+
+	cout << "[CHECKER][RelExp] left: " << left << " right: " << right << endl;
+	cout << "[CHECKER][RelExp] p_left: " << p_left << " p_right: " << p_right << endl;
 
 	if((p_left == p_right) && p_left.isPredicate()) return Type(INT);
 	else
@@ -279,6 +307,11 @@ Type checkRelationalExpr(Type left, Type right, string binary_operator)
 	}
 }
 
+/*
+ * Function: checkAdditiveExpr
+ *
+ * Description: performs typechecking for '+', '-' binary operators
+ */
 Type checkAdditiveExpr(Type left, Type right, string binary_operator)
 {
 	Type result;
@@ -303,17 +336,173 @@ Type checkAdditiveExpr(Type left, Type right, string binary_operator)
 	return result;
 }
 
+/*
+ * Function: checkMultiplicativeExpr
+ *
+ * Description: performs typechecking for '*','/' binary operators
+ */
+Type checkMultiplicativeExpr(Type left, Type right, string binary_operator)
+{
+	if(left.isInt() && right.isInt()) return Type(INT);
+	else
+	{
+		report(invalid_binary, binary_operator);
+		return error;
+	}
+}
 
+/*
+ * Function: checkNegationExpr
+ *
+ * Description: performs typechecking on the unary '!' operator
+ */
+Type checkNegationExpr(Type right)
+{
+	if(right.isPredicate()) return Type(INT);
+	else
+	{
+		report(invalid_unary, "!");
+		return error;
+	}
+}
+
+/*
+ * Function: checkNegativeExpr 
+ *
+ * Description: performs typechecking on unary '-' operator
+ */
+Type checkNegativeExpr(Type right)
+{
+	if(right.isInt()) return Type(INT);
+	else
+	{
+		report(invalid_unary, "-");
+		return error;
+	}
+}
+
+/*
+ * Function: checkDerefExpr
+ *
+ * Description: performs typechecking on unary '*' operator
+ */
+Type checkDerefExpr(Type right)
+{
+	if(right.isPointer() && (right.specifier() != VOID)) return Type(right.specifier(), right.indirection()-1);
+	else
+	{
+		report(invalid_unary, "*");
+		return error;
+	}
+}
+
+/*
+ * Function: checkAddressExpr
+ *
+ * Description: performs typechecking on unary '&' operator
+ */
+Type checkAddressExpr(Type right, bool lvalue)
+{
+	if(lvalue) return Type(right.specifier(), right.indirection()+1);
+	else
+	{
+		report(lvalue_required, "");
+		return error;
+	}
+}
+
+/*
+ * Function: checkSizeofExpr
+ *
+ * Description: performs typechecking for unary 'sizeof' operator
+ */
+Type checkSizeofExpr(Type right)
+{
+	if(right.isPredicate()) return Type(INT);
+	else
+	{
+		report(invalid_unary, "sizeof");
+		return error;
+	}
+}
+
+/*
+ * Function: checkPostFixExpr
+ *
+ * Description: performs typechecking for postfix expressions
+ */
 Type checkPostFixExpr(Type left, Type right)
 {
-	cout << "[CHECKER][POSTFIX] left: " << left << endl;
-	cout << "[CHECKER][POSTFIX] right: " << right << endl;
 	if(left.isPointer() && right.isInt()){
 		return Type(left.specifier());
 	}
 	else
-	{
+	{	
+		cout << "[CHECKER][PstFix] left: " << left << " right: " << right << endl;
+		cout << "[CHECKER][PstFix] promoted left: " << left.promote() << endl;
 		report(invalid_binary, "[]"); //E4: invalid operands to binary []
 		return Type();
 	}
+}
+
+/*
+ * Function: checkAssignment
+ *
+ * Description: performs typechecking for assignments
+ */
+void checkAssignment(Type left, Type right, bool lvalue)
+{
+	if(!lvalue) report(lvalue_required, ""); //E3: lvalue required in expression
+	else if(!left.isCompatible(right)) report(invalid_binary, "="); //E4: invalid operands to binary =
+	else return;
+}
+
+/*
+ * Function: checkReturnStmt
+ *
+ * Description: performs typechecking for assignment statements
+ */
+void checkReturnStmt(Type right){
+	Scope* enclosing_scope = toplevel->enclosing();
+	if(enclosing_scope != NULL)
+	{
+		Symbol* function_sym = enclosing_scope->symbols().back();
+		Type function_type = function_sym->type();
+
+		if(right.isCompatible(function_type)) return;
+		else report(return_type, "");
+	}
+	else cout << "[CHECKER] NULL scope encountered" << endl;
+}
+
+/*
+ * Function: checkWhileStmt
+ *
+ * Description: performs typechecking for while statements
+ */
+void checkWhileStmt(Type right)
+{
+	if(!right.isPredicate()) report(test_expression, "");
+	else return;
+}
+
+/*
+ * Function: checkForStmt
+ *
+ * Description: performs typechecking for for statements
+ */
+void checkForStmt(Type right)
+{
+	if(!right.isPredicate()) report(test_expression, "");
+	else return;
+}
+
+/*
+ * Function: checkIfStmt
+ *
+ * Description: performs typechecking for if statements
+ */
+void checkIfStmt(Type right){
+	if(!right.isPredicate()) report(test_expression, "");
+	else return;
 }

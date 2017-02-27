@@ -8,50 +8,38 @@ insert: void *(void **, void *)
 [OR] left: error
 [AND] left: void **
 [OR] left: void **
-[AND] left: int
-[OR] left: int
+[AND] left: error
+[OR] left: error
 [AND] left: void *(int)
 [OR] left: void *(int)
 [AND] left: int
 [OR] left: int
-[CHECKER][POSTFIX] left: void **
-[CHECKER][POSTFIX] right: int
 [AND] left: void
 [OR] left: void
 [AND] left: void *
 [OR] left: void *
 [AND] left: int
 [OR] left: int
-[CHECKER][POSTFIX] left: void **
-[CHECKER][POSTFIX] right: int
 [AND] left: void
 [OR] left: void
 [AND] left: void *
 [OR] left: void *
 [AND] left: int
 [OR] left: int
-[CHECKER][POSTFIX] left: void **
-[CHECKER][POSTFIX] right: int
 [AND] left: void
 [OR] left: void
 [AND] left: void *
 [OR] left: void *
 [AND] left: int
 [OR] left: int
-[CHECKER][POSTFIX] left: void **
-[CHECKER][POSTFIX] right: int
 [AND] left: error
 [OR] left: error
 [AND] left: int
 [OR] left: int
-[CHECKER][POSTFIX] left: void **
-[CHECKER][POSTFIX] right: int
 [AND] left: void
 [OR] left: void
 [AND] left: int
 [OR] left: int
-[CHECKER][POSTFIX] left: void **
-[CHECKER][POSTFIX] right: int
 [AND] left: void
 [OR] left: void
 [AND] left: void *
@@ -60,20 +48,14 @@ insert: void *(void **, void *)
 [OR] left: void *(void **, void *)
 [AND] left: int
 [OR] left: int
-[CHECKER][POSTFIX] left: void **
-[CHECKER][POSTFIX] right: int
 [AND] left: error
 [OR] left: error
 [AND] left: int
 [OR] left: int
-[CHECKER][POSTFIX] left: void **
-[CHECKER][POSTFIX] right: int
 [AND] left: void
 [OR] left: void
 [AND] left: int
 [OR] left: int
-[CHECKER][POSTFIX] left: void **
-[CHECKER][POSTFIX] right: int
 [AND] left: void
 [OR] left: void
 [AND] left: void *
@@ -91,14 +73,10 @@ search: int(void **, void *)
 [OR] left: int
 [AND] left: int
 [OR] left: int
-[CHECKER][POSTFIX] left: void **
-[CHECKER][POSTFIX] right: int
 [AND] left: error
 [OR] left: error
 [AND] left: int
 [OR] left: int
-[CHECKER][POSTFIX] left: void **
-[CHECKER][POSTFIX] right: int
 [AND] left: void
 [OR] left: void
 [AND] left: void *
@@ -107,14 +85,10 @@ search: int(void **, void *)
 [OR] left: int(void **, void *)
 [AND] left: int
 [OR] left: int
-[CHECKER][POSTFIX] left: void **
-[CHECKER][POSTFIX] right: int
 [AND] left: error
 [OR] left: error
 [AND] left: int
 [OR] left: int
-[CHECKER][POSTFIX] left: void **
-[CHECKER][POSTFIX] right: int
 [AND] left: void
 [OR] left: void
 [AND] left: void *
@@ -132,29 +106,23 @@ p: int *
 [OR] left: int *
 [AND] left: int
 [OR] left: int
-[CHECKER][POSTFIX] left: void **
-[CHECKER][POSTFIX] right: int
 [AND] left: void
 [OR] left: void
 [AND] left: char[6]
 [OR] left: char[6]
-[AND] left: error
-[OR] left: error
+[AND] left: int
+[OR] left: int
 printf: int()
 [AND] left: int()
 [OR] left: int()
 [AND] left: int
 [OR] left: int
-[CHECKER][POSTFIX] left: void **
-[CHECKER][POSTFIX] right: int
 [AND] left: void
 [OR] left: void
 [AND] left: void(void **)
 [OR] left: void(void **)
 [AND] left: int
 [OR] left: int
-[CHECKER][POSTFIX] left: void **
-[CHECKER][POSTFIX] right: int
 [AND] left: void
 [OR] left: void
 [AND] left: void(void **)
@@ -168,28 +136,22 @@ p: int *
 [OR] left: int *
 [AND] left: int
 [OR] left: int
-[CHECKER][POSTFIX] left: void **
-[CHECKER][POSTFIX] right: int
 [AND] left: void
 [OR] left: void
 [AND] left: int
 [OR] left: int
-[CHECKER][POSTFIX] left: void **
-[CHECKER][POSTFIX] right: int
 [AND] left: void
 [OR] left: void
 [AND] left: void(void **)
 [OR] left: void(void **)
 [AND] left: char[6]
 [OR] left: char[6]
-[AND] left: error
-[OR] left: error
+[AND] left: int
+[OR] left: int
 [AND] left: int()
 [OR] left: int()
 [AND] left: int
 [OR] left: int
-[CHECKER][POSTFIX] left: void **
-[CHECKER][POSTFIX] right: int
 [AND] left: void
 [OR] left: void
 [AND] left: void(void **)
@@ -206,8 +168,6 @@ i: int
 [OR] left: int
 [AND] left: int
 [OR] left: int
-[CHECKER][POSTFIX] left: int[10]
-[CHECKER][POSTFIX] right: int
 [AND] left: error
 [OR] left: error
 [AND] left: int
@@ -226,10 +186,8 @@ i: int
 [OR] left: void **
 [AND] left: int
 [OR] left: int
-[CHECKER][POSTFIX] left: int[10]
-[CHECKER][POSTFIX] right: int
-[AND] left: error
-[OR] left: error
+[AND] left: 577705248 ****************************************************************
+[OR] left: 577705248 ****************************************************************
 [AND] left: void *(void **, void *)
 [OR] left: void *(void **, void *)
 [AND] left: void **
@@ -238,10 +196,8 @@ i: int
 [OR] left: void **
 [AND] left: int
 [OR] left: int
-[CHECKER][POSTFIX] left: int[10]
-[CHECKER][POSTFIX] right: int
-[AND] left: error
-[OR] left: error
+[AND] left: 577705248 ****************************************************************
+[OR] left: 577705248 ****************************************************************
 [AND] left: void *(void **, void *)
 [OR] left: void *(void **, void *)
 [AND] left: void **
@@ -250,10 +206,8 @@ i: int
 [OR] left: void **
 [AND] left: int
 [OR] left: int
-[CHECKER][POSTFIX] left: int[10]
-[CHECKER][POSTFIX] right: int
-[AND] left: error
-[OR] left: error
+[AND] left: 577705248 ****************************************************************
+[OR] left: 577705248 ****************************************************************
 [AND] left: void *(void **, void *)
 [OR] left: void *(void **, void *)
 [AND] left: void **
@@ -262,10 +216,8 @@ i: int
 [OR] left: void **
 [AND] left: int
 [OR] left: int
-[CHECKER][POSTFIX] left: int[10]
-[CHECKER][POSTFIX] right: int
-[AND] left: error
-[OR] left: error
+[AND] left: 577705248 ****************************************************************
+[OR] left: 577705248 ****************************************************************
 [AND] left: void *(void **, void *)
 [OR] left: void *(void **, void *)
 [AND] left: void **
@@ -274,10 +226,8 @@ i: int
 [OR] left: void **
 [AND] left: int
 [OR] left: int
-[CHECKER][POSTFIX] left: int[10]
-[CHECKER][POSTFIX] right: int
-[AND] left: error
-[OR] left: error
+[AND] left: 577705248 ****************************************************************
+[OR] left: 577705248 ****************************************************************
 [AND] left: void *(void **, void *)
 [OR] left: void *(void **, void *)
 [AND] left: void **
@@ -286,10 +236,8 @@ i: int
 [OR] left: void **
 [AND] left: int
 [OR] left: int
-[CHECKER][POSTFIX] left: int[10]
-[CHECKER][POSTFIX] right: int
-[AND] left: error
-[OR] left: error
+[AND] left: 577705248 ****************************************************************
+[OR] left: 577705248 ****************************************************************
 [AND] left: void *(void **, void *)
 [OR] left: void *(void **, void *)
 [AND] left: void **
@@ -298,10 +246,8 @@ i: int
 [OR] left: void **
 [AND] left: int
 [OR] left: int
-[CHECKER][POSTFIX] left: int[10]
-[CHECKER][POSTFIX] right: int
-[AND] left: error
-[OR] left: error
+[AND] left: 577705248 ****************************************************************
+[OR] left: 577705248 ****************************************************************
 [AND] left: void *(void **, void *)
 [OR] left: void *(void **, void *)
 [AND] left: void **
@@ -310,10 +256,8 @@ i: int
 [OR] left: void **
 [AND] left: int
 [OR] left: int
-[CHECKER][POSTFIX] left: int[10]
-[CHECKER][POSTFIX] right: int
-[AND] left: error
-[OR] left: error
+[AND] left: 577705248 ****************************************************************
+[OR] left: 577705248 ****************************************************************
 [AND] left: void *(void **, void *)
 [OR] left: void *(void **, void *)
 [AND] left: char[23]

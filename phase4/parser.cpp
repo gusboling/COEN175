@@ -1,6 +1,3 @@
-//TODO: Update defunct calls to "void expression()". Needs to be 
-
-
 // PARSER.CPP: Recursive descent parser implementation
 
 //Libraries
@@ -294,6 +291,7 @@ static Type primaryExpression(bool &lvalue)
 		{
 			Symbol* sym_ptr = checkIdentifier(name);
 			left = sym_ptr->type();
+			if(left.isScalar()) lvalue = true;
 		}
 
     } 
@@ -353,35 +351,35 @@ static Type  prefixExpression(bool &lvalue)
     if (lookahead == '!') {
 		match('!');
 		Type right = prefixExpression(lvalue);
-		//Type left = checkNegationExpr(right); //TODO: Implement in checker
+		Type left = checkNegationExpr(right); 
 		lvalue = false;
 		return left;
 
    	} else if (lookahead == '-') {
 		match('-');
 		Type right = prefixExpression(lvalue);
-		//Type left = checkNegativeExpr(right); //TODO: Implement in checker
+		Type left = checkNegativeExpr(right);
 		lvalue = false;
 		return left;
 
     } else if (lookahead == '*') {
 		match('*');
 		Type right = prefixExpression(lvalue);
-		//Type left = checkDerefExpr(right); //TODO: Implement in checker
+		Type left = checkDerefExpr(right); 
 		lvalue = true;
 		return left;
 
     } else if (lookahead == '&') {
 		match('&');
 		Type right = prefixExpression(lvalue);
-		//Type left = checkAddressExpr(right); //TODO: Implement in checker
+		Type left = checkAddressExpr(right, lvalue); 
 		lvalue = false;
 		return left;
 
     } else if (lookahead == SIZEOF) {
 		match(SIZEOF);
 		Type right = prefixExpression(lvalue);
-		//Type left = checkSizeofExpression(right); //TODO: Implement in checker
+		Type left = checkSizeofExpr(right); 
 		lvalue = false;
 		return left;
     
@@ -414,19 +412,19 @@ static Type multiplicativeExpression(bool &lvalue)
 		if (lookahead == '*') {
 	    	match('*');
 	    	Type right = prefixExpression(lvalue);
-			//left = checkMultiplicativeExpression(left, right); //TODO: Implement in checker
+			left = checkMultiplicativeExpr(left, right, "*"); 
 			lvalue = false;
 
 		} else if (lookahead == '/') {
 	    	match('/');
 	    	Type right = prefixExpression(lvalue);
-			//left = checkMultiplicativeExpression(left, right); //TODO: Implement in checker
+			left = checkMultiplicativeExpr(left, right, "/"); 
 			lvalue = false;
 
 		} else if (lookahead == '%') {
 	    	match('%');
 	    	Type right = prefixExpression(lvalue);
-			//left = checkMultiplicativeExpression(left, right); //TODO: Implement in checker
+			left = checkMultiplicativeExpr(left, right, "%"); 
 			lvalue = false;
 
 		} else {
@@ -574,12 +572,10 @@ static Type equalityExpression(bool &lvalue){
 
 static Type logicalAndExpression(bool &lvalue){
     Type left = equalityExpression(lvalue);
-	cout << "[AND] left: " << left << endl;
 
     while (lookahead == AND) {
 		match(AND);
 		Type right = equalityExpression(lvalue);
-		cout << "[AND][2] right: " << right << endl;
 		left = checkLogicalAND(left, right); 
 		lvalue = false;
     }
@@ -600,14 +596,11 @@ static Type logicalAndExpression(bool &lvalue){
 
 static Type expression(bool &lvalue){
     Type left = logicalAndExpression(lvalue); 
-	cout << "[OR] left: " << left << endl;
 
     while (lookahead == OR) {
 		match(OR);
 		Type right = logicalAndExpression(lvalue);
-		cout << "[OR][2] right: " << right << endl;
 		left = checkLogicalOR(left, right);
-		cout << "[OR][3] left-post-check: " << left << endl;
 		lvalue = false;
     }
 	return left;
@@ -647,14 +640,14 @@ static void statements()
 static void assignment()
 {
 	bool lvalue_original = false;
-    Type left = expression(lvalue_original); //Is this right? (1/2)
+    Type left = expression(lvalue_original);
+	bool left_lvalue = lvalue_original;
 
     if (lookahead == '=') {
 		match('=');
-		Type right = expression(lvalue_original); //Is this right? (2/2)
+		Type right = expression(lvalue_original);
+		checkAssignment(left, right, left_lvalue);
     }
-
-	//TODO: Implement something for this in checker.
 }
 
 
@@ -690,8 +683,8 @@ static void statement()
     } else if (lookahead == RETURN) {
 		match(RETURN);
 		right = expression(lvalue_original);
+		checkReturnStmt(right);
 		match(';');
-		//checkReturnStatement(right); //TODO: Implement in checker
 
     } else if (lookahead == WHILE) {
 		match(WHILE);
@@ -699,7 +692,7 @@ static void statement()
 		right = expression(lvalue_original);
 		match(')');
 		statement();
-		//checkWhileStatement(right); //TODO: Implement in checker
+		checkWhileStmt(right); 
 
     } else if (lookahead == FOR) {
 		match(FOR);
@@ -711,13 +704,13 @@ static void statement()
 		assignment();
 		match(')');
 		statement();
-		//checkForStatement(right); //TODO: Implement in checker
+		checkForStmt(right); 
 
     } else if (lookahead == IF) {
 		match(IF);
 		match('(');
 		right = expression(lvalue_original);
-		//CheckIfStatement(right); //TODO: Implement in checker
+		checkIfStmt(right); 
 		match(')');
 		statement();
 		

@@ -6,27 +6,9 @@ iq: int *
 vp: void *
 vq: void *
 main: int(void)
-[AND] left: int
-[OR] left: int
-[AND] left: error
-[OR] left: error
-[AND] left: error
-[OR] left: error
-[AND] left: error
-[OR] left: error
-[AND] left: int
-[OR] left: int
-[AND] left: error
-[OR] left: error
-[AND] left: error
-[OR] left: error
-[AND] left: int *
-[OR] left: int *
-[AND] left: int *
-[OR] left: int *
-[AND] left: int *
-[OR] left: int *
-[AND] left: error
-[OR] left: error
-[AND] left: error
-[OR] left: error
+[CHECKER][RelExp] left: void * right: void *
+[CHECKER][RelExp] p_left: void * p_right: void *
+[CHECKER][RelExp] left: void * right: int *
+[CHECKER][RelExp] p_left: void * p_right: int *
+[CHECKER][RelExp] left: int * right: void *
+[CHECKER][RelExp] p_left: int * p_right: void *

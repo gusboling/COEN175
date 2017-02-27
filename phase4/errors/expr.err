@@ -1,4 +1,11 @@
-line 11: invalid operands to binary []
-line 18: invalid operands to binary []
+line 9: invalid operands to binary =
 line 19: invalid operands to binary []
+line 19: invalid operands to binary =
 line 21: called object is not a function
+line 22: invalid arguments to called function
+line 25: invalid operand to unary *
+line 25: invalid operands to binary =
+line 26: invalid operands to binary =
+line 29: invalid operands to binary <
+line 29: invalid operands to binary =
+line 31: lvalue required in expression

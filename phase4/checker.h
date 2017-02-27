@@ -35,6 +35,20 @@ Type checkRelationalExpr(Type left, Type right, string binary_operator);
 
 Type checkAdditiveExpr(Type left, Type right, string binary_operator);
 
+Type checkMultiplicativeExpr(Type left, Type right, string binary_operator);
+
+Type checkNegationExpr(Type right);
+Type checkNegativeExpr(Type right);
+Type checkDerefExpr(Type right);
+Type checkAddressExpr(Type right, bool lvalue);
+Type checkSizeofExpr(Type right);
+
 Type checkPostFixExpr(Type left, Type right);
+
+void checkReturnStmt(Type right);
+void checkWhileStmt(Type right);
+void checkForStmt(Type right);
+void checkIfStmt(Type right);
+void checkAssignment(Type left, Type right, bool lvalue); 
 
 # endif /* CHECKER_H */

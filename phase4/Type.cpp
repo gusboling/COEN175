@@ -293,14 +293,15 @@ bool Type::isInt() const
 
 bool Type::isPointer() const
 {
-	if(!isFunction() && (_indirection > 0)) return true;
+	Type promoted_form = this->promote();
+	if(!promoted_form.isFunction() && (promoted_form.indirection() > 0)) return true;
 	else return false;
 }
 
 bool Type::isPredicate() const
 {
 	Type promoted_form = this->promote();
-	if(promoted_form.isInt() || (promoted_form.isPointer() && promoted_form.specifier() != VOID)) return true;
+	if(promoted_form.isInt() || promoted_form.isPointer()) return true;
 	else return false;
 }
 

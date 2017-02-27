@@ -10,7 +10,7 @@ OUT_DIR=outs
 ERR_DIR=errors
 
 # Example files for phase3
-TESTS="expr void"  
+TESTS="expr void stmt"  
 
 # Compile a fresh copy of the SCC executable ('clear' for aesthetic preference)
 clear
