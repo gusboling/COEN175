@@ -248,32 +248,27 @@ static void declarations()
 static Type primaryExpression(bool &lvalue)
 {
     string name;
+	Type left;
 
     if (lookahead == '(') {
 		match('(');
-		Type left = expression(lvalue);
+		left = expression(lvalue);
 		match(')');
-		
-		return left; //Result type is the same as enclosed expression type, lvalue is same as enclosed expression lvalue.
+		//Result type is the same as enclosed expression type, lvalue is same as enclosed expression lvalue.
 
     } 
 	else if (lookahead == STRING) {
 		string buf_string = expect(STRING);
-		Type result = Type(CHAR, 0, buf_string.length()); 
-		
+		left = Type(CHAR, 0, buf_string.length()); 
 		lvalue = false;
-		
-		return result; //Result is of type "array of char, length=string.length" and is not an lvalue
+		//Result is of type "array of char, length=string.length" and is not an lvalue
 
     } 
 	else if (lookahead == NUM) {
 		match(NUM);
-		Type result = Type(INT);
-		
+		left = Type(INT);
 		lvalue = false;
-		
-		return result; //Result is of type "int" and is not an lvalue
-
+		//Result is of type "int" and is not an lvalue
     } 
 	
 	else if (lookahead == ID) {
@@ -283,23 +278,30 @@ static Type primaryExpression(bool &lvalue)
 	    	match('(');
 
 	    	if (lookahead != ')') {
-				expression(lvalue);
-
+				Type temp = expression(lvalue);
 				while (lookahead == ',') {
 		    		match(',');
-		    		expression(lvalue);
+					temp = expression(lvalue);
 				}
 	    	}
 
 	    	match(')');
 	    	Symbol *result = checkFunction(name); //TODO: Make this return a type for the primaryExpression result. Might need to pass parameter types somehow.
-			Type left = result->type(); 
-		
-		} else checkIdentifier(name); //TODO: Make this return a type for the primaryExpression result
+			left = result->type(); 
+		}
+		else 
+		{
+			Symbol* sym_ptr = checkIdentifier(name);
+			left = sym_ptr->type();
+		}
 
     } 
-	else error();
-	return Type(ERROR);
+	else 
+	{
+	 	left = Type();
+		error();
+	}
+	return left;
 }
 
 
@@ -315,17 +317,19 @@ static Type primaryExpression(bool &lvalue)
 
 static Type postfixExpression(bool &lvalue)
 {
-    Type right = primaryExpression(lvalue);
-	Type left;
+    Type left = primaryExpression(lvalue);
 
     while (lookahead == '[') {
-	match('[');
-	expression(lvalue);
-	match(']');
+		match('[');
+		Type right = expression(lvalue);
+		match(']');
+		left = checkPostFixExpr(left, right);
+		lvalue = true;
+		cout << "[POSTFIX][ACTIVE] left: " << left << endl;
+		return left;
     }
-	
-	//Type left = checkPostFixExpr(right); //TODO: Implement in checker
-	lvalue = true;
+
+	cout << "[POSTFIX][DEFAULT] left: " << left << endl;
 	return left;
 }
 
@@ -571,10 +575,12 @@ static Type equalityExpression(bool &lvalue){
 
 static Type logicalAndExpression(bool &lvalue){
     Type left = equalityExpression(lvalue);
+	cout << "[AND] left: " << left << endl;
 
     while (lookahead == AND) {
 		match(AND);
 		Type right = equalityExpression(lvalue);
+		cout << "[AND][2] right: " << right << endl;
 		//left = checkLogicalAND(left, right); //TODO: Implement in checker
 		lvalue = false;
     }
@@ -595,11 +601,14 @@ static Type logicalAndExpression(bool &lvalue){
 
 static Type expression(bool &lvalue){
     Type left = logicalAndExpression(lvalue); 
+	cout << "[OR] left: " << left << endl;
 
     while (lookahead == OR) {
 		match(OR);
 		Type right = logicalAndExpression(lvalue);
-		//left = checkLogicalOR(left, right); //TODO: Implement in checker
+		cout << "[OR][2] right: " << right << endl;
+		left = checkLogicalOR(left, right);
+		cout << "[OR][3] left-post-check: " << left << endl;
 		lvalue = false;
     }
 	return left;

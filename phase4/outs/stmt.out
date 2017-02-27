@@ -1,3 +1,12 @@
 f: int **(void)
 p: int *
+[POSTFIX][DEFAULT] left: int *
+[AND] left: int *
+[OR] left: int *
 main: int(void)
+[POSTFIX][DEFAULT] left: int(void)
+[AND] left: int(void)
+[OR] left: int(void)
+[POSTFIX][DEFAULT] left: int(void)
+[AND] left: int(void)
+[OR] left: int(void)

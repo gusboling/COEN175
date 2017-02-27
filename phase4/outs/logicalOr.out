@@ -1,0 +1,4 @@
+a: int
+b: int[10]
+c: int(void)
+d: int

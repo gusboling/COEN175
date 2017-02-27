@@ -6,3 +6,47 @@ iq: int *
 vp: void *
 vq: void *
 main: int(void)
+[POSTFIX][DEFAULT] left: int *
+[POSTFIX][DEFAULT] left: int *
+[AND] left: int *
+[OR] left: int *
+[POSTFIX][DEFAULT] left: void *
+[POSTFIX][DEFAULT] left: void *
+[AND] left: void *
+[OR] left: void *
+[POSTFIX][DEFAULT] left: void *
+[POSTFIX][DEFAULT] left: void *
+[AND] left: void *
+[OR] left: void *
+[POSTFIX][DEFAULT] left: void *
+[POSTFIX][DEFAULT] left: int *
+[AND] left: void *
+[OR] left: void *
+[POSTFIX][DEFAULT] left: int *
+[POSTFIX][DEFAULT] left: void *
+[AND] left: int *
+[OR] left: int *
+[POSTFIX][DEFAULT] left: void *
+[POSTFIX][DEFAULT] left: int
+[AND] left: void *
+[OR] left: void *
+[POSTFIX][DEFAULT] left: void *
+[POSTFIX][DEFAULT] left: void *
+[AND] left: void *
+[OR] left: void *
+[POSTFIX][DEFAULT] left: int *
+[AND] left: int *
+[OR] left: int *
+[POSTFIX][DEFAULT] left: int *
+[AND] left: int *
+[OR] left: int *
+[POSTFIX][DEFAULT] left: int *
+[POSTFIX][DEFAULT] left: int
+[AND] left: int *
+[OR] left: int *
+[POSTFIX][DEFAULT] left: int *
+[AND] left: error
+[OR] left: error
+[POSTFIX][DEFAULT] left: void *
+[AND] left: error
+[OR] left: error

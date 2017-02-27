@@ -22,8 +22,6 @@ Symbol *checkFunction(const std::string &name);
 Type checkLogicalOR(Type left, Type right);
 Type checkLogicalAND(Type left, Type right);
 
-Type promote(Type t);
+Type checkPostFixExpr(Type left, Type right);
 
-bool isPredicate(Type t);
-bool isCompatible(Type x, Type y);
 # endif /* CHECKER_H */
