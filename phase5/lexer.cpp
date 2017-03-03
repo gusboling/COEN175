@@ -73,6 +73,7 @@ static struct {
 void report(const string &str, const string &arg)
 {
     char buf[1000];
+
     snprintf(buf, sizeof(buf), str.c_str(), arg.c_str());
     cerr << "line " << lineno << ": " << buf << endl;
     numerrors ++;

@@ -129,32 +129,6 @@ bool Type::operator !=(const Type &rhs) const
 
 
 /*
- * Function:	Type::operator =
- *
- * Description: An overloaded assignment operator for the Type class.All members of this 
- * 		type are set equal to the corresponding members of the rhs type.
- */
-void Type::operator =(const Type &rhs) 
-{
-	_specifier = rhs.specifier();
-	_indirection = rhs.indirection();
-
-	if(rhs.isScalar()) _kind = SCALAR;
-	else if(rhs.isArray())
-	{
-		_kind = ARRAY;
-		_length = rhs.length();
-	}
-	else if(rhs.isFunction())
-	{
-		_kind = FUNCTION;
-		_parameters = rhs.parameters();
-	}
-	else _kind = ERROR;
-}
-
-
-/*
  * Function:	Type::isArray
  *
  * Description:	Return whether this type is an array type.
@@ -254,79 +228,97 @@ Parameters *Type::parameters() const
     return _parameters;
 }
 
+
 /*
- * Function:	Type::promote 
+ * Function:	Type::isInteger
  *
- * Description: If applicable, return the promoted form of this type.
- * 		Otherwise, return a copy of this type.
+ * Description:	Check if this type is the integer type after any promotion.
+ */
+
+bool Type::isInteger() const
+{
+    return _kind == SCALAR && _specifier != VOID && _indirection == 0;
+}
+
+
+/*
+ * Function:	Type::isPointer
  *
- * 		char -> int
- *		array of T -> pointer to a T
+ * Description:	Check if this type is a pointer type after any promotion.
+ */
+
+bool Type::isPointer() const
+{
+    return (_kind == SCALAR && _indirection > 0) || _kind == ARRAY;
+}
+
+
+/*
+ * Function:	Type::isPredicate
+ *
+ * Description:	Check if this type is a predicate type after any promotion.
+ */
+
+bool Type::isPredicate() const
+{
+    return isPointer() || isInteger();
+}
+
+
+/*
+ * Function:	Type::isCompatibleWith
+ *
+ * Description:	Check if this type is compatible with the other given type.
+ *		In Simple C, two types are compatible if they are identical
+ *		predicate types (after any promotion) or one is a pointer
+ *		type and the other is pointer to void.
+ */
+
+bool Type::isCompatibleWith(const Type &that) const
+{
+    if (isPointer() && that._indirection == 1 && that._specifier == VOID)
+	return true;
+
+    if (that.isPointer() && _indirection == 1 && _specifier == VOID)
+	return true;
+
+    return isPredicate() && promote() == that.promote();
+}
+
+
+/*
+ * Function:	Type::promote
+ *
+ * Description:	Return the result of performing type promotion on this
+ *		type.  In Simple C, a character is promoted to an integer,
+ *		and an array is promoted to a pointer.
  */
 
 Type Type::promote() const
 {
-	Type promote_result = Type(); 
+    if (_kind == SCALAR && _indirection == 0 && _specifier == CHAR)
+	return Type(INT);
 
-	if(isScalar() && (_specifier == CHAR))
-	{
-		promote_result = Type(INT);
-	}
-	else if(isArray())
-	{
-		int ptr_specifier = _specifier;
-		unsigned ptr_indirection = 1;
-		promote_result = Type(ptr_specifier, ptr_indirection);
-	}
-	else
-	{
-		promote_result = *this;	
-	}
-	return promote_result;
+    if (_kind == ARRAY)
+	return Type(_specifier, _indirection + 1);
+
+    return *this;
 }
 
-bool Type::isInt() const
+
+/*
+ * Function:	Type::deref
+ *
+ * Description:	Return the result of dereferencing this type, which must be
+ *		a pointer type before any promotion.
+ */
+
+Type Type::deref() const
 {
-	if(*this == Type(INT)) return true;
-	else return false;
+    assert(_kind == SCALAR && _indirection > 0);
+    return Type(_specifier, _indirection - 1);
 }
 
-bool Type::isPointer() const
-{
-	Type promoted_form = this->promote();
-	if(!promoted_form.isFunction() && (promoted_form.indirection() > 0)) return true;
-	else return false;
-}
-
-bool Type::isPredicate() const
-{
-	Type promoted_form = this->promote();
-	if(promoted_form.isInt() || promoted_form.isPointer()) return true;
-	else return false;
-}
-
-bool Type::isCompatible(const Type &that) const
-{
-	Type promoted_this = this->promote();
-	Type promoted_that = that.promote();
-
-	if(promoted_this.isPredicate() && promoted_that.isPredicate())
-	{
-		if(promoted_this == promoted_that) return true; //this and that are identical predicate types
-	}
-
-	else if(promoted_this.isPointer() && (promoted_this.specifier() != VOID))
-	{
-		if(promoted_that.isPointer() && (promoted_that.specifier() == VOID)) return true; //this is of type 'POINTER<T>' and that is of type 'POINTER<VOID>
-	}
-
-	else if(promoted_that.isPointer() && (promoted_that.specifier() != VOID))
-	{
-		if(promoted_this.isPointer() && (promoted_this.specifier() == VOID)) return true; //that is of type 'POINTER<T>' and this is of type 'POINTER<VOID>'
-	}
-
- 	return false;
-}
 
 /*
  * Function:	operator <<
