@@ -66,6 +66,7 @@ protected:
 public:
     const Type &type() const;
     bool lvalue() const;
+	string _location;
 };
 
 
@@ -88,6 +89,7 @@ class Identifier : public Expression {
 public:
     Identifier(const Symbol *symbol);
     const Symbol *symbol() const;
+	void generate();
 };
 
 
@@ -100,6 +102,7 @@ public:
     Number(unsigned value);
     Number(const string &value);
     const string &value() const;
+	void generate();
 };
 
 
@@ -111,6 +114,7 @@ class Call : public Expression {
 
 public:
     Call(const Symbol *id, const Expressions &args, const Type &type);
+	void generate();
 };
 
 
@@ -301,6 +305,7 @@ class Assignment : public Statement {
 
 public:
     Assignment(Expression *left, Expression *right);
+	void generate();
 };
 
 
@@ -323,6 +328,7 @@ class Block : public Statement {
 public:
     Block(Scope *decls, const Statements &stmts);
     Scope *declarations() const;
+	void generate();
 };
 
 
@@ -369,7 +375,7 @@ class Function : public Node {
 
 public:
     Function(const Symbol *id, Block *body);
-	//void generate();
+	void generate();
 	void allocate(int &offset);
 };
 

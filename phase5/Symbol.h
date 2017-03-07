@@ -21,10 +21,10 @@ class Symbol {
 
 public:
     int _attributes;
-	int _offset;
+	mutable int _offset;
 
     Symbol(const string &name, const Type &type);
-    const string &name() const;
+	const string &name() const;
     const Type &type() const;
 };
 
