@@ -930,6 +930,7 @@ static void topLevelDeclaration()
 	    stmts = statements();
 	    decls = closeScope();
 	    function = new Function(symbol, new Block(decls, stmts));
+		function->generate();
 	    match('}');
 
 	} else {

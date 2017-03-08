@@ -1,3 +1,7 @@
+//Libraries
+#include <iostream>
+
+//Program Headers
 #include "tokens.h"
 #include "Tree.h"
 #include "Symbol.h"
@@ -9,7 +13,7 @@ using namespace std;
 void Function::allocate(int &offset){
 	int osResult = 8; //Initialize offset equal to 4
 	Symbols functionSyms = _body->declarations()->symbols(); //Get vector of function symbols from Block member	
-
+	
 	//Calculate offset for function parameters
 	int numParams = _id->type().parameters()->size();
 
@@ -26,14 +30,16 @@ void Function::allocate(int &offset){
 	{
 		if( functionSyms[i]->type().isInteger() || functionSyms[i]->type().isPointer() )
 		{
-			functionSyms[i]->_offset = offset;
-			offset = offset - 4;
+			functionSyms[i]->_offset = osResult; 
+			cerr << "[ALLOCATE][FUNC_SYM][INT|PTR] name: " << functionSyms[i]->name() << " offset: " << functionSyms[i]->_offset << endl;
+			osResult = osResult - 4;
 		}
 		else
 		{
 			functionSyms[i]->_offset = offset;
 			int arrayOffset = functionSyms[i]->type().length() * 4; //Is this right? Ask Gabe.
-			offset = offset - arrayOffset;
+			cerr << "[ALLOCATE][FUNC_SYM][ARRAY] name: " << functionSyms[i]->name() << " offset: " << functionSyms[i]->_offset << endl;
+			osResult = osResult - arrayOffset;
 		}
 
 	}

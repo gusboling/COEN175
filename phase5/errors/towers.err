@@ -1,0 +1,6 @@
+[ALLOCATE][FUNC_SYM][INT|PTR] name: n offset: -4
+[ALLOCATE][FUNC_SYM][INT|PTR] name: from offset: -8
+[ALLOCATE][FUNC_SYM][INT|PTR] name: to offset: -12
+[ALLOCATE][FUNC_SYM][INT|PTR] name: spare offset: -16
+[ALLOCATE][FUNC_SYM][INT|PTR] name: n offset: -4
+[IDENTIFIER][GENERATE] symbol->_name: n

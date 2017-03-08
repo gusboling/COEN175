@@ -61,6 +61,7 @@ void Call::generate()
 }
 
 void Identifier::generate(){
+	cerr << "[IDENTIFIER][GENERATE] symbol->_name: " << _symbol->name() << endl;
 	stringstream conversionStream;
 	conversionStream << symbol()->_offset;
 	string stringOffset = conversionStream.str();
@@ -76,6 +77,8 @@ void Number::generate(){
 
 void Assignment::generate(){
 	//The value of the right operand replaces that of the object referred to by the lvalue of the left operand	
+	_right->generate();
+	_left->generate();
 	cout << "movl\t" << _right->_location << ",%eax" << endl; 
 	cout << "movl\t%eax," << _left->_location << endl;
 }

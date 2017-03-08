@@ -1,0 +1,6 @@
+[ALLOCATE][FUNC_SYM][INT|PTR] name: x offset: -4
+[ALLOCATE][FUNC_SYM][INT|PTR] name: y offset: -8
+[ALLOCATE][FUNC_SYM][INT|PTR] name: z offset: -12
+[IDENTIFIER][GENERATE] symbol->_name: x
+[IDENTIFIER][GENERATE] symbol->_name: y
+[IDENTIFIER][GENERATE] symbol->_name: z

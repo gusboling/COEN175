@@ -10,7 +10,7 @@ OUT_DIR=outs
 ERR_DIR=errors
 
 # Example files for phase3
-TESTS="expr void stmt"  
+TESTS="array global local putchar towers"  
 
 # Compile a fresh copy of the SCC executable ('clear' for aesthetic preference)
 clear
@@ -27,14 +27,8 @@ for itest in $TESTS; do
 	printf "${RED} ******** ${itest} output ******** ${NORMAL}\n"
 
 	# Run SCC, and store output in the appropriate folders
-	./$PROG < $TST_DIR/${itest}.c > $OUT_DIR/${itest}.out 2>$ERR_DIR/${itest}.err
-	cat $ERR_DIR/${itest}.err
-
-	#print test-specific banner
-	printf "${GREEN}\n******** ${itest} results (result < | > correct) ********\n${NORMAL}"
-	
-	# Compare SCC results to correct answer
-	diff $ERR_DIR/${itest}.err $TST_DIR/${itest}.err
+	./$PROG < $TST_DIR/${itest}.c > $OUT_DIR/${itest}.s 2>$ERR_DIR/${itest}.err
+	cat $OUT_DIR/${itest}.s
 	
 	#print foot banner
 	printf "\n\n"

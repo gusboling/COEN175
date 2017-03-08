@@ -187,17 +187,21 @@ Symbol *declareFunction(const string &name, const Type &type)
 Symbol *declareVariable(const string &name, const Type &type)
 {
     Symbol *symbol = toplevel->find(name);
+	
+	unsigned sym_size = 0; //Initialized to 0 for stability/debugging.
+
+	if(type.isInteger() || type.isPointer()) sym_size = 4;
+	else if(type.isArray()) sym_size = 4 * type.length();
 
     if (symbol == nullptr) {
-	symbol = new Symbol(name, checkIfVoidObject(name, type));
-	toplevel->insert(symbol);
+		symbol = new Symbol(name, checkIfVoidObject(name, type));
+		toplevel->insert(symbol);
+		cout << ".comm\t" << name << "," << sym_size << ",4" << endl;
+    } 
+	else if (outermost != toplevel) report(redeclared, name);
 
-    } else if (outermost != toplevel)
-	report(redeclared, name);
-
-    else if (type != symbol->type())
-	report(conflicting, name);
-
+    else if (type != symbol->type()) report(conflicting, name);
+	
     return symbol;
 }
 
