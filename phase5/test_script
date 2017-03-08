@@ -22,13 +22,14 @@ if [ $? -ne 0 ]; then
 	exit 1 
 fi
 
-for itest in $TESTS; do
+for itest in ${TESTS}; do
 	#print test result banner
 	printf "${RED} ******** ${itest} output ******** ${NORMAL}\n"
 
 	# Run SCC, and store output in the appropriate folders
-	./$PROG < $TST_DIR/${itest}.c > $OUT_DIR/${itest}.s 2>$ERR_DIR/${itest}.err
-	cat $OUT_DIR/${itest}.s
+	./$PROG < ${TST_DIR}/${itest}.c > ${OUT_DIR}/${itest}.s 2>${ERR_DIR}/${itest}.err
+	gcc -w -m32 ${OUT_DIR}/${itest}.s ${TST_DIR}/${itest}-lib.c
+	./a.out
 	
 	#print foot banner
 	printf "\n\n"
