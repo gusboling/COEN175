@@ -45,7 +45,7 @@ void Block::generate()
 	for(size_t i = 0; i < _stmts.size(); i++)
 	{
 		//For each statement pointer, call its associated generate method
-		cout << "\t"; //So it looks nice...
+		//cout << "\t"; //So it looks nice...
 		_stmts[i]->generate();
 	}
 }
@@ -55,7 +55,7 @@ void Call::generate()
 	for(int i = (int)_args.size()-1; i >= 0; i--)
 	{
 		_args[i]->generate();
-		cout << "pushl\t" << _args[i]->_location << endl;
+		cout << "\tpushl\t" << _args[i]->_location << endl;
 	}
 	
 	cout << "\tcall\t" << _id->name() << endl;
@@ -80,7 +80,7 @@ void Assignment::generate(){
 	//The value of the right operand replaces that of the object referred to by the lvalue of the left operand	
 	_right->generate();
 	_left->generate();
-	cout << "movl\t" << _right->_location << ",%eax" << endl; 
+	cout << "\tmovl\t" << _right->_location << ",%eax" << endl; 
 	cout << "\tmovl\t%eax," << _left->_location << endl;
 }
 

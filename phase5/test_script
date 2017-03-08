@@ -28,7 +28,15 @@ for itest in ${TESTS}; do
 
 	# Run SCC, and store output in the appropriate folders
 	./$PROG < ${TST_DIR}/${itest}.c > ${OUT_DIR}/${itest}.s 2>${ERR_DIR}/${itest}.err
-	gcc -w -m32 ${OUT_DIR}/${itest}.s ${TST_DIR}/${itest}-lib.c
+	
+	
+	if [ ${itest} == "putchar" ]
+		then
+			gcc -m32 ${OUT_DIR}/${itest}.s 
+		else
+			gcc -m32 ${OUT_DIR}/${itest}.s ${TST_DIR}/${itest}-lib.c
+	fi
+
 	if [ $? -eq 0 ] 
 		then
 			./a.out
