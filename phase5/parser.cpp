@@ -847,18 +847,24 @@ static void globalDeclarator(int typespec)
     name = expect(ID);
 
     if (lookahead == '[') {
-	match('[');
-	declareVariable(name, Type(typespec, indirection, number()));
-	match(']');
+		match('[');
+		Type temp = Type(typespec, indirection, number());
+		cout << ".comm\t" << name << "," << (temp.length()*4) << ",4" << endl;
+		declareVariable(name, temp);
+		match(']');
 
     } else if (lookahead == '(') {
-	match('(');
-	declareFunction(name, Type(typespec, indirection, parameters()));
-	closeScope();
-	match(')');
+		match('(');
+		declareFunction(name, Type(typespec, indirection, parameters()));
+		closeScope();
+		match(')');
 
-    } else
-	declareVariable(name, Type(typespec, indirection));
+    } else {
+		Type temp = Type(typespec, indirection);
+		cout << ".comm\t" << name << ",4,4" << endl;
+		declareVariable(name, temp);
+	}
+
 }
 
 
