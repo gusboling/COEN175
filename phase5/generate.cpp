@@ -20,17 +20,17 @@ void Function::generate()
 	//START Function Prologue
 	cout << ".globl\t" << _id->name() << endl;
 	cout << _id->name() << ":" << endl;
-	cout << "pushl\t%ebp" << endl;
-	cout << "movl\t%esp, %ebp" << endl;
-	cout << "subl\t$" << -offset << ",%ebp" << endl;
+	cout << "\tpushl\t%ebp" << endl;
+	cout << "\tmovl\t%esp, %ebp" << endl;
+	cout << "\tsubl\t$" << -offset << ",%esp" << endl;
 	//END Function Prologue
 
 	_body->generate();
 
 	//START Function Epilogue
-	cout << "movl\t%ebp,%esp" << endl;
-	cout << "popl\t%ebp" << endl;
-	cout << "ret" << endl << endl;
+	cout << "\tmovl\t%ebp,%esp" << endl;
+	cout << "\tpopl\t%ebp" << endl;
+	cout << "\tret" << endl << endl;
 	//END Function Epilogue
 }
 
@@ -45,19 +45,20 @@ void Block::generate()
 	for(size_t i = 0; i < _stmts.size(); i++)
 	{
 		//For each statement pointer, call its associated generate method
+		cout << "\t"; //So it looks nice...
 		_stmts[i]->generate();
 	}
 }
 
 void Call::generate()
 {
-	for(size_t i = _args.size(); i < 0; i--)
+	for(int i = (int)_args.size()-1; i >= 0; i--)
 	{
 		_args[i]->generate();
 		cout << "pushl\t" << _args[i]->_location << endl;
 	}
 	
-	cout << "call\t" << _id->name() << endl;
+	cout << "\tcall\t" << _id->name() << endl;
 }
 
 void Identifier::generate(){
@@ -80,7 +81,7 @@ void Assignment::generate(){
 	_right->generate();
 	_left->generate();
 	cout << "movl\t" << _right->_location << ",%eax" << endl; 
-	cout << "movl\t%eax," << _left->_location << endl;
+	cout << "\tmovl\t%eax," << _left->_location << endl;
 }
 
 

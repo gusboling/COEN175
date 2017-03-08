@@ -912,10 +912,13 @@ static void topLevelDeclaration()
     name = expect(ID);
 
     if (lookahead == '[') {
-	match('[');
-	declareVariable(name, Type(typespec, indirection, number()));
-	match(']');
-	remainingDeclarators(typespec);
+		match('[');
+		Type temp = Type(typespec, indirection, number());
+		cout << ".comm\t" << name << "," << (temp.length()*4) << ",4" << endl;
+
+		declareVariable(name, temp);
+		match(']');
+		remainingDeclarators(typespec);
 
     } else if (lookahead == '(') {
 	match('(');
@@ -940,8 +943,13 @@ static void topLevelDeclaration()
 	}
 
     } else {
-	declareVariable(name, Type(typespec, indirection));
-	remainingDeclarators(typespec);
+		int sym_size;
+		Type temp = Type(typespec, indirection);
+		sym_size = 4;
+		cout << ".comm\t" << name << "," << "4" << ",4" << endl;
+		
+		declareVariable(name, temp);
+		remainingDeclarators(typespec);
     }
 }
 

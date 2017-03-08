@@ -190,13 +190,12 @@ Symbol *declareVariable(const string &name, const Type &type)
 	
 	unsigned sym_size = 0; //Initialized to 0 for stability/debugging.
 
-	if(type.isInteger() || type.isPointer()) sym_size = 4;
-	else if(type.isArray()) sym_size = 4 * type.length();
+	if(type.isArray()) sym_size = 4 * type.length();
+    else if(type.isInteger() || type.isPointer()) sym_size = 4;
 
     if (symbol == nullptr) {
 		symbol = new Symbol(name, checkIfVoidObject(name, type));
 		toplevel->insert(symbol);
-		cout << ".comm\t" << name << "," << sym_size << ",4" << endl;
     } 
 	else if (outermost != toplevel) report(redeclared, name);
 

@@ -23,26 +23,26 @@ void Function::allocate(int &offset){
 		osResult = osResult + 4; //For each parameter, incremement offset by 4
 	}
 
-	osResult = -4; //Reset offset 
+	osResult = 0; //Reset offset 
 
 	//Calculate offset for function body
 	for(unsigned i=0; i < functionSyms.size(); i++)
 	{
 		if( functionSyms[i]->type().isInteger() || functionSyms[i]->type().isPointer() )
 		{
-			functionSyms[i]->_offset = osResult; 
-			cerr << "[ALLOCATE][FUNC_SYM][INT|PTR] name: " << functionSyms[i]->name() << " offset: " << functionSyms[i]->_offset << endl;
 			osResult = osResult - 4;
+			functionSyms[i]->_offset = osResult; 
+			//cerr << "[ALLOCATE][FUNC_SYM][INT|PTR] name: " << functionSyms[i]->name() << " offset: " << functionSyms[i]->_offset << endl;
 		}
 		else
 		{
-			functionSyms[i]->_offset = offset;
 			int arrayOffset = functionSyms[i]->type().length() * 4; //Is this right? Ask Gabe.
-			cerr << "[ALLOCATE][FUNC_SYM][ARRAY] name: " << functionSyms[i]->name() << " offset: " << functionSyms[i]->_offset << endl;
+			//cerr << "[ALLOCATE][FUNC_SYM][ARRAY] name: " << functionSyms[i]->name() << " offset: " << functionSyms[i]->_offset << endl;
 			osResult = osResult - arrayOffset;
+			functionSyms[i]->_offset = offset;
 		}
 
 	}
 
-	_id->_offset = osResult; //Set function symbol-offset to calculated offset result
+	offset = osResult; //Set function symbol-offset to calculated offset result
 }

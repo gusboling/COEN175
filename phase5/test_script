@@ -10,7 +10,7 @@ OUT_DIR=outs
 ERR_DIR=errors
 
 # Example files for phase3
-TESTS="array global local putchar towers"  
+TESTS="array global local putchar"  
 
 # Compile a fresh copy of the SCC executable ('clear' for aesthetic preference)
 clear
@@ -29,7 +29,12 @@ for itest in ${TESTS}; do
 	# Run SCC, and store output in the appropriate folders
 	./$PROG < ${TST_DIR}/${itest}.c > ${OUT_DIR}/${itest}.s 2>${ERR_DIR}/${itest}.err
 	gcc -w -m32 ${OUT_DIR}/${itest}.s ${TST_DIR}/${itest}-lib.c
-	./a.out
+	if [ $? -eq 0 ] 
+		then
+			./a.out
+		else
+			echo "Error during compilation"
+	fi
 	
 	#print foot banner
 	printf "\n\n"

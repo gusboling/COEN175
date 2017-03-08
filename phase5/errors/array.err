@@ -1,2 +1,3 @@
-[ALLOCATE][FUNC_SYM][INT|PTR] name: n offset: -4
+[IDENTIFIER][GENERATE] symbol->_name: n
+[IDENTIFIER][GENERATE] symbol->_name: n
 [IDENTIFIER][GENERATE] symbol->_name: n
