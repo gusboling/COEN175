@@ -16,16 +16,19 @@ using std::string;
  *
  * Description:	Initialize a symbol object.
  */
+
 Symbol::Symbol(const string &name, const Type &type)
     : _name(name), _type(type), _attributes(0), _offset(0)
 {
 }
+
 
 /*
  * Function:	Symbol::name (accessor)
  *
  * Description:	Return the name of this symbol.
  */
+
 const string &Symbol::name() const
 {
     return _name;
@@ -37,8 +40,8 @@ const string &Symbol::name() const
  *
  * Description:	Return the type of this symbol.
  */
+
 const Type &Symbol::type() const
 {
     return _type;
 }
-

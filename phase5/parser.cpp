@@ -8,6 +8,7 @@
 
 # include <cstdlib>
 # include <iostream>
+# include "generator.h"
 # include "checker.h"
 # include "tokens.h"
 # include "lexer.h"
@@ -20,6 +21,8 @@ static string lexbuf;
 static Type returnType;
 static Expression *expression();
 static Statement *statement();
+
+static Symbols globals;
 
 
 /*
@@ -841,30 +844,28 @@ static void globalDeclarator(int typespec)
 {
     unsigned indirection;
     string name;
+    Symbol *symbol;
 
 
     indirection = pointers();
     name = expect(ID);
 
     if (lookahead == '[') {
-		match('[');
-		Type temp = Type(typespec, indirection, number());
-		cout << ".comm\t" << name << "," << (temp.length()*4) << ",4" << endl;
-		declareVariable(name, temp);
-		match(']');
+	match('[');
+	symbol = declareVariable(name, Type(typespec, indirection, number()));
+	globals.push_back(symbol);
+	match(']');
 
     } else if (lookahead == '(') {
-		match('(');
-		declareFunction(name, Type(typespec, indirection, parameters()));
-		closeScope();
-		match(')');
+	match('(');
+	declareFunction(name, Type(typespec, indirection, parameters()));
+	closeScope();
+	match(')');
 
     } else {
-		Type temp = Type(typespec, indirection);
-		cout << ".comm\t" << name << ",4,4" << endl;
-		declareVariable(name, temp);
-	}
-
+	symbol = declareVariable(name, Type(typespec, indirection));
+	globals.push_back(symbol);
+    }
 }
 
 
@@ -918,13 +919,11 @@ static void topLevelDeclaration()
     name = expect(ID);
 
     if (lookahead == '[') {
-		match('[');
-		Type temp = Type(typespec, indirection, number());
-		cout << ".comm\t" << name << "," << (temp.length()*4) << ",4" << endl;
-
-		declareVariable(name, temp);
-		match(']');
-		remainingDeclarators(typespec);
+	match('[');
+	symbol = declareVariable(name, Type(typespec, indirection, number()));
+	globals.push_back(symbol);
+	match(']');
+	remainingDeclarators(typespec);
 
     } else if (lookahead == '(') {
 	match('(');
@@ -939,8 +938,10 @@ static void topLevelDeclaration()
 	    stmts = statements();
 	    decls = closeScope();
 	    function = new Function(symbol, new Block(decls, stmts));
-		function->generate();
 	    match('}');
+
+	    if (numerrors == 0)
+		function->generate();
 
 	} else {
 	    closeScope();
@@ -949,13 +950,9 @@ static void topLevelDeclaration()
 	}
 
     } else {
-		int sym_size;
-		Type temp = Type(typespec, indirection);
-		sym_size = 4;
-		cout << ".comm\t" << name << "," << "4" << ",4" << endl;
-		
-		declareVariable(name, temp);
-		remainingDeclarators(typespec);
+	symbol = declareVariable(name, Type(typespec, indirection));
+	globals.push_back(symbol);
+	remainingDeclarators(typespec);
     }
 }
 
@@ -973,6 +970,9 @@ int main()
 
     while (lookahead != DONE)
 	topLevelDeclaration();
+
+    if (numerrors == 0)
+	generateGlobals(globals);
 
     closeScope();
     exit(EXIT_SUCCESS);

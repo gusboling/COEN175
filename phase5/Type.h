@@ -65,8 +65,8 @@ public:
     Type promote() const;
     Type deref() const;
 
-    unsigned size() const { return 1; /* fill this in later */ }
-    unsigned alignment() const { return 1; /* fill this in later */ }
+    unsigned size() const;
+    unsigned alignment() const;
 };
 
 std::ostream &operator <<(std::ostream &ostr, const Type &type);

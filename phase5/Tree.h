@@ -64,9 +64,10 @@ protected:
     Expression(const Type &_type = Type());
 
 public:
+    string _operand;
+
     const Type &type() const;
     bool lvalue() const;
-	string _location;
 };
 
 
@@ -89,7 +90,7 @@ class Identifier : public Expression {
 public:
     Identifier(const Symbol *symbol);
     const Symbol *symbol() const;
-	void generate();
+    virtual void generate();
 };
 
 
@@ -102,7 +103,7 @@ public:
     Number(unsigned value);
     Number(const string &value);
     const string &value() const;
-	void generate();
+    virtual void generate();
 };
 
 
@@ -114,7 +115,7 @@ class Call : public Expression {
 
 public:
     Call(const Symbol *id, const Expressions &args, const Type &type);
-	void generate();
+    virtual void generate();
 };
 
 
@@ -305,7 +306,7 @@ class Assignment : public Statement {
 
 public:
     Assignment(Expression *left, Expression *right);
-	void generate();
+    virtual void generate();
 };
 
 
@@ -328,7 +329,8 @@ class Block : public Statement {
 public:
     Block(Scope *decls, const Statements &stmts);
     Scope *declarations() const;
-	void generate();
+    virtual void allocate(int &offset) const;
+    virtual void generate();
 };
 
 
@@ -340,6 +342,7 @@ class While : public Statement {
 
 public:
     While(Expression *expr, Statement *stmt);
+    virtual void allocate(int &offset) const;
 };
 
 
@@ -353,6 +356,7 @@ class For : public Statement {
 
 public:
     For(Statement *init, Expression *expr, Statement *incr, Statement *stmt);
+    virtual void allocate(int &offset) const;
 };
 
 
@@ -364,6 +368,7 @@ class If : public Statement {
 
 public:
     If(Expression *expr, Statement *thenStmt, Statement *elseStmt);
+    virtual void allocate(int &offset) const;
 };
 
 
@@ -375,8 +380,8 @@ class Function : public Node {
 
 public:
     Function(const Symbol *id, Block *body);
-	void generate();
-	void allocate(int &offset);
+    virtual void allocate(int &offset) const;
+    virtual void generate();
 };
 
 # endif /* TREE_H */

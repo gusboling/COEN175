@@ -1,7 +1,6 @@
 CXX		= g++
 CXXFLAGS	= -g -Wall
-OBJS		= allocator.o checker.o generator.o lexer.o parser.o \
-		  Scope.o Symbol.o Tree.o Type.o
+OBJS		= lexer.o
 PROG		= scc
 
 all:		$(PROG)

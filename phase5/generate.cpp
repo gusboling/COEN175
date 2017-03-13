@@ -62,7 +62,6 @@ void Call::generate()
 }
 
 void Identifier::generate(){
-	cerr << "[IDENTIFIER][GENERATE] symbol->_name: " << _symbol->name() << endl;
 	stringstream conversionStream;
 	conversionStream << symbol()->_offset;
 	string stringOffset = conversionStream.str();
