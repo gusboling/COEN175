@@ -226,3 +226,72 @@ void generateGlobals(const Symbols &globals)
 	cout << ", " << globals[i]->type().alignment() << endl;
     }
 }
+
+/*
+ * Function: Expression::generate
+ *
+ * Description: Generate code for "||" operator, and other expressions recursively
+ */
+
+void Expression::generate()
+{
+	cout << "Nothing here yet (Expression::generate)" << endl;	
+}
+
+/*
+ * Function: LogicalOr::generate_left
+ *
+ * Description: Generate code for the left operand of the "||" operator
+ */
+
+void LogicalOr::generate_left()
+{
+	_left->generate();
+
+	cout << "movl\t" << _left << ",%eax" << endl;
+	cout << "cmpl\t$0,%eax" << endl;
+	cout << "jne\t" << label_prefix << endl; //TODO: Figure out how to generate label code
+}
+
+/*
+ * Function: LogicalAnd::generate_right
+ *
+ * Description: Generate code for the right operand of the "||" operator
+ */
+
+void LogicalOr::generate_right()
+{
+	_right->generate();
+
+	cout << "movl\t" << _right << ",%eax" << endl;
+	cout << "cmpl\t$0,%eax" << endl;
+}
+
+/*
+ * Function: LogicalAnd::generate_left
+ *
+ * Description: Generate code for the left operand of the "&&" operator
+ */
+
+void LogicalAnd::generate_left()
+{
+	_left->generate();
+
+	cout << "movl\t" << _left << ",%eax" << endl;
+	cout << "cmpl\t$0,%eax" << endl;
+	cout << "je\t" << label_prefix << endl;
+}
+
+/*
+ * Function: LogicalAnd::generate_right
+ *
+ * Description: Generate code for the right operand of the "&&" operator
+ */
+
+void LogicalAnd::generate_right()
+{
+	_right->generate();
+
+	cout << "movl\t" << _right << ",%eax" << endl;
+	cout << "cmpl\t$0,%eax" << endl;
+}
