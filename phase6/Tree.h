@@ -126,6 +126,7 @@ class Not : public Expression {
 
 public:
     Not(Expression *expr, const Type &type);
+	void generate();
 };
 
 
@@ -218,6 +219,7 @@ class Subtract : public Expression {
 
 public:
     Subtract(Expression *left, Expression *right, const Type &type);
+	void generate();
 };
 
 

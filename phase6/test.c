@@ -7,4 +7,7 @@ int main(void) {
 	b=5;
 
 	a = -b;
+	
+	a = !b;
+
 }

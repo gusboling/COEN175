@@ -297,6 +297,19 @@ void Add::generate()
 	cout << "\tmovl\t%eax,"<< _operand << endl;
 }
 
+void Subtract::generate()
+{
+	_left->generate();
+	_right->generate();
+
+	cout << "\tmovl\t" << _left << ", %eax" << endl;
+	cout << "\tsubl\t" << _right << ", %eax" << endl;
+
+	_operand = getTemp();
+
+	cout << "\tmovl\t%eax, " << _operand << endl;
+}
+
 void Negate::generate()
 {
 	_expr->generate();
@@ -309,6 +322,19 @@ void Negate::generate()
 	cout << "\tmovl\t%eax, " << _operand << endl;
 }
 
+void Not::generate()
+{
+	_expr->generate();
+
+	cout << "\tmovl\t" << _expr << ", %eax" << endl;
+	cout << "\tcmpl\t$0, %eax" << endl;
+	cout << "\tsete\t%al" << endl;
+	cout << "\tmovlb\t%al, %eax" << endl;
+
+	_operand = getTemp();
+
+	cout << "\tmovl\t%eax, " << _operand << endl;
+}
 /*//Commented Out until able to test
 void LogicalOr::generate()
 {

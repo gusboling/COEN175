@@ -14,11 +14,18 @@ main:
 	movl	%eax, -32(%ebp)
 	movl	-32(%ebp), %eax	# Assignment::generate
 	movl	%eax, -16(%ebp)
+	movl	-20(%ebp), %eax
+	cmpl	$0, %eax
+	sete	%al
+	movlb	%al, %eax
+	movl	%eax, -36(%ebp)
+	movl	-36(%ebp), %eax	# Assignment::generate
+	movl	%eax, -16(%ebp)
 0:
 	movl	%ebp, %esp
 	popl	%ebp
 	ret
 
 	.globl	main
-	.set	main.size, 32
+	.set	main.size, 36
 
