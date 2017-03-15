@@ -1,13 +1,7 @@
-int main(void) {
-    int x, y, z;
-	int a, b, c;
+void main(void) {
+	int a ,ZERO;
+	a = 2 + 3;
 
-	z = x + y;
-
-	b=5;
-
-	a = -b;
-	
-	a = !b;
-
+	ZERO=48;
+	putchar(a+ZERO);
 }

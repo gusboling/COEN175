@@ -271,12 +271,36 @@ void generateGlobals(const Symbols &globals)
 /*
  * Function: Expression::generate
  *
- * Description: //TODO: Ask what this does (genius isn't it).
+ * Description: Handle base-case code generation for expressions.
  */
+
+void Expression::generate(bool &indirect)
+{
+	indirect=false;
+	generate();
+}
 
 void Expression::generate()
 {
-	cout << "Nothing here yet (Expression::generate)" << endl;	
+	cerr << "Oops, code generation didn't happen." << endl;	
+}
+
+/*
+ * Function: Multiply::generate
+ *
+ * Description: Generate code for the multiplication operator, and etc. recursively
+ */
+void Multiply::generate()
+{
+	_left->generate();
+	_right->generate();
+
+	cout << "\tmovl\t" << _left << ", %eax" << endl;
+	cout << "\timull\t" << _right << ", %eax" << endl;
+	
+	_operand = getTemp();
+
+	cout << "\tmovl\t%eax, " << _operand << endl;
 }
 
 /*
@@ -329,7 +353,7 @@ void Not::generate()
 	cout << "\tmovl\t" << _expr << ", %eax" << endl;
 	cout << "\tcmpl\t$0, %eax" << endl;
 	cout << "\tsete\t%al" << endl;
-	cout << "\tmovlb\t%al, %eax" << endl;
+	cout << "\tmovzbl\t%al, %eax" << endl;
 
 	_operand = getTemp();
 

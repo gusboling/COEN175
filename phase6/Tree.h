@@ -65,9 +65,11 @@ protected:
 
 public:
     string _operand;
-	void generate();
     const Type &type() const;
     bool lvalue() const;
+
+	void generate();
+	void generate(bool &indirect);
 };
 
 
@@ -178,6 +180,7 @@ class Multiply : public Expression {
 
 public:
     Multiply(Expression *left, Expression *right, const Type &type);
+	void generate();
 };
 
 
