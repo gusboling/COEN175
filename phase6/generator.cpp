@@ -290,6 +290,7 @@ void Expression::generate()
  *
  * Description: Generate code for the multiplication operator, and etc. recursively
  */
+
 void Multiply::generate()
 {
 	_left->generate();
@@ -301,6 +302,46 @@ void Multiply::generate()
 	_operand = getTemp();
 
 	cout << "\tmovl\t%eax, " << _operand << endl;
+}
+
+/*
+ * Function: Divide::generate
+ *
+ * Description: Generate code for the division operator, and etc. recursively
+ */
+void Divide::generate()
+{
+	_left->generate();
+	_right->generate();
+
+	cout << "\tmovl\t" << _left << ", %eax" << endl;
+	cout << "\tmovl\t" << _right << ", %ecx" << endl;
+	cout << "\tcltd\t" << endl;
+	cout << "\tidivl\t%ecx" << endl;
+
+	_operand = getTemp();
+
+	cout << "\tmovl\t%eax, " << _operand << endl; //%eax contains quotient
+}
+
+/*
+ * Function: Remainder::generate
+ *
+ * Description: Generate code for the remainder operator, and etc. recursively
+ */
+void Remainder::generate()
+{
+	_left->generate();
+	_right->generate();
+	
+	cout << "\tmovl\t" << _left << ", %eax" << endl;
+	cout << "\tmovl\t" << _right << ", %ecx" << endl;
+	cout << "\tcltd\t" << endl;
+	cout << "\tidivl\t%ecx" << endl;
+
+	_operand = getTemp();
+
+	cout << "\tmovl\t%edx, " << _operand << endl; //%edx contains remainder
 }
 
 /*
@@ -359,6 +400,7 @@ void Not::generate()
 
 	cout << "\tmovl\t%eax, " << _operand << endl;
 }
+
 /*//Commented Out until able to test
 void LogicalOr::generate()
 {

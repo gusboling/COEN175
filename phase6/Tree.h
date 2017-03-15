@@ -191,6 +191,7 @@ class Divide : public Expression {
 
 public:
     Divide(Expression *left, Expression *right, const Type &type);
+	void generate();
 };
 
 
@@ -201,6 +202,7 @@ class Remainder : public Expression {
 
 public:
     Remainder(Expression *left, Expression *right, const Type &type);
+	void generate();
 };
 
 
