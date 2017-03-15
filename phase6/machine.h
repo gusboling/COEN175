@@ -33,3 +33,12 @@
 
 # error Unsupport architecture
 # endif
+
+struct Label
+{
+	static unsigned counter;
+	unsigned number;
+	Label(){number=counter++;}
+};
+
+

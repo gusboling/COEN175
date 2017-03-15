@@ -1,9 +1,10 @@
 int main(void) {
-    int x, y;
+    int x, y, z;
+	int a, b, c;
 
-    if (x < y) {
-	int a[10];
-    } else {
-	int a[20];
-    }
+	z = x + y;
+
+	b=5;
+
+	a = -b;
 }

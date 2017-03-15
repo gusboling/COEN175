@@ -136,6 +136,7 @@ class Negate : public Expression {
 
 public:
     Negate(Expression *expr, const Type &type);
+	void generate();
 };
 
 
@@ -206,6 +207,7 @@ class Add : public Expression {
 
 public:
     Add(Expression *left, Expression *right, const Type &type);
+	void generate();
 };
 
 
@@ -298,8 +300,7 @@ class LogicalOr : public Expression {
 
 public:
     LogicalOr(Expression *left, Expression *right, const Type &type);
-	void generate_left();
-	void generate_right();
+	//void generate();
 };
 
 

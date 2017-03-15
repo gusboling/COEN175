@@ -8,15 +8,54 @@
  *		- putting all the global declarations at the end
  */
 
+//Libraries
 # include <sstream>
 # include <iostream>
-# include "generator.h"
+
+//Program Headers
 # include "machine.h"
+
+//File Header
+# include "generator.h"
 
 using namespace std;
 
 static unsigned maxargs;
+int temp_offset;
+Label *retLbl;
 
+
+/*
+ * Function: getTemp
+ *
+ * Description: Return a string representation of the current 
+ * 		temp_offset variable
+ */
+string getTemp()
+{
+    stringstream ss;
+	temp_offset -= 4;
+	ss << temp_offset << "(%ebp)";
+	return ss.str();
+}
+
+/*
+ * Function: comment_string
+ *
+ * Description: Return a formatted string representing an assembly comment
+ * 		equal to the string argument given.
+ */
+string comment_string(string msg)
+{
+	stringstream ss;
+	ss << "\t# " << msg;
+	return ss.str();
+}
+
+/*
+ * Function: c
+ *
+ */
 
 /*
  * Function:	operator <<
@@ -144,7 +183,7 @@ void Assignment::generate()
     _left->generate();
     _right->generate();
 
-    cout << "\tmovl\t" << _right << ", %eax" << endl;
+    cout << "\tmovl\t" << _right << ", %eax" << comment_string("Assignment::generate") << endl;
     cout << "\tmovl\t%eax, " << _left << endl;
 }
 
@@ -188,14 +227,16 @@ void Function::generate()
     /* Generate the body of this function. */
 
     maxargs = 0;
+	temp_offset = offset; //Store offset in temp_offset
     _body->generate();
+	offset = temp_offset; //Restore offset from temp_offset
 
     offset -= maxargs * SIZEOF_ARG;
 
     while ((offset - PARAM_OFFSET) % STACK_ALIGNMENT)
 	offset --;
 
-
+	cout << retLbl << ":" << endl; //TODO: What is this?
     /* Generate our epilogue. */
 
     cout << "\tmovl\t%ebp, %esp" << endl;
@@ -230,7 +271,7 @@ void generateGlobals(const Symbols &globals)
 /*
  * Function: Expression::generate
  *
- * Description: Generate code for "||" operator, and other expressions recursively
+ * Description: //TODO: Ask what this does (genius isn't it).
  */
 
 void Expression::generate()
@@ -239,59 +280,49 @@ void Expression::generate()
 }
 
 /*
- * Function: LogicalOr::generate_left
+ * Function: Add::generate
  *
- * Description: Generate code for the left operand of the "||" operator
+ * Description: Generate code for '+' operator, and etc. recursively
  */
-
-void LogicalOr::generate_left()
+void Add::generate()
 {
 	_left->generate();
-
-	cout << "movl\t" << _left << ",%eax" << endl;
-	cout << "cmpl\t$0,%eax" << endl;
-	cout << "jne\t" << label_prefix << endl; //TODO: Figure out how to generate label code
-}
-
-/*
- * Function: LogicalAnd::generate_right
- *
- * Description: Generate code for the right operand of the "||" operator
- */
-
-void LogicalOr::generate_right()
-{
 	_right->generate();
 
-	cout << "movl\t" << _right << ",%eax" << endl;
-	cout << "cmpl\t$0,%eax" << endl;
+	cout << "\tmovl\t" << _left << ", %eax" << endl;
+	cout << "\taddl\t" << _right << ", %eax" << endl;
+	
+	_operand = getTemp();
+	
+	cout << "\tmovl\t%eax,"<< _operand << endl;
 }
 
-/*
- * Function: LogicalAnd::generate_left
- *
- * Description: Generate code for the left operand of the "&&" operator
- */
+void Negate::generate()
+{
+	_expr->generate();
+	
+	cout << "\tmovl\t" << _expr << ", %eax" << endl;
+	cout << "\tnegl\t%eax" << endl;
 
-void LogicalAnd::generate_left()
+	_operand = getTemp();
+
+	cout << "\tmovl\t%eax, " << _operand << endl;
+}
+
+/*//Commented Out until able to test
+void LogicalOr::generate()
 {
 	_left->generate();
-
 	cout << "movl\t" << _left << ",%eax" << endl;
 	cout << "cmpl\t$0,%eax" << endl;
-	cout << "je\t" << label_prefix << endl;
-}
-
-/*
- * Function: LogicalAnd::generate_right
- *
- * Description: Generate code for the right operand of the "&&" operator
- */
-
-void LogicalAnd::generate_right()
-{
+	cout << "jne\t" << label_prefix << endl; //TODO: Fix this
 	_right->generate();
-
 	cout << "movl\t" << _right << ",%eax" << endl;
 	cout << "cmpl\t$0,%eax" << endl;
+
+	cout << label_prefix << ":" << endl; //TODO: Fix this
+	cout << "\tsetne\t%al" << endl;
+	cout << "\tmov2bl\t%al,%eax" << endl;
+	cout << "\tmovl\t%eax," << "[?TEMP?]" << endl;
 }
+*/
