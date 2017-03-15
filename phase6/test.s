@@ -28,11 +28,19 @@ main:
 	pushl	-28(%ebp)
 	call	putchar
 	addl	$4, %esp
+	movl	-8(%ebp), %eax
+	cmpl	-4(%ebp), %eax
+	setl	%al
+	movzbl	%al, %eax
+	movl	%eax, -32(%ebp)
+	pushl	-32(%ebp)
+	call	putchar
+	addl	$4, %esp
 0:
 	movl	%ebp, %esp
 	popl	%ebp
 	ret
 
 	.globl	main
-	.set	main.size, 28
+	.set	main.size, 32
 

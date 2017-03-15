@@ -235,6 +235,7 @@ class LessThan : public Expression {
 
 public:
     LessThan(Expression *left, Expression *right, const Type &type);
+	void generate();
 };
 
 

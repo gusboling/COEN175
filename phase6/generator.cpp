@@ -309,6 +309,7 @@ void Multiply::generate()
  *
  * Description: Generate code for the division operator, and etc. recursively
  */
+
 void Divide::generate()
 {
 	_left->generate();
@@ -329,6 +330,7 @@ void Divide::generate()
  *
  * Description: Generate code for the remainder operator, and etc. recursively
  */
+
 void Remainder::generate()
 {
 	_left->generate();
@@ -347,8 +349,9 @@ void Remainder::generate()
 /*
  * Function: Add::generate
  *
- * Description: Generate code for '+' operator, and etc. recursively
+ * Description: Generate code for addition operator, and etc. recursively
  */
+
 void Add::generate()
 {
 	_left->generate();
@@ -361,6 +364,12 @@ void Add::generate()
 	
 	cout << "\tmovl\t%eax,"<< _operand << endl;
 }
+
+/*
+ * Function: Subtract::generate
+ *
+ * Description: Generate code for subtraction operator, and etc. recursively
+ */
 
 void Subtract::generate()
 {
@@ -375,6 +384,12 @@ void Subtract::generate()
 	cout << "\tmovl\t%eax, " << _operand << endl;
 }
 
+/*
+ * Function: Negate::generate
+ *
+ * Description: Generate code for negation operator, and etc. recursively
+ */
+
 void Negate::generate()
 {
 	_expr->generate();
@@ -387,6 +402,12 @@ void Negate::generate()
 	cout << "\tmovl\t%eax, " << _operand << endl;
 }
 
+/*
+ * Function: Not::generate
+ *
+ * Description: Generate code for not operator, and etc. recursively
+ */
+
 void Not::generate()
 {
 	_expr->generate();
@@ -394,6 +415,27 @@ void Not::generate()
 	cout << "\tmovl\t" << _expr << ", %eax" << endl;
 	cout << "\tcmpl\t$0, %eax" << endl;
 	cout << "\tsete\t%al" << endl;
+	cout << "\tmovzbl\t%al, %eax" << endl;
+
+	_operand = getTemp();
+
+	cout << "\tmovl\t%eax, " << _operand << endl;
+}
+
+/*
+ * Function: LessThan
+ *
+ * Description: Generate code for less-than operator, and etc. recursively
+ */
+
+void LessThan::generate()
+{
+	_left->generate();
+	_right->generate();
+
+	cout << "\tmovl\t" << _left << ", %eax" << endl;
+	cout << "\tcmpl\t" << _right << ", %eax" << endl;
+	cout << "\tsetl\t%al" << endl;
 	cout << "\tmovzbl\t%al, %eax" << endl;
 
 	_operand = getTemp();
