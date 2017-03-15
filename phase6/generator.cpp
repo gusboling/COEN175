@@ -527,10 +527,10 @@ void Equal::generate()
 }
 
 /*
- *  * Function: Equal::generate
- *   *
- *    * Description: Generate code for equality operator, and etc. recursively
- *     */
+ * Function: Equal::generate
+ *
+ * Description: Generate code for equality operator, and etc. recursively
+ */
 
 void NotEqual::generate()
 {
@@ -547,21 +547,58 @@ void NotEqual::generate()
 	cout << "\tmovl\t%eax, " << _operand << endl;
 }
 
+/*
+ * Function: LogicalOr::generate
+ *
+ * Description: Generate code for logical-or operator, and etc. recursively
+ */
 
-/*//Commented Out until able to test
 void LogicalOr::generate()
 {
 	_left->generate();
+	
 	cout << "movl\t" << _left << ",%eax" << endl;
 	cout << "cmpl\t$0,%eax" << endl;
 	cout << "jne\t" << label_prefix << endl; //TODO: Fix this
+	
 	_right->generate();
+
 	cout << "movl\t" << _right << ",%eax" << endl;
 	cout << "cmpl\t$0,%eax" << endl;
 
 	cout << label_prefix << ":" << endl; //TODO: Fix this
+	_operand = getTemp();
+
 	cout << "\tsetne\t%al" << endl;
 	cout << "\tmov2bl\t%al,%eax" << endl;
-	cout << "\tmovl\t%eax," << "[?TEMP?]" << endl;
+	cout << "\tmovl\t%eax," << _operand << endl;
 }
-*/
+
+/*
+ * Function: LogicalAnd::generate
+ *
+ * Description: Generate code for logical-and operator, and etc. recursively
+ */
+
+void LogicalAnd::generate()
+{
+	_left->generate();
+
+	cout << "movl\t" << _left << ",%eax" << endl;
+	cout << "cmpl\t$0,%eax" << endl;
+	cout << "jne\t" << label_prefix << endl; //TODO: Fix this
+	
+	_right->generate();
+
+	cout << "movl\t" << _right << ",%eax" << endl;
+	cout << "cmpl\t$0,%eax" << endl;
+	
+	cout << label_prefix << ":" << endl; //TODO: Fix this
+	_operand = getTemp();
+
+	cout << "\tsetne\t%al" << endl;
+	cout << "\tmov2bl\t%al,%eax" << endl;
+	cout << "\tmovl\t%eax," << _operand << endl;
+}
+
+

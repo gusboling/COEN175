@@ -301,8 +301,7 @@ class LogicalAnd: public Expression {
 
 public:
     LogicalAnd(Expression *left, Expression *right, const Type &type);
-	void generate_left();
-	void generate_right();
+	void generate();
 };
 
 
@@ -313,7 +312,7 @@ class LogicalOr : public Expression {
 
 public:
     LogicalOr(Expression *left, Expression *right, const Type &type);
-	//void generate();
+	void generate();
 };
 
 
