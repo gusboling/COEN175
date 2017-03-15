@@ -246,6 +246,7 @@ class GreaterThan : public Expression {
 
 public:
     GreaterThan(Expression *left, Expression *right, const Type &type);
+	void generate();
 };
 
 
@@ -256,6 +257,7 @@ class LessOrEqual : public Expression {
 
 public:
     LessOrEqual(Expression *left, Expression *right, const Type &type);
+	void generate();
 };
 
 
@@ -266,6 +268,7 @@ class GreaterOrEqual : public Expression {
 
 public:
     GreaterOrEqual(Expression *left, Expression *right, const Type &type);
+	void generate();
 };
 
 
@@ -276,6 +279,7 @@ class Equal : public Expression {
 
 public:
     Equal(Expression *left, Expression *right, const Type &type);
+	void generate();
 };
 
 
@@ -286,6 +290,7 @@ class NotEqual : public Expression {
 
 public:
     NotEqual(Expression *left, Expression *right, const Type &type);
+	void generate();
 };
 
 

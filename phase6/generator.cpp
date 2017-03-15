@@ -423,7 +423,7 @@ void Not::generate()
 }
 
 /*
- * Function: LessThan
+ * Function: LessThan::generate
  *
  * Description: Generate code for less-than operator, and etc. recursively
  */
@@ -442,6 +442,111 @@ void LessThan::generate()
 
 	cout << "\tmovl\t%eax, " << _operand << endl;
 }
+
+/*
+ * Function: GreaterThan::generate
+ *
+ * Description: Generate code for greater-than operator, and etc. recursively
+ */
+
+void GreaterThan::generate()
+{
+	_left->generate();
+	_right->generate();
+
+	cout << "\tmovl\t" << _left << ", %eax" << endl;
+    cout << "\tcmpl\t" << _right << ", %eax" << endl;
+    cout << "\tsetg\t%al" << endl;
+    cout << "\tmovzbl\t%al, %eax" << endl;
+
+	_operand = getTemp();
+
+	cout << "\tmovl\t%eax, " << _operand << endl;
+}
+
+/*
+ * Function: LessOrEqual::generate
+ *
+ * Description: Generate code for less-than-or-equal operator, and etc. recursively
+ */
+
+void LessOrEqual::generate()
+{
+	_left->generate();
+	_right->generate();
+
+	cout << "\tmovl\t" << _left << ", %eax" << endl;
+	cout << "\tcmpl\t" << _right << ", %eax" << endl;
+	cout << "\tsetle\t%al" << endl;
+	cout << "\tmovzbl\t%al, %eax" << endl;
+
+ 	_operand = getTemp();
+	
+	cout << "\tmovl\t%eax, " << _operand << endl;
+}
+
+/*
+ * Function: GreaterOrEqual::generate
+ *
+ * Description: Generate code for greater-than-or-equal operator, and etc. recursively
+ */
+
+void GreaterOrEqual::generate()
+{
+	_left->generate();
+	_right->generate();
+
+	cout << "\tmovl\t" << _left << ", %eax" << endl;
+	cout << "\tcmpl\t" << _right << ", %eax" << endl;
+	cout << "\tsetge\t%al" << endl;
+	cout << "\tmovzbl\t%al, %eax" << endl;
+
+	_operand = getTemp();
+
+	cout << "\tmovl\t%eax, " << _operand << endl;
+}
+
+/*
+ * Function: Equal::generate
+ *
+ * Description: Generate code for equality operator, and etc. recursively
+ */
+
+void Equal::generate()
+{
+	_left->generate();
+	_right->generate();
+
+	cout << "\tmovl\t" << _left << ", %eax" << endl;
+	cout << "\tcmpl\t" << _right << ", %eax" << endl;
+	cout << "\tsete\t%al" << endl;
+	cout << "\tmovzbl\t%al, %eax" << endl;
+	_operand = getTemp();
+
+	cout << "\tmovl\t%eax, " << _operand << endl;
+}
+
+/*
+ *  * Function: Equal::generate
+ *   *
+ *    * Description: Generate code for equality operator, and etc. recursively
+ *     */
+
+void NotEqual::generate()
+{
+	_left->generate();
+	_right->generate();
+
+	cout << "\tmovl\t" << _left << ", %eax" << endl;
+	cout << "\tcmpl\t" << _right << ", %eax" << endl;
+	cout << "\tsetne\t%al" << endl;
+	cout << "\tmovzbl\t%al, %eax" << endl;
+	
+	_operand = getTemp();
+	
+	cout << "\tmovl\t%eax, " << _operand << endl;
+}
+
 
 /*//Commented Out until able to test
 void LogicalOr::generate()
