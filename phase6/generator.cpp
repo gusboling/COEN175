@@ -52,16 +52,12 @@ string comment_string(string msg)
 	return ss.str();
 }
 
-/*
- * Function: c
- *
- */
 
 /*
  * Function:	operator <<
  *
  * Description:	Convenience function for writing the operand of an
- *		expression.
+ *		(1)expression, or (2)label
  */
 
 ostream &operator <<(ostream &ostr, Expression *expr)
@@ -69,6 +65,10 @@ ostream &operator <<(ostream &ostr, Expression *expr)
     return ostr << expr->_operand;
 }
 
+ostream &operator <<(ostream &ostr, const Label &lbl)
+{
+	return ostr << ".L" << lbl.number;
+}
 
 /*
  * Function:	Identifier::generate
