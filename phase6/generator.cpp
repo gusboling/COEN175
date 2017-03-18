@@ -217,6 +217,7 @@ void Function::generate()
 {
     int offset = 0;
 
+	retLbl = new Label();
 
     /* Generate our prologue. */
 
@@ -239,7 +240,7 @@ void Function::generate()
     while ((offset - PARAM_OFFSET) % STACK_ALIGNMENT)
 	offset --;
 
-	cout << retLbl << ":" << endl; //TODO: What is this?
+	cout << *retLbl << ":" << endl; 
     /* Generate our epilogue. */
 
     cout << "\tmovl\t%ebp, %esp" << endl;
@@ -614,4 +615,16 @@ void LogicalAnd::generate()
 
 }
 
+/*
+ * Function: Return::generate
+ *
+ * Description: Generate code for return statements, and etc. recursively
+ */
+void Return::generate()
+{
+	_expr->generate();
+	
+	cout << "\tmovl\t" << _expr << ", %eax" << endl; //Store return value in %eax
+	cout << "\tjmp\t" << *retLbl << endl; //Jump to return label
+}
 
