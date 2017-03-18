@@ -81,6 +81,7 @@ class String : public Expression {
 public:
     String(const string &value);
     const string &value() const;
+	void generate();
 };
 
 

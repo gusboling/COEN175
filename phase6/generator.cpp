@@ -11,6 +11,7 @@
 //Libraries
 # include <sstream>
 # include <iostream>
+# include <vector>
 
 //Program Headers
 # include "machine.h"
@@ -24,7 +25,7 @@ using namespace std;
 static unsigned maxargs;
 int temp_offset;
 Label *retLbl;
-
+vector<string> stringLabels;
 
 /*
  * Function: getTemp
@@ -103,11 +104,28 @@ void Number::generate()
 {
     stringstream ss;
 
-
     ss << "$" << _value;
     _operand = ss.str();
 }
 
+/*
+ * Function: String::generate
+ *
+ * Description: Generate code for a string.
+ */
+void String::generate()
+{
+	stringstream lblstr, out;
+	
+	Label stringlbl; //Does this increment the counter?
+	lblstr << stringlbl;
+
+	out << lblstr.str() << ":\t.asciz\t" << _value;
+	
+	stringLabels.push_back(out.str());
+
+	_operand = lblstr.str();	
+}
 
 # if STACK_ALIGNMENT == 4
 
@@ -183,11 +201,30 @@ void Call::generate()
 
 void Assignment::generate()
 {
-    _left->generate();
+	bool indirect;
+    _left->generate(indirect);
     _right->generate();
 
     cout << "\tmovl\t" << _right << ", %eax" << comment_string("Assignment::generate") << endl;
-    cout << "\tmovl\t%eax, " << _left << endl;
+
+	if(_left->type().size() == SIZEOF_INT)
+	{
+		if(indirect)
+		{
+			cout << "\tmovl\t" << _left << ", %ecx" << endl;
+			cout << "\tmovl\t%eax, (%ecx)" << endl;
+		}
+		else cout << "\tmovl\t%eax, " << _left << endl;
+	}
+	else
+	{
+		if(indirect)
+		{
+			cout << "\tmovl\t" << _left << ", %ecx" << endl;
+			cout << "\tmovb\t%al, (%ecx)" << endl;
+		}
+		else cout << "\tmovb\t%al, " << _left << endl;
+	}
 }
 
 
@@ -262,14 +299,19 @@ void Function::generate()
 
 void generateGlobals(const Symbols &globals)
 {
-    if (globals.size() > 0)
-	cout << "\t.data" << endl;
+    if (globals.size() > 0) cout << "\t.data" << endl;
 
     for (unsigned i = 0; i < globals.size(); i ++) {
-	cout << "\t.comm\t" << global_prefix << globals[i]->name();
-	cout << ", " << globals[i]->type().size();
-	cout << ", " << globals[i]->type().alignment() << endl;
+		cout << "\t.comm\t" << global_prefix << globals[i]->name();
+		cout << ", " << globals[i]->type().size();
+		cout << ", " << globals[i]->type().alignment() << endl;
     }
+
+	for (unsigned i = 0; i < stringLabels.size(); i++)
+	{
+		cout << stringLabels[i] << endl;
+	}
+
 }
 
 /*
