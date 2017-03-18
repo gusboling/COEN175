@@ -150,6 +150,8 @@ class Dereference : public Expression {
 
 public:
     Dereference(Expression *expr, const Type &type);
+	void generate(bool &indirect);
+	void generate();
 };
 
 

@@ -290,6 +290,31 @@ void Expression::generate()
 }
 
 /*
+ * Function: Dereference::generate
+ *
+ * Description: Handle dereference code generation (base and recursive case)
+ */
+void Dereference::generate()
+{	
+	_expr->generate();
+	_operand = getTemp();
+	
+	cout << "\tmovl\t" << _expr << ", %eax" << endl;
+	
+	if(_type.size() == SIZEOF_CHAR) cout << "\tmovsbl\t(%eax), %eax" << endl;
+	else 							cout << "\tmovl\t(%eax), %eax" << endl;
+	
+	cout << "\tmovl\t%eax, " << _operand << endl;
+}
+
+void Dereference::generate(bool &indirect)
+{
+	indirect = true; //Set indirect equal to true, since we're now dealing with a pointer
+	_expr->generate(); //Generate code for the sub-expression
+	_operand = _expr->_operand; 
+}
+
+/*
  * Function: Multiply::generate
  *
  * Description: Generate code for the multiplication operator, and etc. recursively
@@ -637,6 +662,8 @@ void Promote::generate()
 {
 	_expr->generate();
 	_operand = getTemp();	
+	//cout << "\tmovsbl\t" << _expr << ", " << _operand << endl; //One-line version
 	cout << "\tmovsbl\t" << _expr << ", %eax" << endl; //Sign-extend expression
 	cout << "\tmovl\t%eax, " << _operand << endl; //Store result in temp
 }
+
