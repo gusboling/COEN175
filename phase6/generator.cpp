@@ -14,6 +14,7 @@
 
 //Program Headers
 # include "machine.h"
+# include "label.h"
 
 //File Header
 # include "generator.h"
@@ -556,22 +557,26 @@ void NotEqual::generate()
 void LogicalOr::generate()
 {
 	_left->generate();
+	Label orlbl = Label();
 	
-	cout << "movl\t" << _left << ",%eax" << endl;
-	cout << "cmpl\t$0,%eax" << endl;
-	cout << "jne\t" << label_prefix << endl; //TODO: Fix this
+	cerr << "orlbl => " << orlbl << endl;
+
+	cout << "\tmovl\t" << _left << ",%eax" << endl;
+	cout << "\tcmpl\t$0,%eax" << endl;
+	cout << "\tjne\t" << orlbl << endl; //TODO: Fix this
 	
 	_right->generate();
 
-	cout << "movl\t" << _right << ",%eax" << endl;
-	cout << "cmpl\t$0,%eax" << endl;
+	cout << "\tmovl\t" << _right << ",%eax" << endl;
+	cout << "\tcmpl\t$0,%eax" << endl;
 
-	cout << label_prefix << ":" << endl; //TODO: Fix this
-	_operand = getTemp();
-
+	
+	cout << orlbl << ":" << endl; //TODO: Fix this
+    _operand = getTemp();
 	cout << "\tsetne\t%al" << endl;
-	cout << "\tmov2bl\t%al,%eax" << endl;
+	cout << "\tmovzbl\t%al,%eax" << endl;
 	cout << "\tmovl\t%eax," << _operand << endl;
+	
 }
 
 /*
@@ -593,12 +598,13 @@ void LogicalAnd::generate()
 	cout << "movl\t" << _right << ",%eax" << endl;
 	cout << "cmpl\t$0,%eax" << endl;
 	
+	/*
 	cout << label_prefix << ":" << endl; //TODO: Fix this
 	_operand = getTemp();
-
 	cout << "\tsetne\t%al" << endl;
-	cout << "\tmov2bl\t%al,%eax" << endl;
+	cout << "\tmovzbl\t%al,%eax" << endl;
 	cout << "\tmovl\t%eax," << _operand << endl;
+	*/
 }
 
 
