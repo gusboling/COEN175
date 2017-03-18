@@ -18,11 +18,23 @@ main:
 	pushl	-12(%ebp)
 	call	putchar
 	addl	$4, %esp
+movl	-8(%ebp),%eax
+cmpl	$0,%eax
+jne	.L1
+movl	-4(%ebp),%eax
+cmpl	$0,%eax
+.L1:
+	setne	%al
+	movzbl	%al,%eax
+	movl	%eax,-16(%ebp)
+	pushl	-16(%ebp)
+	call	putchar
+	addl	$4, %esp
 0:
 	movl	%ebp, %esp
 	popl	%ebp
 	ret
 
 	.globl	main
-	.set	main.size, 12
+	.set	main.size, 16
 

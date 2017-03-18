@@ -5,4 +5,5 @@ void main(void) {
 	b = 0;
 	
 	putchar((b||a));
+	putchar((b&&a));
 }

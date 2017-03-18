@@ -557,6 +557,7 @@ void NotEqual::generate()
 void LogicalOr::generate()
 {
 	_left->generate();
+
 	Label orlbl = Label();
 	
 	cerr << "orlbl => " << orlbl << endl;
@@ -589,22 +590,26 @@ void LogicalAnd::generate()
 {
 	_left->generate();
 
+	Label andlbl = Label();
+
+	cerr << "andlbl => " << andlbl << endl;
+
 	cout << "movl\t" << _left << ",%eax" << endl;
 	cout << "cmpl\t$0,%eax" << endl;
-	cout << "jne\t" << label_prefix << endl; //TODO: Fix this
+	cout << "jne\t" << andlbl << endl; //TODO: Fix this
 	
 	_right->generate();
 
 	cout << "movl\t" << _right << ",%eax" << endl;
 	cout << "cmpl\t$0,%eax" << endl;
 	
-	/*
-	cout << label_prefix << ":" << endl; //TODO: Fix this
+	
+	cout << andlbl << ":" << endl; //TODO: Fix this
 	_operand = getTemp();
 	cout << "\tsetne\t%al" << endl;
 	cout << "\tmovzbl\t%al,%eax" << endl;
 	cout << "\tmovl\t%eax," << _operand << endl;
-	*/
+
 }
 
 
