@@ -16,6 +16,7 @@
 //Program Headers
 # include "machine.h"
 # include "label.h"
+# include "lexer.h"
 
 //File Header
 # include "generator.h"
@@ -142,9 +143,9 @@ void Call::generate()
 	_operand = getTemp();
 
     for (int i = _args.size() - 1; i >= 0; i --) {
-	_args[i]->generate();
-	cout << "\tpushl\t" << _args[i] << endl;
-	numBytes += _args[i]->type().size();
+		_args[i]->generate();
+		cout << "\tpushl\t" << _args[i] << comment_string("Call::generate") << endl;
+		numBytes += _args[i]->type().size();
     }
 
     cout << "\tcall\t" << global_prefix << _id->name() << endl;
@@ -172,7 +173,7 @@ void Call::generate()
  * For now, since each argument is going to be either a number of in
  * memory, we just load it into %eax and then move %eax onto the stack.
  */
-
+/*
 void Call::generate()
 {
     if (_args.size() > maxargs)
@@ -186,7 +187,7 @@ void Call::generate()
 
     cout << "\tcall\t" << global_prefix << _id->name() << endl;
 }
-
+*/
 # endif
 
 
@@ -248,7 +249,7 @@ void Block::generate()
  * Description:	Generate code for this function, which entails allocating
  *		space for local variables, then emitting our prologue, the
  *		body of the function, and the epilogue.
- */
+ :*/
 
 void Function::generate()
 {
@@ -260,7 +261,7 @@ void Function::generate()
 
     allocate(offset);
     cout << global_prefix << _id->name() << ":" << endl;
-    cout << "\tpushl\t%ebp" << endl;
+    cout << "\tpushl\t%ebp" << comment_string("Function::generate")  << endl;
     cout << "\tmovl\t%esp, %ebp" << endl;
     cout << "\tsubl\t$" << _id->name() << ".size, %esp" << endl;
 
@@ -354,6 +355,24 @@ void Dereference::generate(bool &indirect)
 	indirect = true; //Set indirect equal to true, since we're now dealing with a pointer
 	_expr->generate(); //Generate code for the sub-expression
 	_operand = _expr->_operand; 
+}
+
+/*
+ * Function: Address::generate
+ *
+ * Description: Generate code for the address operator, and etc. recursively
+ */
+void Address::generate()
+{
+	bool indirect;
+	_expr->generate(indirect);
+	if(indirect) _operand = _expr->_operand;
+	else
+	{
+		_operand = getTemp();
+		cout << "\tleal\t" << _expr << ", %eax" << endl;
+		cout << "\tmovl\t%eax, " << _operand << endl;
+	}
 }
 
 /*
@@ -630,8 +649,6 @@ void LogicalOr::generate()
 
 	Label orlbl = Label();
 	
-	cerr << "orlbl => " << orlbl << endl;
-
 	cout << "\tmovl\t" << _left << ",%eax" << endl;
 	cout << "\tcmpl\t$0,%eax" << endl;
 	cout << "\tjne\t" << orlbl << endl;
@@ -661,8 +678,6 @@ void LogicalAnd::generate()
 	_left->generate();
 
 	Label andlbl = Label();
-
-	cerr << "andlbl => " << andlbl << endl;
 
 	cout << "movl\t" << _left << ",%eax" << endl;
 	cout << "cmpl\t$0,%eax" << endl;

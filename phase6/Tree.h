@@ -163,6 +163,7 @@ class Address : public Expression {
 
 public:
     Address(Expression *expr, const Type &type);
+	void generate();
 };
 
 
