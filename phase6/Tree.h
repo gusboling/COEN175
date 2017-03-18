@@ -365,6 +365,7 @@ class While : public Statement {
 public:
     While(Expression *expr, Statement *stmt);
     virtual void allocate(int &offset) const;
+	void generate();
 };
 
 

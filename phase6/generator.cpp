@@ -709,3 +709,30 @@ void Promote::generate()
 	cout << "\tmovl\t%eax, " << _operand << endl; //Store result in temp
 }
 
+/*
+ * Function: While::generate
+ *
+ * Description: Generate code for while statements, and etc. recursively
+ */
+void While::generate()
+{
+	//Loop label
+	Label whileLbl;
+	cout << whileLbl << ":" << endl;
+
+	//Expression code gen
+	_expr->generate();
+
+	//Testing and exiting expression
+	Label exitLbl;
+	cout << "\tmovl\t" << _expr << ", %eax" << endl;
+	cout << "\tcmpl\t$0, %eax" << endl;
+	cout << "\tje\t" << exitLbl << endl;
+
+	//Statement code gen
+	_stmt->generate();
+
+	//Either repeat the loop or exit
+	cout << "\tjmp\t" << whileLbl << endl;
+	cout << exitLbl << ":" << endl;
+}
