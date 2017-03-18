@@ -121,7 +121,7 @@ void Number::generate()
 void Call::generate()
 {
     unsigned numBytes = 0;
-
+	_operand = getTemp();
 
     for (int i = _args.size() - 1; i >= 0; i --) {
 	_args[i]->generate();
@@ -133,6 +133,8 @@ void Call::generate()
 
     if (numBytes > 0)
 	cout << "\taddl\t$" << numBytes << ", %esp" << endl;
+
+	cout << "\tmovl\t%eax, " << _operand << endl;
 }
 
 # else
@@ -564,7 +566,7 @@ void LogicalOr::generate()
 
 	cout << "\tmovl\t" << _left << ",%eax" << endl;
 	cout << "\tcmpl\t$0,%eax" << endl;
-	cout << "\tjne\t" << orlbl << endl; //TODO: Fix this
+	cout << "\tjne\t" << orlbl << endl;
 	
 	_right->generate();
 
@@ -572,7 +574,7 @@ void LogicalOr::generate()
 	cout << "\tcmpl\t$0,%eax" << endl;
 
 	
-	cout << orlbl << ":" << endl; //TODO: Fix this
+	cout << orlbl << ":" << endl; 
     _operand = getTemp();
 	cout << "\tsetne\t%al" << endl;
 	cout << "\tmovzbl\t%al,%eax" << endl;
@@ -596,7 +598,7 @@ void LogicalAnd::generate()
 
 	cout << "movl\t" << _left << ",%eax" << endl;
 	cout << "cmpl\t$0,%eax" << endl;
-	cout << "jne\t" << andlbl << endl; //TODO: Fix this
+	cout << "jne\t" << andlbl << endl; 
 	
 	_right->generate();
 
@@ -604,7 +606,7 @@ void LogicalAnd::generate()
 	cout << "cmpl\t$0,%eax" << endl;
 	
 	
-	cout << andlbl << ":" << endl; //TODO: Fix this
+	cout << andlbl << ":" << endl;
 	_operand = getTemp();
 	cout << "\tsetne\t%al" << endl;
 	cout << "\tmovzbl\t%al,%eax" << endl;
