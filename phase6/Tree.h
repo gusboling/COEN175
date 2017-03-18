@@ -380,6 +380,7 @@ class For : public Statement {
 public:
     For(Statement *init, Expression *expr, Statement *incr, Statement *stmt);
     virtual void allocate(int &offset) const;
+	void generate();
 };
 
 
@@ -392,6 +393,7 @@ class If : public Statement {
 public:
     If(Expression *expr, Statement *thenStmt, Statement *elseStmt);
     virtual void allocate(int &offset) const;
+	void generate();
 };
 
 

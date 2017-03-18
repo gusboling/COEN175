@@ -723,7 +723,7 @@ void While::generate()
 	//Expression code gen
 	_expr->generate();
 
-	//Testing and exiting expression
+	//Testing and expression
 	Label exitLbl;
 	cout << "\tmovl\t" << _expr << ", %eax" << endl;
 	cout << "\tcmpl\t$0, %eax" << endl;
@@ -735,4 +735,74 @@ void While::generate()
 	//Either repeat the loop or exit
 	cout << "\tjmp\t" << whileLbl << endl;
 	cout << exitLbl << ":" << endl;
+}
+
+/*
+ * Function: For::generate
+ *
+ * Description: Generate code for for statements, and etc. recursively
+ */
+void For::generate()
+{
+	//Initial statement code gen
+	_init->generate();
+	
+	//Loop label
+	Label forLbl;
+	cout << forLbl << ":" << endl;
+
+	//Expression code gen
+	_expr->generate();
+
+	//Testing expression
+	Label exitLbl;
+	cout << "\tmovl\t" << _expr << ", %eax" << endl;
+	cout << "\tcmpl\t$0, %eax" << endl;
+	cout << "\tje\t" << exitLbl << endl;
+
+	//Loop statement code gen
+	_stmt->generate();
+
+	//Increment statement code gen
+	_incr->generate();
+
+	//Either repeat the loop or exit
+	cout << "\tjmp\t" << forLbl << endl;
+	cout << exitLbl << ":" << endl;
+}
+
+/*
+ * Function: If::generate
+ *
+ * Description: Generate code for if statements, and etc. recursively
+ */
+void If::generate()
+{
+	//Expression code gen
+	_expr->generate();
+
+	//If label
+	Label ifLbl;
+
+	//Testing expression
+	cout << "\tmovl\t" << _expr << ", %eax" << endl;
+	cout << "\tcmpl\t$0, %eax" << endl;
+	cout << "\tje\t" << ifLbl << endl;
+
+	_thenStmt->generate();
+	
+	//Exit label
+	Label exitLbl;
+	
+	//Check for absence of else statement
+	if( _elseStmt==NULL ) cout << ifLbl << ":" << endl;
+	
+	else 
+	{
+		cout << "\tjmp\t" << exitLbl << endl;
+		cout << ifLbl << ":" << endl;
+		_elseStmt->generate();
+	}
+
+	cout << exitLbl << ":" << endl;	
 }
