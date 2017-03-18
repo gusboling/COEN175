@@ -628,3 +628,15 @@ void Return::generate()
 	cout << "\tjmp\t" << *retLbl << endl; //Jump to return label
 }
 
+/*
+ * Function: Promote::generate
+ *
+ * Description: Generate code for promotions
+ */
+void Promote::generate()
+{
+	_expr->generate();
+	_operand = getTemp();	
+	cout << "\tmovsbl\t" << _expr << ", %eax" << endl; //Sign-extend expression
+	cout << "\tmovl\t%eax, " << _operand << endl; //Store result in temp
+}

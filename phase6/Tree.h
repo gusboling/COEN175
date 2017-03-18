@@ -170,6 +170,7 @@ class Promote : public Expression {
 
 public:
     Promote(Expression *expr);
+	void generate();
 };
 
 
@@ -334,6 +335,7 @@ class Return : public Statement {
 
 public:
     Return(Expression *expr);
+	void generate();
 };
 
 
